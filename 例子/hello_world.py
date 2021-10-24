@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# Copyright (c) PLUMgrid, Inc.
+# Copyright (c) guanlong huang
 # Licensed under the Apache License, Version 2.0 (the "License")
 
 # run in project examples directory with:
