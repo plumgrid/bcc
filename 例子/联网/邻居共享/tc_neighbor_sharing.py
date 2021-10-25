@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# Copyright (c) PLUMgrid, Inc.
+# Copyright (2021) guanlong huang
 # Licensed under the Apache License, Version 2.0 (the "License")
 
 from bcc import BPF
