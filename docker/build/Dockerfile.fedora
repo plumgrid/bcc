@@ -35,7 +35,8 @@ RUN dnf -y install \
 	python3-devel \
 	libstdc++ \
 	libstdc++-devel \
-	systemtap-sdt-devel
+	systemtap-sdt-devel \
+	json-c-devel
 
 RUN dnf -y install \
 	python3 \
