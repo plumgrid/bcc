@@ -33,6 +33,40 @@ if(CONFIG_RESULT AND NOT CONFIG_RESULT EQUAL 0)
   message(WARNING "Failed to add root source directory to safe.directory")
 endif()
 
+# populate submodule c-vector
+if(NOT NO_CVECTOR)
+  execute_process(COMMAND git config --global --add safe.directory ${CMAKE_CURRENT_SOURCE_DIR}/libbpf-tools/c-vector
+                  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                  RESULT_VARIABLE CONFIG_RESULT)
+  if(CONFIG_RESULT AND NOT CONFIG_RESULT EQUAL 0)
+    message(WARNING "Failed to add c-vector source directory to safe.directory")
+  endif()
+
+  execute_process(COMMAND git submodule update --init --recursive -- libbpf-tools/c-vector
+                  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                  RESULT_VARIABLE UPDATE_RESULT)
+  if(UPDATE_RESULT AND NOT UPDATE_RESULT EQUAL 0)
+    message(WARNING "Failed to update submodule c-vector")
+  endif()
+endif()
+
+# populate submodule uthash
+if(NOT NO_UTHASH)
+  execute_process(COMMAND git config --global --add safe.directory ${CMAKE_CURRENT_SOURCE_DIR}/libbpf-tools/uthash
+                  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                  RESULT_VARIABLE CONFIG_RESULT)
+  if(CONFIG_RESULT AND NOT CONFIG_RESULT EQUAL 0)
+    message(WARNING "Failed to add uthash source directory to safe.directory")
+  endif()
+
+  execute_process(COMMAND git submodule update --init --recursive -- libbpf-tools/uthash
+                  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                  RESULT_VARIABLE UPDATE_RESULT)
+  if(UPDATE_RESULT AND NOT UPDATE_RESULT EQUAL 0)
+    message(WARNING "Failed to update submodule uthash")
+  endif()
+endif()
+
 # populate submodule blazesym
 if(NOT NO_BLAZESYM)
   execute_process(COMMAND git config --global --add safe.directory ${CMAKE_CURRENT_SOURCE_DIR}/libbpf-tools/blazesym

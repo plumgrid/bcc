@@ -7,3 +7,9 @@
 [submodule "libbpf-tools/blazesym"]
 	path = libbpf-tools/blazesym
 	url = https://github.com/libbpf/blazesym
+[submodule "libbpf-tools/c-vector"]
+	path = libbpf-tools/c-vector
+	url = https://github.com/eteran/c-vector
+[submodule "libbpf-tools/uthash"]
+	path = libbpf-tools/uthash
+	url = https://github.com/troydhanson/uthash
