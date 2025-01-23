@@ -103,12 +103,15 @@ bpf_text = """
 #ifdef FULLPATH
 #include <linux/fs_struct.h>
 #include <linux/dcache.h>
+#include <linux/fs.h>
+#include <linux/mount.h>
 
 #define MAX_ENTRIES 32
 
 enum event_type {
     EVENT_ENTRY,
     EVENT_END,
+    EVENT_MOUNTPOINT,
 };
 #endif
 
@@ -126,6 +129,7 @@ struct data_t {
     int ret;
     char comm[TASK_COMM_LEN];
 #ifdef FULLPATH
+    u32 mnt_dev; // actually of type 'dev_t', which is currently a redefinition of u32 in `linux/types.h`
     enum event_type type;
 #endif
     char name[NAME_MAX];
@@ -358,13 +362,17 @@ if args.full_path:
         dentry = task->fs->pwd.dentry;
 
         for (i = 1; i < MAX_ENTRIES; i++) {
+            
+            if (dentry == dentry->d_parent) { // root directory
+                data.type = EVENT_MOUNTPOINT;
+                data.mnt_dev = task->fs->pwd.mnt->mnt_sb->s_dev;
+                events.perf_submit(ctx, &data, sizeof(data));
+                break;
+            }
+
             bpf_probe_read_kernel(&data.name, sizeof(data.name), (void *)dentry->d_name.name);
             data.type = EVENT_ENTRY;
             events.perf_submit(ctx, &data, sizeof(data));
-
-            if (dentry == dentry->d_parent) { // root directory
-                break;
-            }
 
             dentry = dentry->d_parent;
         }
@@ -412,6 +420,7 @@ print("PATH")
 class EventType(object):
     EVENT_ENTRY = 0
     EVENT_END = 1
+    EVENT_MOUNTPOINT = 2
 
 entries = defaultdict(list)
 
@@ -462,6 +471,7 @@ def print_event(cpu, data, size):
                 paths.reverse()
                 printb(b"%s" % os.path.join(*paths))
 
+
         if args.full_path:
             try:
                 del(entries[event.id])
@@ -469,6 +479,18 @@ def print_event(cpu, data, size):
                 pass
     elif event.type == EventType.EVENT_ENTRY:
         entries[event.id].append(event.name)
+    elif event.type == EventType.EVENT_MOUNTPOINT:
+        dev_t = event.mnt_dev;
+        # get mountpoint info from /proc/self/mountinfo
+        with open("/proc/self/mountinfo", "r") as mountinfo:
+            for line in mountinfo:
+                parts = line.strip().split()
+                major, minor = map(int, parts[2].split(":"))
+                mountpoint = parts[4]
+                line_dev_t = (major << 12) | minor # reconstruct an u32 from the major:minor components of the current line_dev_t.
+                                                   # 12 bits according to linux/include/kdev_t.h "MAJOR"/"MINOR" macros
+                if line_dev_t == dev_t:
+                    entries[event.id].append(mountpoint.encode())
 
 # loop with callback to print_event
 b["events"].open_perf_buffer(print_event, page_cnt=args.buffer_pages)
