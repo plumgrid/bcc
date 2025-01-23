@@ -39,62 +39,62 @@ BZ_APPS = \
 	opensnoop \
 	#
 
-APPS = \
-	bashreadline \
-	bindsnoop \
-	biolatency \
-	biopattern \
-	biosnoop \
-	biostacks \
-	biotop \
-	bitesize \
-	cachestat \
-	capable \
-	cpudist \
-	cpufreq \
-	drsnoop \
-	execsnoop \
-	exitsnoop \
-	filelife \
-	filetop \
-	fsdist \
-	fsslower \
-	funclatency \
-	gethostlatency \
-	hardirqs \
-	javagc \
-	klockstat \
-	ksnoop \
-	llcstat \
-	mdflush \
-	mountsnoop \
-	numamove \
-	offcputime \
-	oomkill \
-	profile \
-	readahead \
-	runqlat \
-	runqlen \
-	runqslower \
-	sigsnoop \
-	slabratetop \
-	softirqs \
-	solisten \
-	statsnoop \
-	syncsnoop \
-	syscount \
-	tcptracer \
-	tcpconnect \
-	tcpconnlat \
-	tcplife \
-	tcppktlat \
-	tcprtt \
-	tcpstates \
-	tcpsynbl \
-	tcptop \
-	vfsstat \
-	wakeuptime \
-	$(BZ_APPS) \
+APPS =  fsdist fsslower profile_v1 sigsnoop \
+	# bashreadline \
+	# bindsnoop \
+	# biolatency \
+	# biopattern \
+	# biosnoop \
+	# biostacks \
+	# biotop \
+	# bitesize \
+	# cachestat \
+	# capable \
+	# cpudist \
+	# cpufreq \
+	# drsnoop \
+	# execsnoop \
+	# exitsnoop \
+	# filelife \
+	# filetop \
+	# fsdist \
+	# fsslower \
+	# funclatency \
+	# gethostlatency \
+	# hardirqs \
+	# javagc \
+	# klockstat \
+	# ksnoop \
+	# llcstat \
+	# mdflush \
+	# mountsnoop \
+	# numamove \
+	# offcputime \
+	# oomkill \
+	# profile \
+	# readahead \
+	# runqlat \
+	# runqlen \
+	# runqslower \
+	# sigsnoop \
+	# slabratetop \
+	# softirqs \
+	# solisten \
+	# statsnoop \
+	# syncsnoop \
+	# syscount \
+	# tcptracer \
+	# tcpconnect \
+	# tcpconnlat \
+	# tcplife \
+	# tcppktlat \
+	# tcprtt \
+	# tcpstates \
+	# tcpsynbl \
+	# tcptop \
+	# vfsstat \
+	# wakeuptime \
+	# $(BZ_APPS) \
 	#
 
 # export variables that are used in Makefile.btfgen as well.
@@ -184,7 +184,7 @@ $(BPFTOOL): | $(BPFTOOL_OUTPUT)
 
 $(APPS): %: $(OUTPUT)/%.o $(COMMON_OBJ) $(LIBBPF_OBJ) | $(OUTPUT)
 	$(call msg,BINARY,$@)
-	$(Q)$(CC) $(CFLAGS) $^ $(LDFLAGS) -lelf -lz -o $@
+	$(Q)$(CC) $(CFLAGS) $^ $(LDFLAGS) -lelf -lz -lpthread -o $@
 
 ifeq ($(USE_BLAZESYM),1)
 $(patsubst %,$(OUTPUT)/%.o,$(BZ_APPS)): $(OUTPUT)/blazesym.h
