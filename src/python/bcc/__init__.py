@@ -749,7 +749,7 @@ class BPF(object):
                 elif in_init_section == 1:
                     if fn == b'__init_end':
                         in_init_section = 2
-                    continue
+                        continue
                 # Skip all functions defined between __irqentry_text_start and
                 # __irqentry_text_end
                 if in_irq_section == 0:
@@ -765,7 +765,7 @@ class BPF(object):
                 elif in_irq_section == 1:
                     if fn == b'__irqentry_text_end':
                         in_irq_section = 2
-                    continue
+                        continue
                 # All functions defined as NOKPROBE_SYMBOL() start with the
                 # prefix _kbl_addr_*, blacklisting them by looking at the name
                 # allows to catch also those symbols that are defined in kernel
