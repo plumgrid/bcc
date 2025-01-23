@@ -1,0 +1,73 @@
+.TH dirwatch 8  "2023-11-05" "USER COMMANDS"
+.SH NAME
+dirwatch \- Monitor directory file create and remove. Uses bcc/eBPF.
+.SH SYNOPSIS
+.B dirwatch
+.SH DESCRIPTION
+dirwatch monitor directory file create and remove.
+
+This program is also a basic example of bcc and tracepoint.
+
+Since this uses BPF, only the root user can use this tool.
+.SH REQUIREMENTS
+CONFIG_BPF and bcc.
+.SH OPTIONS
+.TP
+\-D, --directory DIRECTORY
+Specify directory to watch.
+.TP
+\-V, --verbose
+Show file/directory create and remove, and show parent task pid/comm
+.SH EXAMPLES
+.TP
+Monitor directory file create and remove
+#
+.B dirwatch
+.TP
+Trace /etc:
+#
+.B dirwatch \-D /etc
+.TP
+Trace /etc with verbose:
+#
+.B dirwatch \-D /etc -V
+.SH FIELDS
+.TP
+TIME
+A timestamp on the output, in "HH:MM:SS" format.
+.TP
+PID
+The process ID.
+.TP
+COMM
+The process COMM.
+.TP
+PPID
+The parent process COMM (-V).
+.TP
+PCOMM
+The parent process COMM (-V).
+.TP
+OPERATE
+File operation, support CREATE, MKDIR, UNLINK, RMDIR.
+.TP
+INOTE
+Inode number, see also 'stat -c %i'.
+.TP
+FILEPATH
+Show the file path.
+.SH SOURCE
+This is from bcc.
+.IP
+https://github.com/iovisor/bcc
+.PP
+Also look in the bcc distribution for a companion _examples.txt file
+containing example usage, output, and commentary for this tool.
+.SH OS
+Linux
+.SH STABILITY
+Unstable - in development.
+.SH AUTHOR
+Rong Tao <rongtao@cestc.cn>
+.SH SEE ALSO
+filelife(8), filegone(8)

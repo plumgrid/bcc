@@ -1,0 +1,136 @@
+Demonstrations of dirwatch.py, the Linux eBPF/bcc version.
+
+This example trace the file creation and deletion in specified directory.
+
+    $ sudo ./dirwatch.py -h
+    usage: dirwatch.py [-h] [-D DIRECTORY] [-V]
+
+    Monitor the creation and deletion of files under a directory
+
+    options:
+      -h, --help            show this help message and exit
+      -D DIRECTORY, --directory DIRECTORY
+                            specify directory to watch
+      -V, --verbose         show file/directory create and remove, and show parent task pid/comm.
+
+        ./dirwatch -D /etc         # trace file create/remove under /etc
+        ./dirwatch -D /etc -V      # same as above, print more information(ppid,pcomm)
+
+
+## Example script example.sh
+
+    #!/bin/bash
+    root_dir=a.out
+    if [[ ! -d ${root_dir} ]]; then
+        echo "ERROR: ${root_dir} is not exist."
+        mkdir ${root_dir}
+        exit 1
+    fi
+    recursive_touch() {
+        local root=$1
+        local files=$(ls $root)
+        pushd $root
+        touch readme
+        ln -s readme README.md
+        touch $(basename $root).txt
+        for f in ${files[@]}
+        do
+            if [[ -d $f ]]; then
+                recursive_touch $f
+            fi
+        done
+        popd
+    }
+    mkdir -p ${root_dir}/a/b/c/d/e/f/g/h/i/j/k
+    recursive_touch ${root_dir}
+    tree ${root_dir}
+    rm -rf ${root_dir}
+
+
+# How to use
+
+1. Create a directory 'a.out/' in current directory;
+2. Then, running dirwatch.py in current directory;
+3. Then, running the test example.sh;
+4. You'll see the following result:
+
+    $ sudo ./dirwatch.py -D a.out/
+    Tracing file remove ... Hit Ctrl-C to end
+    TIME     PID      COMM             OPERATE  INODE        FILEPATH
+    15:05:03 16965    mkdir            MKDIR    210590       a.out//a
+    15:05:03 16965    mkdir            MKDIR    268435733    a.out//a/b
+    15:05:03 16965    mkdir            MKDIR    567812437    a.out//a/b/c
+    15:05:03 16965    mkdir            MKDIR    805442447    a.out//a/b/c/d
+    15:05:03 16965    mkdir            MKDIR    210591       a.out//a/b/c/d/e
+    15:05:03 16965    mkdir            MKDIR    268794301    a.out//a/b/c/d/e/f
+    15:05:03 16965    mkdir            MKDIR    567812441    a.out//a/b/c/d/e/f/g
+    15:05:03 16965    mkdir            MKDIR    805442481    a.out//a/b/c/d/e/f/g/h
+    15:05:03 16965    mkdir            MKDIR    210592       a.out//a/b/c/d/e/f/g/h/i
+    15:05:03 16965    mkdir            MKDIR    268794303    a.out//a/b/c/d/e/f/g/h/i/j
+    15:05:03 16965    mkdir            MKDIR    567812445    a.out//a/b/c/d/e/f/g/h/i/j/k
+    15:05:03 16967    touch            CREATE   210590       a.out//readme
+    15:05:03 16970    touch            CREATE   210590       a.out//a.out.txt
+    15:05:03 16972    touch            CREATE   268435733    a.out//a/readme
+    15:05:03 16975    touch            CREATE   268435733    a.out//a/a.txt
+    15:05:03 16977    touch            CREATE   567812437    a.out//a/b/readme
+    15:05:03 16980    touch            CREATE   567812437    a.out//a/b/b.txt
+    15:05:03 16982    touch            CREATE   805442447    a.out//a/b/c/readme
+    15:05:03 16985    touch            CREATE   805442447    a.out//a/b/c/c.txt
+    15:05:03 16987    touch            CREATE   210591       a.out//a/b/c/d/readme
+    15:05:03 16990    touch            CREATE   210591       a.out//a/b/c/d/d.txt
+    15:05:03 16992    touch            CREATE   268794301    a.out//a/b/c/d/e/readme
+    15:05:03 16995    touch            CREATE   268794301    a.out//a/b/c/d/e/e.txt
+    15:05:03 16997    touch            CREATE   567812441    a.out//a/b/c/d/e/f/readme
+    15:05:03 17000    touch            CREATE   567812441    a.out//a/b/c/d/e/f/f.txt
+    15:05:03 17002    touch            CREATE   805442481    a.out//a/b/c/d/e/f/g/readme
+    15:05:03 17005    touch            CREATE   805442481    a.out//a/b/c/d/e/f/g/g.txt
+    15:05:03 17007    touch            CREATE   210592       a.out//a/b/c/d/e/f/g/h/readme
+    15:05:03 17010    touch            CREATE   210592       a.out//a/b/c/d/e/f/g/h/h.txt
+    15:05:03 17012    touch            CREATE   268794303    a.out//a/b/c/d/e/f/g/h/i/readme
+    15:05:03 17015    touch            CREATE   268794303    a.out//a/b/c/d/e/f/g/h/i/i.txt
+    15:05:03 17017    touch            CREATE   567812445    a.out//a/b/c/d/e/f/g/h/i/j/readme
+    15:05:03 17020    touch            CREATE   567812445    a.out//a/b/c/d/e/f/g/h/i/j/j.txt
+    15:05:03 17022    touch            CREATE   805442482    a.out//a/b/c/d/e/f/g/h/i/j/k/readme
+    15:05:03 17025    touch            CREATE   805442482    a.out//a/b/c/d/e/f/g/h/i/j/k/k.txt
+    15:05:03 17027    rm               UNLINK   805442482    a.out//a/b/c/d/e/f/g/h/i/j/k/readme
+    15:05:03 17027    rm               UNLINK   805442482    a.out//a/b/c/d/e/f/g/h/i/j/k/k.txt
+    15:05:03 17027    rm               RMDIR    567812445    a.out//a/b/c/d/e/f/g/h/i/j/k
+    15:05:03 17027    rm               UNLINK   567812445    a.out//a/b/c/d/e/f/g/h/i/j/readme
+    15:05:03 17027    rm               UNLINK   567812445    a.out//a/b/c/d/e/f/g/h/i/j/j.txt
+    15:05:03 17027    rm               RMDIR    268794303    a.out//a/b/c/d/e/f/g/h/i/j
+    15:05:03 17027    rm               UNLINK   268794303    a.out//a/b/c/d/e/f/g/h/i/readme
+    15:05:03 17027    rm               UNLINK   268794303    a.out//a/b/c/d/e/f/g/h/i/i.txt
+    15:05:03 17027    rm               RMDIR    210592       a.out//a/b/c/d/e/f/g/h/i
+    15:05:03 17027    rm               UNLINK   210592       a.out//a/b/c/d/e/f/g/h/readme
+    15:05:03 17027    rm               UNLINK   210592       a.out//a/b/c/d/e/f/g/h/h.txt
+    15:05:03 17027    rm               RMDIR    805442481    a.out//a/b/c/d/e/f/g/h
+    15:05:03 17027    rm               UNLINK   805442481    a.out//a/b/c/d/e/f/g/readme
+    15:05:03 17027    rm               UNLINK   805442481    a.out//a/b/c/d/e/f/g/g.txt
+    15:05:03 17027    rm               RMDIR    567812441    a.out//a/b/c/d/e/f/g
+    15:05:03 17027    rm               UNLINK   567812441    a.out//a/b/c/d/e/f/readme
+    15:05:03 17027    rm               UNLINK   567812441    a.out//a/b/c/d/e/f/f.txt
+    15:05:03 17027    rm               RMDIR    268794301    a.out//a/b/c/d/e/f
+    15:05:03 17027    rm               UNLINK   268794301    a.out//a/b/c/d/e/readme
+    15:05:03 17027    rm               UNLINK   268794301    a.out//a/b/c/d/e/e.txt
+    15:05:03 17027    rm               RMDIR    210591       a.out//a/b/c/d/e
+    15:05:03 17027    rm               UNLINK   210591       a.out//a/b/c/d/readme
+    15:05:03 17027    rm               UNLINK   210591       a.out//a/b/c/d/d.txt
+    15:05:03 17027    rm               RMDIR    805442447    a.out//a/b/c/d
+    15:05:03 17027    rm               UNLINK   805442447    a.out//a/b/c/readme
+    15:05:03 17027    rm               UNLINK   805442447    a.out//a/b/c/c.txt
+    15:05:03 17027    rm               RMDIR    567812437    a.out//a/b/c
+    15:05:03 17027    rm               UNLINK   567812437    a.out//a/b/readme
+    15:05:03 17027    rm               UNLINK   567812437    a.out//a/b/b.txt
+    15:05:03 17027    rm               RMDIR    268435733    a.out//a/b
+    15:05:03 17027    rm               UNLINK   268435733    a.out//a/readme
+    15:05:03 17027    rm               UNLINK   268435733    a.out//a/a.txt
+    15:05:03 17027    rm               RMDIR    210590       a.out//a
+    15:05:03 17027    rm               UNLINK   210590       a.out//readme
+    15:05:03 17027    rm               UNLINK   210590       a.out//a.out.txt
+    15:05:03 17027    rm               RMDIR    805427333    a.out/
+    Root directory a.out/ be removed.
+
+
+# Note
+
+- Not support symbol link yet. (TODO)
