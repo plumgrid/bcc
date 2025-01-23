@@ -43,13 +43,19 @@ void trace_completion(struct pt_regs *ctx, struct request *req) {
 }
 """)
 
-if BPF.get_kprobe_functions(b'blk_start_request'):
-        b.attach_kprobe(event="blk_start_request", fn_name="trace_start")
 b.attach_kprobe(event="blk_mq_start_request", fn_name="trace_start")
+if BPF.get_kprobe_functions(b'blk_start_request'):
+    b.attach_kprobe(event="blk_start_request", fn_name="trace_start")
+
 if BPF.get_kprobe_functions(b'__blk_account_io_done'):
     b.attach_kprobe(event="__blk_account_io_done", fn_name="trace_completion")
-else:
+elif BPF.get_kprobe_functions(b'blk_account_io_done'):
     b.attach_kprobe(event="blk_account_io_done", fn_name="trace_completion")
+elif BPF.get_kprobe_functions(b'blk_mq_complete_request'):
+    b.attach_kprobe(event="blk_mq_complete_request", fn_name="trace_completion")
+else:
+    print("No kprobes available for block request completion")
+    exit()
 
 # header
 print("%-18s %-2s %-7s %8s" % ("TIME(s)", "T", "BYTES", "LAT(ms)"))

@@ -224,22 +224,29 @@ void trace_completion(struct pt_regs *ctx, struct request *req) {
 	}
 }
 """)
-if BPF.get_kprobe_functions(b'blk_start_request'):
-        b.attach_kprobe(event="blk_start_request", fn_name="trace_start")
 b.attach_kprobe(event="blk_mq_start_request", fn_name="trace_start")
+if BPF.get_kprobe_functions(b'blk_start_request'):
+	b.attach_kprobe(event="blk_start_request", fn_name="trace_start")
+
 if BPF.get_kprobe_functions(b'__blk_account_io_done'):
     b.attach_kprobe(event="__blk_account_io_done", fn_name="trace_completion")
-else:
+elif BPF.get_kprobe_functions(b'blk_account_io_done'):
     b.attach_kprobe(event="blk_account_io_done", fn_name="trace_completion")
+elif BPF.get_kprobe_functions(b'blk_mq_complete_request'):
+    b.attach_kprobe(event="blk_mq_complete_request", fn_name="trace_completion")
+else:
+	print("No kprobes available for block request completion")
+	exit()
 [...]
 ```
 
 Things to learn:
 
 1. ```REQ_WRITE```: We're defining a kernel constant in the Python program because we'll use it there later. If we were using REQ_WRITE in the BPF program, it should just work (without needing to be defined) with the appropriate #includes.
-1. ```trace_start(struct pt_regs *ctx, struct request *req)```: This function will later be attached to kprobes. The arguments to kprobe functions are ```struct pt_regs *ctx```, for registers and BPF context, and then the actual arguments to the function. We'll attach this to blk_start_request(), where the first argument is ```struct request *```.
-1. ```start.update(&req, &ts)```: We're using the pointer to the request struct as a key in our hash. What? This is commonplace in tracing. Pointers to structs turn out to be great keys, as they are unique: two structs can't have the same pointer address. (Just be careful about when it gets free'd and reused.) So what we're really doing is tagging the request struct, which describes the disk I/O, with our own timestamp, so that we can time it. There's two common keys used for storing timestamps: pointers to structs, and, thread IDs (for timing function entry to return).
-1. ```req->__data_len```: We're dereferencing members of ```struct request```. See its definition in the kernel source for what members are there. bcc actually rewrites these expressions to be a series of ```bpf_probe_read_kernel()``` calls. Sometimes bcc can't handle a complex dereference, and you need to call ```bpf_probe_read_kernel()``` directly.
+2. ```trace_start(struct pt_regs *ctx, struct request *req)```: This function will later be attached to kprobes. The arguments to kprobe functions are ```struct pt_regs *ctx```, for registers and BPF context, and then the actual arguments to the function. We'll attach this to blk_start_request(), where the first argument is ```struct request *```.
+3. ```start.update(&req, &ts)```: We're using the pointer to the request struct as a key in our hash. What? This is commonplace in tracing. Pointers to structs turn out to be great keys, as they are unique: two structs can't have the same pointer address. (Just be careful about when it gets free'd and reused.) So what we're really doing is tagging the request struct, which describes the disk I/O, with our own timestamp, so that we can time it. There's two common keys used for storing timestamps: pointers to structs, and, thread IDs (for timing function entry to return).
+4. ```req->__data_len```: We're dereferencing members of ```struct request```. See its definition in the kernel source for what members are there. bcc actually rewrites these expressions to be a series of ```bpf_probe_read_kernel()``` calls. Sometimes bcc can't handle a complex dereference, and you need to call ```bpf_probe_read_kernel()``` directly.
+5. ```get_kprobe_functions(...)```: Different versions of the kernel may rename or change the APIs for some functions. To maximize support, we check for the existence of a kprobe by its name. For example, on newer kernel versions, `blk_account_io_done` can be [inlined](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/block/blk-mq.c?h=v6.11#n978), so we fallback to non-inlined functions, like `blk_mq_complete_request`. This guide will mention another way to attach functions through the use of tracepoints in following lessons, which is guaranteed to be stable.
 
 This is a pretty interesting program, and if you can understand all the code, you'll understand many important basics. We're still using the bpf_trace_printk() hack, so let's fix that next.
 
