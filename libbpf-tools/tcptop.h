@@ -4,6 +4,12 @@
 
 #define TASK_COMM_LEN 16
 
+struct filter_cfg_t {
+        bool filter_cg;
+        pid_t target_pid;
+        int target_family;
+};
+
 struct ip_key_t {
 	unsigned __int128 saddr;
 	unsigned __int128 daddr;
