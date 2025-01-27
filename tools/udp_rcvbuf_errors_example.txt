@@ -1,0 +1,37 @@
+Demonstrations of udp_rcvbuf_errors, the Linux eBPF/bcc version.
+
+
+udp_rcvbuf_errors prints information about UDP packets that were dropped by the
+kernel due to the receive buffer being full. For example:
+
+# udp_rcvbuf_errors                                              
+TIME     SADDR:SPORT                    > DADDR:DPORT                    SK_RMEM_ALLOC SK_RCVBUF
+00:11:20 170.79.86.205:28239            > 1.1.1.1:53                     524672        524287
+00:11:20 131.161.192.243:63942          > 1.1.1.1:53                     524672        524287
+00:11:20 170.79.84.148:6239             > 1.1.1.1:53                     524672        524287
+00:11:20 189.126.63.85:64188            > 1.1.1.1:53                     524672        524287
+00:11:20 177.47.85.250:49627            > 1.1.1.1:53                     524672        524287
+
+The last two columns show:
+  SK_RMEM_ALLOC: the size of the buffer the kernel is trying to allocate when
+                 receiving the packet
+  SK_RCVBUF:     the size of the receive buffer
+
+In this example the kernel tries to allocate 385 bytes more than the size of the
+buffer, which leads to those five packets to be dropped.
+
+This is useful for debugging high rates of UDP drops due to RcvbufErrors, which
+can cause the remote end to do timer-based retransmits, hurting performance.
+
+USAGE message:
+
+# ./udp_rcvbuf_errors.py -h
+usage: udp_rcvbuf_errors.py [-h]
+
+Trace UDP RcvbufErrors drops by the kernel
+
+optional arguments:
+  -h, --help  show this help message and exit
+
+examples:
+    ./udp_rcvbuf_errors           # trace UDP RcvbufErrors drops
