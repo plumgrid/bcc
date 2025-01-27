@@ -1,0 +1,117 @@
+.TH avxtime 8  "2023-10-29" "USER COMMANDS"
+.SH NAME
+avxtime \- Summarize AVX-512 cputime per task as a histogram.
+.SH SYNOPSIS
+.B avxtime [\-h] [\-T] [\-m] [\-C] [\-P] [\-c CPU] [\-p PID] [interval] [count]
+.SH DESCRIPTION
+The AVX-512 instruction set in x86 can accelerate FPU execution but also causes
+core turbo frequency drop that impacts sibling CPUs. This can affect performance
+of other workloads running on the sibling CPU. Detecting AVX-512 usage is thus
+critical in cloud environments for placement.
+
+This tool summarizes AVX-512 cputime as a histogram, showing the amount of CPU
+time consumed by AVX-512 per-task. Within the specified time period, it tracks
+the time spent from being scheduled on the CPU until the FPU registers are
+deactivated for each task that uses AVX-512.
+
+This provides valuable insights - it can identify processes and CPUs executing
+AVX-512 to avoid scheduling sensitive jobs together. The cputime distribution
+can also help debug AVX-512 performance issues.
+
+This tool uses in-kernel eBPF maps for storing timestamps and the histogram,
+for efficiency. Despite this, the overhead of this tool may become significant
+for some workloads: see the OVERHEAD section.
+
+Since this uses BPF, only the root user can use this tool.
+.SH REQUIREMENTS
+CONFIG_BPF and bcc.
+.SH OPTIONS
+.TP
+\-h
+Print usage message.
+.TP
+\-T
+Include timestamps on output.
+.TP
+\-m
+Output histogram in milliseconds.
+.TP
+\-C
+Print a histogram for each CPU separately.
+.TP
+\-P
+Print a histogram for each PID (tgid from the kernel's perspective).
+.TP
+\-c CPU
+Only show this CPU (filtered in kernel for efficiency).
+.TP
+\-p PID
+Only show this PID (filtered in kernel for efficiency).
+.TP
+interval
+Output interval, in seconds.
+.TP
+count
+Number of outputs.
+.SH EXAMPLES
+.TP
+Summarize AVX-512 cputime per task as a histogram:
+#
+.B avxtime
+.TP
+Print 1 second summaries, 10 times:
+#
+.B avxtime 1 10
+.TP
+Print 1 second summaries, using milliseconds as units for the histogram, and include timestamps on output:
+#
+.B avxtime \-mT 1
+.TP
+Show each CPU separately, 1 second summaries:
+#
+.B avxtime \-C 1
+.TP
+Show each PID separately, 1 second summaries:
+#
+.B avxtime \-P 1
+.TP
+Trace CPU 1 only, 1 second summaries:
+#
+.B avxtime \-c 1 1
+.TP
+Trace PID 185 only, 1 second summaries:
+#
+.B avxtime \-p 185 1
+.TP
+usecs
+Microsecond range
+.TP
+msecs
+Millisecond range
+.TP
+count
+How many times a task event fell into this range
+.TP
+distribution
+An ASCII bar chart to visualize the distribution (count column)
+.SH OVERHEAD
+This traces scheduler tracepoints, which can become very frequent. While eBPF
+has very low overhead, and this tool uses in-kernel maps for efficiency, the
+frequency of scheduler events for some workloads may be high enough that the
+overhead of this tool becomes significant. Measure in a lab environment
+to quantify the overhead before use.
+.SH SOURCE
+This is from bcc.
+.IP
+https://github.com/iovisor/bcc
+.PP
+Also look in the bcc distribution for a companion _example.txt file containing
+example usage, output, and commentary for this tool.
+.SH OS
+Linux
+.SH STABILITY
+Unstable - in development.
+.SH AUTHOR
+Zhiyong Ye <yezhiyong@bytedance.com> 
+.SH SEE ALSO
+cpudist(8)
