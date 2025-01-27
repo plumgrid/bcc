@@ -21,10 +21,11 @@ import os
 import sys
 
 class Allocation(object):
-    def __init__(self, stack, size):
+    def __init__(self, stack, size, type_index):
         self.stack = stack
         self.count = 1
         self.size = size
+        self.type_index = type_index
 
     def update(self, size):
         self.count += 1
@@ -154,6 +155,7 @@ struct alloc_info_t {
         u64 size;
         u64 timestamp_ns;
         int stack_id;
+        u32 type_index;
 };
 
 struct combined_alloc_info_t {
@@ -243,6 +245,7 @@ static inline int gen_alloc_exit2(struct pt_regs *ctx, u64 address, u32 type_ind
         if (address != 0) {
                 info.timestamp_ns = bpf_ktime_get_ns();
                 info.stack_id = stack_traces.get_stackid(ctx, STACK_FLAGS);
+                info.type_index = type_index
                 allocs.update(&address, &info);
                 update_statistics_add(info.stack_id, info.size);
         }
@@ -549,14 +552,15 @@ def print_outstanding():
                                 combined.append(('0x'+format(addr, '016x')+'\t').encode('utf-8') + bpf.sym(addr, pid,
                                         show_module=True, show_offset=True))
                         alloc_info[info.stack_id] = Allocation(combined,
-                                                               info.size)
+                                                               info.size,
+                                                               info.type_index)
                 if args.show_allocs:
                         print("\taddr = %x size = %s" %
                               (address.value, info.size))
         to_show = sorted(alloc_info.values(), key=alloc_sort_map[sort_key])[-top_stacks:]
         for alloc in to_show:
-                print("\t%d bytes in %d allocations from stack\n\t\t%s" %
-                      (alloc.size, alloc.count,
+                print("\t%d bytes in %d allocations of type %d from stack\n\t\t%s" %
+                      (alloc.size, alloc.count, alloc.type_index,
                        b"\n\t\t".join(alloc.stack).decode("ascii")))
 
 def print_outstanding_combined():
