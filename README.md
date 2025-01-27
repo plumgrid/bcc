@@ -124,6 +124,7 @@ pair of .c and .py files, and some are directories of files.
 - tools/[rdmaucma](tools/rdmaucma.py): Trace RDMA Userspace Connection Manager Access events. [Examples](tools/rdmaucma_example.txt).
 - tools/[shmsnoop](tools/shmsnoop.py): Trace System V shared memory syscalls. [Examples](tools/shmsnoop_example.txt).
 - tools/[slabratetop](tools/slabratetop.py): Kernel SLAB/SLUB memory cache allocation rate top. [Examples](tools/slabratetop_example.txt).
+- tools/[zombiememcgstat](tools/zombiememcgstat.py): Display zombie memory cgroups. [Examples](tools/zombiememcgstat_example.txt).
 
 ##### Performance and Time Tools
 

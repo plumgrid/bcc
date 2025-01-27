@@ -1,0 +1,103 @@
+.TH zombiememcgstat 8 "2025-01-23" "USER COMMANDS"
+.SH NAME
+zombiememcgstat \- Show zombie memcgroups on a system, along with creator and offline duration.
+.SH SYNOPSIS
+.B zombiememcgstat [\-h] [\-p PID] [\-c COMM] [\-o OLDER] [interval] [count]
+.SH DESCRIPTION
+zombiememcgstat traces and matches the creation and destruction of memory cgroup(memcg)
+related objects in the kernel and using this information it, tracks and reports zombie
+memcgs along with information about creator and offline duration of these zombie memcgs.
+
+This tool uses in-kernel eBPF maps for storing timestamps and other information, for efficiency.
+
+This tool traces mem_cgroup_css_online, mem_cgroup_css_offline and mem_cgroup_css_free with
+kprobes to track the time when a memory cgroup gets online, gets offline and when its kernel
+objects are freed. From the time of being offline till the time its kernel objects are freed,
+a memcg exists as zombie and taking the difference between any instant of time and time when
+memcg was offlined, this tool reports for how long the memcg has existed as zombie till then.
+
+Please note that this tool has been tested with kernel 5.4 and later versions.
+
+Since this uses BPF, only the root user can use this tool.
+.SH REQUIREMENTS
+CONFIG_BPF and bcc.
+.SH OPTIONS
+\-h
+Print usage message.
+.TP
+\-p PID
+Report zombie memcgs created by this pid only.
+.TP
+\-c COMM
+Report zombie memcgs created by this comm only.
+.TP
+\-o OLDER
+Report zombie memcgs that are offline for more than these many secs.
+.TP
+interval
+Output interval, in seconds.
+.TP
+count
+Number of outputs.
+.SH EXAMPLES
+.TP
+List all zombie memcgs at 30 secs interval:
+#
+.B zombiememcgstat
+.TP
+List all zombie memcgs at 5 secs interval:
+#
+.B zombiememcgstat 5
+.TP
+List all zombie memcgs at 30 secs interval, 10 times:
+#
+.B zombiememcgstat 30 10
+.TP
+List zombie memcgs created by pid 100
+#
+.B zombiememcgstat -p 100
+.TP
+List zombie memcgs created by task with comm "foo"
+#
+.B zombiememcgstat -c foo
+.TP
+List zombie memcgs that have been offline for more than 100 secs
+#
+.B zombiememcgstat -o 100
+.SH FIELDS
+.TP
+MEMCG
+pointer to mem_cgroup object
+.TP
+NAME
+name of memory cgroup
+.TP
+COMM
+comm of task that created this memory cgroup
+.TP
+PID
+pid of task that created this memory cgroup
+.TP
+AGE(secs)
+time in seconds, for which this memcg has been offline for
+.SH OVERHEAD
+This traces memcgroup online, offline and destruction functions, which typically
+are not very frequent, at least not frequent enough to cause any noticeable overhead.
+Further it uses in-kernel maps for efficiency, so overall this tool has negligible
+overhead.
+.SH SOURCE
+This is from bcc.
+.IP
+https://github.com/iovisor/bcc
+.PP
+Also look in the bcc distribution for a companion _examples.txt file containing
+example usage, output, and commentary for this tool.
+.SH OS
+Linux
+.SH STABILITY
+Unstable - in development.
+.SH AUTHOR
+Imran Khan
+.SH SEE ALSO
+memleak(8)
+
