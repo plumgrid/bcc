@@ -31,6 +31,7 @@
 #include "trace_helpers.h"
 
 #define warn(...) fprintf(stderr, __VA_ARGS__)
+#define ARRAY_SIZE(x) (sizeof(x) / sizeof(*(x)))
 
 enum {
 	SORT_ACQ_MAX,
@@ -92,6 +93,20 @@ static const char program_doc[] =
 "  klockstat -s 6                # display 6 stack entries per lock\n"
 "  klockstat -P                  # print stats per thread\n"
 ;
+
+static const char *internal_ksym_names[] = {
+	"mutex_lock",
+	"mutex_lock_interruptible",
+	"mutex_lock_killable",
+	"mutex_trylock",
+	"down_read",
+	"down_read_interruptible",
+	"down_read_killable",
+	"down_read_trylock",
+	"down_write",
+	"down_write_killable",
+	"down_write_trylock",
+};
 
 static const struct argp_option opts[] = {
 	{ "pid", 'p', "PID", 0, "Filter by process ID", 0 },
@@ -359,6 +374,26 @@ static char *symname(struct ksyms *ksyms, uint64_t pc, char *buf, size_t n)
 	return buf;
 }
 
+static int find_stack_start(struct ksyms *ksyms, struct stack_stat *ss)
+{
+	const struct ksym *ksym;
+	int ret = 0;
+        int i, j;
+
+	for (i = 0; i < PERF_MAX_STACK_DEPTH; i++) {
+		if (!ss->bt[i])
+			break;
+
+		ksym  = ksyms__map_addr(ksyms, ss->bt[i]);
+
+		for (j = 0; j < ARRAY_SIZE(internal_ksym_names); j++)
+			if (!strcmp(ksym->name, internal_ksym_names[j]))
+				ret = i + 1;
+	}
+
+	return ret;
+}
+
 static char *print_caller(char *buf, int size, struct stack_stat *ss)
 {
 	snprintf(buf, size, "%u  %16s", ss->stack_id, ss->ls.acq_max_comm);
@@ -404,6 +439,7 @@ static void print_acq_header(void)
 static void print_acq_stat(struct ksyms *ksyms, struct stack_stat *ss,
 			   int nr_stack_entries)
 {
+	int offset = find_stack_start(ksyms, ss);
 	char buf[40];
 	char avg[40];
 	char max[40];
@@ -411,12 +447,12 @@ static void print_acq_stat(struct ksyms *ksyms, struct stack_stat *ss,
 	int i;
 
 	printf("%37s %9s %8llu %10s %12s\n",
-	       symname(ksyms, ss->bt[0], buf, sizeof(buf)),
+	       symname(ksyms, ss->bt[offset], buf, sizeof(buf)),
 	       print_time(avg, sizeof(avg), ss->ls.acq_total_time / ss->ls.acq_count),
 	       ss->ls.acq_count,
 	       print_time(max, sizeof(max), ss->ls.acq_max_time),
 	       print_time(tot, sizeof(tot), ss->ls.acq_total_time));
-	for (i = 1; i < nr_stack_entries; i++) {
+	for (i = offset + 1; i < nr_stack_entries + offset; i++) {
 		if (!ss->bt[i] || env.per_thread)
 			break;
 		printf("%37s\n", symname(ksyms, ss->bt[i], buf, sizeof(buf)));
@@ -457,6 +493,7 @@ static void print_hld_header(void)
 static void print_hld_stat(struct ksyms *ksyms, struct stack_stat *ss,
 			   int nr_stack_entries)
 {
+	int offset = find_stack_start(ksyms, ss);
 	char buf[40];
 	char avg[40];
 	char max[40];
@@ -464,12 +501,12 @@ static void print_hld_stat(struct ksyms *ksyms, struct stack_stat *ss,
 	int i;
 
 	printf("%37s %9s %8llu %10s %12s\n",
-	       symname(ksyms, ss->bt[0], buf, sizeof(buf)),
+	       symname(ksyms, ss->bt[offset], buf, sizeof(buf)),
 	       print_time(avg, sizeof(avg), ss->ls.hld_total_time / ss->ls.hld_count),
 	       ss->ls.hld_count,
 	       print_time(max, sizeof(max), ss->ls.hld_max_time),
 	       print_time(tot, sizeof(tot), ss->ls.hld_total_time));
-	for (i = 1; i < nr_stack_entries; i++) {
+	for (i = offset + 1; i < nr_stack_entries + offset; i++) {
 		if (!ss->bt[i] || env.per_thread)
 			break;
 		printf("%37s\n", symname(ksyms, ss->bt[i], buf, sizeof(buf)));
@@ -573,7 +610,7 @@ static int print_stats(struct ksyms *ksyms, int stack_map, int stat_map)
 		if (env.reset) {
 			ss = stats[i];
 			bpf_map_delete_elem(stat_map, &ss->stack_id);
-		}	
+		}
 		free(stats[i]);
         }
 	free(stats);
