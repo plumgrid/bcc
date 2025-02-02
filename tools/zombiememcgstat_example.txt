@@ -1,0 +1,190 @@
+Demonstrations of zombiememcgstat, the Linux eBPF/bcc version.
+
+zombiememcgstat traces and matches the creation and destruction of memory
+cgroup(memcg) related objects in the kernel and using this information it
+tracks and reports zombie memcgs.
+For example:
+# ./zombiememcgstat.py
+Show zombie memcgroups at specified intervals... Hit Ctrl-C to end.
+MEMCG                NAME                   COMM             PID      AGE(secs)
+
+
+
+0xffff9efd798ce000   session-8047.scope     systemd          1        84
+0xffff9f017b3c3000   session-8049.scope     systemd          1        84
+0xffff9f06bd247000   session-8054.scope     systemd          1        83
+0xffff9eff7b553000   session-8060.scope     systemd          1        82
+0xffff9efdbfd58000   session-8065.scope     systemd          1        81
+0xffff9efd7e9db000   session-8070.scope     systemd          1        80
+0xffff9f05bbdcc000   session-8076.scope     systemd          1        79
+0xffff9f037f493000   session-8081.scope     systemd          1        78
+0xffff9f073f484000   dummy                  python3          473782   66
+0xffff9f073f481000   dummy                  python3          473782   66
+0xffff9f00bea49000   dummy                  python3          473782   66
+0xffff9f00bea4e000   dummy                  python3          473782   66
+0xffff9f00bea4c000   dummy                  python3          473782   66
+
+When a memcg is removed from user space (e.g. rmdir /sys/fs/cgroup/memory/foo),
+memcg related kernel objects are not necessarily freed right away and can exist
+in memory as long as some page(s) (charged earlier for the now offline memcg)
+hold a refcount to it.
+Such memcg(s) are called zombie memcgs. Due to significant memory footprint
+(100s of KBs on systems with > 100 cpus) of memcg related kernel objects,
+zombie memcgs can waste lots of memory.
+zombiememcgstat attaches probes to kernel functions that gets invoked
+when a memcg becomes online, offline and when corresponding kernel
+objects are freed. So for each unique memcg, using a mem_cgroup pointer as
+key,it tracks the time when memcg was created/became online, the time when it
+was removed/became offline and the time when the mem_cgroup object was freed
+(last step in destruction of memcg related kernel objects).
+If a memcg has not been offlined yet, it is still active and needs no
+reporting. If a memcg has been offlined and its kernel objects have been freed
+as well, it too needs no reporting. But if a memcg has been offlined and its
+kernel objects still exist, then it is a zombie memcg and needs reporting.
+zombiememcgstat reports such memcgs. As shown in the above example, the
+information provided consists of pointer to corresponding mem_cgroup object
+(MEMCG), name of memory cgroup(NAME), name(COMM) and pid(PID) of task that
+created it and the time difference between the current time and the time at
+which it was offlined(AGE(secs)). This is the duration for which this memcg has
+existed as zombie.
+
+By default, zombiememcgstat prints its output every 30 secs. But you can
+change this by passing interval as positional parameter and you can also
+control the number of times the output will be printed before exiting.
+For example:
+
+# ./zombiememcgstat.py 30 5
+
+...will print the zombie memcg information, every 30 secs, for 5 times and
+then exit.
+
+zombie memcgs that don't last for long can be ignored usually, because they
+don't hold system memory for long. Hence, zombiememcg stat by default shows
+only those zombie memcgs that have were removed (have been offline for)
+more than 30 secs ago.
+So while specifying output interval one needs to be aware of this.
+For example:
+
+# ./zombiememcgstat.py 5 5
+
+...will print only 5 blank lines because during its entire run time of 25
+secs, it will not find any zombie memcg that has been offlined for more
+than 30 secs.
+
+One can change the offline duration threshold using the -o switch.
+For example:
+
+# ./zombiememcgstat.py -o 120 130
+
+... will print its output every 130 secs and it will show only those zombie
+memcgs that have been offline for more than 120 secs, as shown below:
+
+# ./zombiememcgstat.py -o 120 130
+Show zombie memcgroups at specified intervals... Hit Ctrl-C to end.
+MEMCG                NAME                   COMM             PID      AGE(secs)
+
+
+0xffff9f02bdbf4000   pmie_check.service     systemd          1        218
+0xffff9f06bd3cd000   pmie_farm_check.servic systemd          1        218
+0xffff9f0276548000   session-11465.scope    systemd          1        218
+0xffff9f06bd3c8000   session-11467.scope    systemd          1        218
+0xffff9f06bd1a2000   session-11472.scope    systemd          1        217
+0xffff9efbfafbf000   session-11473.scope    systemd          1        217
+0xffff9efcffaa3000   session-11474.scope    systemd          1        217
+
+0xffff9f02bdbf4000   pmie_check.service     systemd          1        348
+0xffff9f06bd3cd000   pmie_farm_check.servic systemd          1        348
+0xffff9f0276548000   session-11465.scope    systemd          1        348
+0xffff9f06bd3c8000   session-11467.scope    systemd          1        348
+0xffff9efbfafbf000   session-11473.scope    systemd          1        347
+0xffff9efcffaa3000   session-11474.scope    systemd          1        347
+0xffff9f02bdbf0000   sysstat-collect.servic systemd          1        248
+0xffff9efbfaf5a000   user-runtime-dir@0.ser systemd          1        222
+0xffff9f05bf768000   session-c3388.scope    systemd          1        222
+0xffff9f03bbf80000   init.scope             systemd          605258   212
+0xffff9f06bf2bb000   user@0.service         systemd          1        212
+
+Usually cgroup creation and management is done by systemd, but if you have
+some application doing cgroup creation/removal, you can track memcgroups
+created by a particular pid using -p switch.
+For example:
+
+# ./zombiememcgstat.py -p 1
+Show zombie memcgroups at specified intervals... Hit Ctrl-C to end.
+MEMCG                NAME                   COMM             PID      AGE(secs)
+
+
+
+0xffff9f06bd3ca000   session-11455.scope    systemd          1        67
+0xffff9f06bd3cc000   session-11457.scope    systemd          1        67
+0xffff9efbfaf5e000   session-11458.scope    systemd          1        67
+0xffff9f04be4ab000   session-11459.scope    systemd          1        67
+0xffff9f06bd335000   session-11460.scope    systemd          1        66
+0xffff9f06bd336000   session-11461.scope    systemd          1        66
+0xffff9f06bd2b0000   session-11462.scope    systemd          1        66
+0xffff9f06bd2b3000   session-11463.scope    systemd          1        66
+0xffff9f06bd333000   session-11464.scope    systemd          1        66
+
+0xffff9f06bd3ca000   session-11455.scope    systemd          1        97
+0xffff9f06bd3cc000   session-11457.scope    systemd          1        97
+0xffff9efbfaf5e000   session-11458.scope    systemd          1        97
+0xffff9f04be4ab000   session-11459.scope    systemd          1        97
+0xffff9f06bd335000   session-11460.scope    systemd          1        96
+0xffff9f06bd336000   session-11461.scope    systemd          1        96
+
+shows all cgroups created by pid 1 i.e. systemd (usually).
+
+Similarly using -c switch, one can track all zombie memcgs created by
+a task of particular name(comm).
+For example:
+
+# ./zombiememcgstat.py -c python3
+Show zombie memcgroups at specified intervals... Hit Ctrl-C to end.
+MEMCG                NAME                   COMM             PID      AGE(secs)
+
+
+
+0xffff9f06bd1b3000   dummy                  python3          603701   86
+0xffff9efdfe4f6000   dummy                  python3          603701   86
+0xffff9efdfe4f4000   dummy                  python3          603701   86
+0xffff9efdba624000   dummy                  python3          603701   86
+0xffff9efdba621000   dummy                  python3          603701   86
+
+0xffff9f06bd1b3000   dummy                  python3          603701   116
+0xffff9efdfe4f6000   dummy                  python3          603701   116
+0xffff9efdfe4f4000   dummy                  python3          603701   116
+0xffff9efdba624000   dummy                  python3          603701   116
+
+shows all cgroups created by a python script.
+
+USAGE message:
+
+# ./zombiememcgstat.py -h
+usage: zombiememcgstat.py [-h] [-p PID] [-c COMM] [-o OLDER]
+                          [interval] [count]
+
+    Zombie memory cgroups (memcgs) are cgroups that have  been removed
+    from user space but still exist in kernel space due to non-zero refcounts.
+    List such zombie memcgs on a system along with their creator and
+    offline duration.
+
+
+positional arguments:
+  interval              output interval, in seconds
+  count                 number of outputs
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -p PID, --pid PID     show zombie memcgs created by specified pid
+  -c COMM, --comm COMM  show zombie memcgs created by specified comm
+  -o OLDER, --older OLDER
+                        show zombie memcgs that are offline for more than
+                        these many secs.
+
+examples:
+    ./zombiememcgstat            # list all zombie memcgs at 30 secs interval
+    ./zombiememcgstat 5          # list all zombie memcgs at 5 secs interval
+    ./zombiememcgstat 30 10      # print 30 second summaries, 10 times
+    ./zombiememcgstat -p 1       # list zombie memcgs created by pid 1
+    ./zombiememcgstat -c systemd # list zombie memcgs created by systemd
+    ./zombiememcgstat -o 600     # list zombie memcgs older than 600 secs
