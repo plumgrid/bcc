@@ -25,8 +25,8 @@
 namespace ebpf {
 namespace pyperf {
 
-extern OffsetConfig kPy36OffsetConfig;
-extern std::string PYPERF_BPF_PROGRAM;
+extern const OffsetConfig kPy36OffsetConfig;
+extern const std::string PYPERF_BPF_PROGRAM;
 
 const static int kPerfBufSizePages = 32;
 
