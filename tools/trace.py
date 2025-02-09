@@ -118,7 +118,7 @@ class Probe(object):
                 #                                          opt. signature
                 #                               probespec       |      rest
                 #                               ---------  ----------   --
-                (spec, sig, rest) = re.match(r'([^ \t\(]+)(\([^\(]*\))?(.*)',
+                (spec, sig, rest) = re.match(r'([^ \t]+)(\([^\(]*\))?(.*)',
                                              text).groups()
 
                 self._parse_spec(spec)
