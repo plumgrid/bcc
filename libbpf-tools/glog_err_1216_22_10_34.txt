@@ -1,0 +1,1931 @@
+[2024-12-16 22:10:34] [init_resource:660] [INFO] init resource has completed.
+[2024-12-16 22:10:34] [main:1080] [INFO] create init_resource success
+[2024-12-16 22:10:34] [main_process:826] [INFO] index:0
+[2024-12-16 22:10:34] [time_process:679] [INFO] begin to time_process
+[2024-12-16 22:10:35] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:10:36] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:10:36] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:10:36] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:36] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:10:36] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:10:36] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:10:36] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:10:36] [main_process:826] [INFO] index:1
+[2024-12-16 22:10:37] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:10:37] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:10:37] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:37] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:10:37] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:10:37] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:10:37] [clear_counts:780] [INFO] clear counts:24
+[2024-12-16 22:10:37] [main_process:826] [INFO] index:2
+[2024-12-16 22:10:38] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:10:38] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:10:38] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:38] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:10:38] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:10:38] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:10:38] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:10:38] [main_process:826] [INFO] index:3
+[2024-12-16 22:10:39] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:10:39] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:10:39] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:39] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:10:39] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:10:39] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:10:39] [clear_counts:780] [INFO] clear counts:20
+[2024-12-16 22:10:39] [main_process:826] [INFO] index:4
+[2024-12-16 22:10:40] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:10:40] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:10:40] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:40] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:10:40] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:10:40] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:10:40] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:10:40] [main_process:826] [INFO] index:5
+[2024-12-16 22:10:41] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:10:41] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:10:41] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:41] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:10:41] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:10:41] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:10:41] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:10:41] [main_process:826] [INFO] index:6
+[2024-12-16 22:10:42] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:10:42] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:10:42] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:42] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:10:42] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:10:42] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:10:42] [clear_counts:780] [INFO] clear counts:21
+[2024-12-16 22:10:42] [main_process:826] [INFO] index:7
+[2024-12-16 22:10:43] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:10:43] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:10:43] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:43] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:10:43] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:10:43] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:10:43] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:10:43] [main_process:826] [INFO] index:8
+[2024-12-16 22:10:44] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:10:44] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:10:44] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:44] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:10:44] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:10:44] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:10:44] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:10:44] [main_process:826] [INFO] index:9
+[2024-12-16 22:10:45] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:10:45] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:10:45] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:45] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:10:45] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:10:45] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:10:45] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:10:45] [main_process:826] [INFO] index:10
+[2024-12-16 22:10:46] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:10:46] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:10:46] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:46] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:10:46] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:10:46] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:10:46] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:10:46] [main_process:826] [INFO] index:11
+[2024-12-16 22:10:47] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:10:47] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:10:47] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:47] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:10:47] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:10:47] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:10:47] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:10:47] [main_process:826] [INFO] index:12
+[2024-12-16 22:10:48] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:10:48] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:10:48] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:48] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:10:48] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:10:48] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:10:48] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:10:48] [main_process:826] [INFO] index:13
+[2024-12-16 22:10:49] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:10:49] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:10:49] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:49] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:10:49] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:10:49] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:10:49] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:10:49] [main_process:826] [INFO] index:14
+[2024-12-16 22:10:50] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:10:50] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:10:50] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:50] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:10:50] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:10:50] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:10:50] [clear_counts:780] [INFO] clear counts:10
+[2024-12-16 22:10:50] [main_process:826] [INFO] index:15
+[2024-12-16 22:10:51] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:10:51] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:10:51] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:51] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:10:51] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:10:51] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:10:51] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:10:51] [main_process:826] [INFO] index:16
+[2024-12-16 22:10:52] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:10:52] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:10:52] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:52] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:10:52] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:10:52] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:10:52] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:10:52] [main_process:826] [INFO] index:17
+[2024-12-16 22:10:53] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:10:53] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:10:53] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:53] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:10:53] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:10:53] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:10:53] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:10:53] [main_process:826] [INFO] index:18
+[2024-12-16 22:10:54] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:10:54] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:10:54] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:54] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:10:54] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:10:54] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:10:54] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:10:54] [main_process:826] [INFO] index:19
+[2024-12-16 22:10:55] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:10:55] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:10:55] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:55] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:10:55] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:10:55] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:10:55] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:10:55] [main_process:826] [INFO] index:20
+[2024-12-16 22:10:56] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:10:56] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:10:56] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:56] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:10:56] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:10:56] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:10:56] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:10:56] [main_process:826] [INFO] index:21
+[2024-12-16 22:10:57] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:10:57] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:10:57] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:57] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:10:57] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:10:57] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:10:57] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:10:57] [main_process:826] [INFO] index:22
+[2024-12-16 22:10:58] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:10:58] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:10:58] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:58] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:10:58] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:10:58] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:10:58] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:10:58] [main_process:826] [INFO] index:23
+[2024-12-16 22:10:59] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:10:59] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:10:59] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:10:59] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:10:59] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:10:59] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:10:59] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:10:59] [main_process:826] [INFO] index:24
+[2024-12-16 22:11:00] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:00] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:00] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:00] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:00] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:00] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:00] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:11:00] [main_process:826] [INFO] index:25
+[2024-12-16 22:11:01] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:01] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:01] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:01] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:01] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:01] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:01] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:11:01] [main_process:826] [INFO] index:26
+[2024-12-16 22:11:02] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:02] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:02] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:02] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:02] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:02] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:02] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:11:02] [main_process:826] [INFO] index:27
+[2024-12-16 22:11:03] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:03] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:03] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:03] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:03] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:03] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:03] [clear_counts:780] [INFO] clear counts:9
+[2024-12-16 22:11:03] [main_process:826] [INFO] index:28
+[2024-12-16 22:11:04] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:04] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:04] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:04] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:04] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:04] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:04] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:11:04] [main_process:826] [INFO] index:29
+[2024-12-16 22:11:05] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:05] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:05] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:05] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:05] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:05] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:05] [clear_counts:780] [INFO] clear counts:20
+[2024-12-16 22:11:05] [main_process:826] [INFO] index:30
+[2024-12-16 22:11:06] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:06] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:06] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:06] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:06] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:06] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:06] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:11:06] [main_process:826] [INFO] index:31
+[2024-12-16 22:11:07] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:07] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:07] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:07] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:07] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:07] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:07] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:11:07] [main_process:826] [INFO] index:32
+[2024-12-16 22:11:08] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:08] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:08] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:08] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:08] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:08] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:08] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:11:08] [main_process:826] [INFO] index:33
+[2024-12-16 22:11:09] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:09] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:09] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:09] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:09] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:09] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:09] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:11:09] [main_process:826] [INFO] index:34
+[2024-12-16 22:11:10] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:10] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:10] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:10] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:10] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:10] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:10] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:11:10] [main_process:826] [INFO] index:35
+[2024-12-16 22:11:11] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:11] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:11] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:11] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:11] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:11] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:11] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:11:11] [main_process:826] [INFO] index:36
+[2024-12-16 22:11:12] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:12] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:12] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:12] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:12] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:12] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:12] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:11:12] [main_process:826] [INFO] index:37
+[2024-12-16 22:11:13] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:13] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:13] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:13] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:13] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:13] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:13] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:11:13] [main_process:826] [INFO] index:38
+[2024-12-16 22:11:14] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:14] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:14] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:14] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:14] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:14] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:14] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:11:14] [main_process:826] [INFO] index:39
+[2024-12-16 22:11:15] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:15] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:15] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:15] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:15] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:15] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:15] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:11:15] [main_process:826] [INFO] index:40
+[2024-12-16 22:11:16] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:16] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:16] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:16] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:16] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:16] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:16] [clear_counts:780] [INFO] clear counts:10
+[2024-12-16 22:11:16] [main_process:826] [INFO] index:41
+[2024-12-16 22:11:17] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:17] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:17] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:17] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:17] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:17] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:17] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:11:17] [main_process:826] [INFO] index:42
+[2024-12-16 22:11:18] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:18] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:18] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:18] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:18] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:18] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:18] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:11:18] [main_process:826] [INFO] index:43
+[2024-12-16 22:11:19] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:19] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:19] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:19] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:19] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:19] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:19] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:11:19] [main_process:826] [INFO] index:44
+[2024-12-16 22:11:20] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:20] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:20] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:20] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:20] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:20] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:20] [clear_counts:780] [INFO] clear counts:21
+[2024-12-16 22:11:20] [main_process:826] [INFO] index:45
+[2024-12-16 22:11:21] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:21] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:21] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:21] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:21] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:21] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:21] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:11:21] [main_process:826] [INFO] index:46
+[2024-12-16 22:11:22] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:22] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:22] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:22] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:22] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:22] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:22] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:11:22] [main_process:826] [INFO] index:47
+[2024-12-16 22:11:23] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:23] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:23] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:23] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:23] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:23] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:23] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:11:23] [main_process:826] [INFO] index:48
+[2024-12-16 22:11:24] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:24] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:24] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:24] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:24] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:24] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:24] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:11:24] [main_process:826] [INFO] index:49
+[2024-12-16 22:11:25] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:25] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:25] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:25] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:25] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:25] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:25] [clear_counts:780] [INFO] clear counts:22
+[2024-12-16 22:11:25] [main_process:826] [INFO] index:50
+[2024-12-16 22:11:26] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:26] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:26] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:26] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:26] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:26] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:26] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:11:26] [main_process:826] [INFO] index:51
+[2024-12-16 22:11:27] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:27] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:27] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:27] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:27] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:27] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:27] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:11:27] [main_process:826] [INFO] index:52
+[2024-12-16 22:11:28] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:28] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:28] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:28] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:28] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:28] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:28] [clear_counts:780] [INFO] clear counts:25
+[2024-12-16 22:11:28] [main_process:826] [INFO] index:53
+[2024-12-16 22:11:29] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:29] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:29] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:29] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:29] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:29] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:29] [clear_counts:780] [INFO] clear counts:10
+[2024-12-16 22:11:29] [main_process:826] [INFO] index:54
+[2024-12-16 22:11:30] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:30] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:30] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:30] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:30] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:30] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:30] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:11:30] [main_process:826] [INFO] index:55
+[2024-12-16 22:11:31] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:31] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:31] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:31] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:31] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:31] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:31] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:11:31] [main_process:826] [INFO] index:56
+[2024-12-16 22:11:32] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:32] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:32] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:32] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:32] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:32] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:32] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:11:32] [main_process:826] [INFO] index:57
+[2024-12-16 22:11:33] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:33] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:33] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:33] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:33] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:33] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:33] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:11:33] [main_process:826] [INFO] index:58
+[2024-12-16 22:11:34] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:34] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:34] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:34] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:34] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:34] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:34] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:11:34] [main_process:826] [INFO] index:59
+[2024-12-16 22:11:35] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:35] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:35] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:35] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:35] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:35] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:35] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:11:35] [main_process:826] [INFO] index:60
+[2024-12-16 22:11:36] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:36] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:36] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:36] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:36] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:36] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:36] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:11:36] [main_process:826] [INFO] index:61
+[2024-12-16 22:11:37] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:37] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:37] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:37] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:37] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:37] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:37] [clear_counts:780] [INFO] clear counts:20
+[2024-12-16 22:11:37] [main_process:826] [INFO] index:62
+[2024-12-16 22:11:38] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:38] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:38] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:38] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:38] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:38] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:38] [clear_counts:780] [INFO] clear counts:20
+[2024-12-16 22:11:38] [main_process:826] [INFO] index:63
+[2024-12-16 22:11:39] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:39] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:39] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:39] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:39] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:39] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:39] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:11:39] [main_process:826] [INFO] index:64
+[2024-12-16 22:11:40] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:40] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:40] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:40] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:40] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:40] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:40] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:11:40] [main_process:826] [INFO] index:65
+[2024-12-16 22:11:41] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:41] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:41] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:41] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:41] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:41] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:41] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:11:41] [main_process:826] [INFO] index:66
+[2024-12-16 22:11:42] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:42] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:42] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:42] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:42] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:42] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:42] [clear_counts:780] [INFO] clear counts:10
+[2024-12-16 22:11:42] [main_process:826] [INFO] index:67
+[2024-12-16 22:11:43] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:43] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:43] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:43] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:43] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:43] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:43] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:11:43] [main_process:826] [INFO] index:68
+[2024-12-16 22:11:44] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:44] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:44] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:44] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:44] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:44] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:44] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:11:44] [main_process:826] [INFO] index:69
+[2024-12-16 22:11:45] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:45] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:45] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:45] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:45] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:45] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:45] [clear_counts:780] [INFO] clear counts:22
+[2024-12-16 22:11:45] [main_process:826] [INFO] index:70
+[2024-12-16 22:11:46] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:46] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:46] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:46] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:46] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:46] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:46] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:11:46] [main_process:826] [INFO] index:71
+[2024-12-16 22:11:47] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:47] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:47] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:47] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:47] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:47] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:47] [clear_counts:780] [INFO] clear counts:10
+[2024-12-16 22:11:47] [main_process:826] [INFO] index:72
+[2024-12-16 22:11:48] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:48] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:48] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:48] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:48] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:48] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:48] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:11:48] [main_process:826] [INFO] index:73
+[2024-12-16 22:11:49] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:49] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:49] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:49] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:49] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:49] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:49] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:11:49] [main_process:826] [INFO] index:74
+[2024-12-16 22:11:50] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:50] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:50] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:50] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:50] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:50] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:50] [clear_counts:780] [INFO] clear counts:22
+[2024-12-16 22:11:50] [main_process:826] [INFO] index:75
+[2024-12-16 22:11:51] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:51] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:51] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:51] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:51] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:51] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:51] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:11:51] [main_process:826] [INFO] index:76
+[2024-12-16 22:11:52] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:52] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:52] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:52] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:52] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:52] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:52] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:11:52] [main_process:826] [INFO] index:77
+[2024-12-16 22:11:53] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:53] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:53] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:53] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:53] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:53] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:53] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:11:53] [main_process:826] [INFO] index:78
+[2024-12-16 22:11:54] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:54] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:54] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:54] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:54] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:54] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:54] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:11:54] [main_process:826] [INFO] index:79
+[2024-12-16 22:11:55] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:55] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:55] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:55] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:55] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:55] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:55] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:11:55] [main_process:826] [INFO] index:80
+[2024-12-16 22:11:56] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:56] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:56] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:56] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:56] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:56] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:56] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:11:56] [main_process:826] [INFO] index:81
+[2024-12-16 22:11:57] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:57] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:57] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:57] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:57] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:57] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:57] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:11:57] [main_process:826] [INFO] index:82
+[2024-12-16 22:11:58] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:11:58] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:11:58] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:58] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:11:58] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:11:58] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:11:58] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:11:58] [main_process:826] [INFO] index:83
+[2024-12-16 22:11:59] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:11:59] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:11:59] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:11:59] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:11:59] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:11:59] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:11:59] [clear_counts:780] [INFO] clear counts:21
+[2024-12-16 22:11:59] [main_process:826] [INFO] index:84
+[2024-12-16 22:12:00] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:00] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:00] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:00] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:00] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:00] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:00] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:12:00] [main_process:826] [INFO] index:85
+[2024-12-16 22:12:01] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:01] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:01] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:01] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:01] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:01] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:01] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:12:01] [main_process:826] [INFO] index:86
+[2024-12-16 22:12:02] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:02] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:02] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:02] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:02] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:02] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:02] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:12:02] [main_process:826] [INFO] index:87
+[2024-12-16 22:12:03] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:03] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:03] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:03] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:03] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:03] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:03] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:12:03] [main_process:826] [INFO] index:88
+[2024-12-16 22:12:04] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:04] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:04] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:04] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:04] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:04] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:04] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:12:04] [main_process:826] [INFO] index:89
+[2024-12-16 22:12:05] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:05] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:05] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:05] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:05] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:05] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:05] [clear_counts:780] [INFO] clear counts:21
+[2024-12-16 22:12:05] [main_process:826] [INFO] index:90
+[2024-12-16 22:12:06] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:06] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:06] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:06] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:06] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:06] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:06] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:12:06] [main_process:826] [INFO] index:91
+[2024-12-16 22:12:07] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:07] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:07] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:07] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:07] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:07] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:07] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:12:07] [main_process:826] [INFO] index:92
+[2024-12-16 22:12:08] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:08] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:08] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:08] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:08] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:08] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:08] [clear_counts:780] [INFO] clear counts:9
+[2024-12-16 22:12:08] [main_process:826] [INFO] index:93
+[2024-12-16 22:12:09] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:09] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:09] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:09] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:09] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:09] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:09] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:12:09] [main_process:826] [INFO] index:94
+[2024-12-16 22:12:10] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:10] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:10] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:10] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:10] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:10] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:10] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:12:10] [main_process:826] [INFO] index:95
+[2024-12-16 22:12:11] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:11] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:11] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:11] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:11] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:11] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:11] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:12:11] [main_process:826] [INFO] index:96
+[2024-12-16 22:12:12] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:12] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:12] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:12] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:12] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:12] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:12] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:12:12] [main_process:826] [INFO] index:97
+[2024-12-16 22:12:13] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:13] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:13] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:13] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:13] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:13] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:13] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:12:13] [main_process:826] [INFO] index:98
+[2024-12-16 22:12:14] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:14] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:14] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:14] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:14] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:14] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:14] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:12:14] [main_process:826] [INFO] index:99
+[2024-12-16 22:12:15] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:15] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:15] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:15] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:15] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:15] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:15] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:12:15] [main_process:826] [INFO] index:100
+[2024-12-16 22:12:16] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:16] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:16] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:16] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:16] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:16] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:16] [clear_counts:780] [INFO] clear counts:20
+[2024-12-16 22:12:16] [main_process:826] [INFO] index:101
+[2024-12-16 22:12:17] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:17] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:17] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:17] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:17] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:17] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:17] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:12:17] [main_process:826] [INFO] index:102
+[2024-12-16 22:12:18] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:18] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:18] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:18] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:18] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:18] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:18] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:12:18] [main_process:826] [INFO] index:103
+[2024-12-16 22:12:19] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:19] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:19] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:19] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:19] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:19] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:19] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:12:19] [main_process:826] [INFO] index:104
+[2024-12-16 22:12:20] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:20] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:20] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:20] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:20] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:20] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:20] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:12:20] [main_process:826] [INFO] index:105
+[2024-12-16 22:12:21] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:21] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:21] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:21] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:21] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:21] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:21] [clear_counts:780] [INFO] clear counts:20
+[2024-12-16 22:12:21] [main_process:826] [INFO] index:106
+[2024-12-16 22:12:22] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:22] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:22] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:22] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:22] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:22] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:22] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:12:22] [main_process:826] [INFO] index:107
+[2024-12-16 22:12:23] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:23] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:23] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:23] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:23] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:23] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:23] [clear_counts:780] [INFO] clear counts:21
+[2024-12-16 22:12:23] [main_process:826] [INFO] index:108
+[2024-12-16 22:12:24] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:24] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:24] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:24] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:24] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:24] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:24] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:12:24] [main_process:826] [INFO] index:109
+[2024-12-16 22:12:25] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:25] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:25] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:25] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:25] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:25] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:25] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:12:25] [main_process:826] [INFO] index:110
+[2024-12-16 22:12:26] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:26] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:26] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:26] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:26] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:26] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:26] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:12:26] [main_process:826] [INFO] index:111
+[2024-12-16 22:12:27] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:27] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:27] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:27] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:27] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:27] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:27] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:12:27] [main_process:826] [INFO] index:112
+[2024-12-16 22:12:28] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:28] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:28] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:28] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:28] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:28] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:28] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:12:28] [main_process:826] [INFO] index:113
+[2024-12-16 22:12:29] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:29] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:29] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:29] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:29] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:29] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:29] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:12:29] [main_process:826] [INFO] index:114
+[2024-12-16 22:12:30] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:30] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:30] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:30] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:30] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:30] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:30] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:12:30] [main_process:826] [INFO] index:115
+[2024-12-16 22:12:31] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:31] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:31] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:31] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:31] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:31] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:31] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:12:31] [main_process:826] [INFO] index:116
+[2024-12-16 22:12:32] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:32] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:32] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:32] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:32] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:32] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:32] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:12:32] [main_process:826] [INFO] index:117
+[2024-12-16 22:12:33] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:33] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:33] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:33] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:33] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:33] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:33] [clear_counts:780] [INFO] clear counts:20
+[2024-12-16 22:12:33] [main_process:826] [INFO] index:118
+[2024-12-16 22:12:34] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:34] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:34] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:34] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:34] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:34] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:34] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:12:34] [main_process:826] [INFO] index:119
+[2024-12-16 22:12:35] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:35] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:35] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:35] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:35] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:35] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:35] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:12:35] [main_process:826] [INFO] index:120
+[2024-12-16 22:12:36] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:36] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:36] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:36] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:36] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:36] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:36] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:12:36] [main_process:826] [INFO] index:121
+[2024-12-16 22:12:37] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:37] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:37] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:37] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:37] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:37] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:37] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:12:37] [main_process:826] [INFO] index:122
+[2024-12-16 22:12:38] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:38] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:38] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:38] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:38] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:38] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:38] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:12:38] [main_process:826] [INFO] index:123
+[2024-12-16 22:12:39] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:39] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:39] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:39] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:39] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:39] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:39] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:12:39] [main_process:826] [INFO] index:124
+[2024-12-16 22:12:40] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:40] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:40] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:40] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:40] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:40] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:40] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:12:40] [main_process:826] [INFO] index:125
+[2024-12-16 22:12:41] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:41] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:41] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:41] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:41] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:41] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:41] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:12:41] [main_process:826] [INFO] index:126
+[2024-12-16 22:12:42] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:42] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:42] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:42] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:42] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:42] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:42] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:12:42] [main_process:826] [INFO] index:127
+[2024-12-16 22:12:43] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:43] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:43] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:43] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:43] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:43] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:43] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:12:43] [main_process:826] [INFO] index:128
+[2024-12-16 22:12:44] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:44] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:44] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:44] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:44] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:44] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:44] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:12:44] [main_process:826] [INFO] index:129
+[2024-12-16 22:12:45] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:45] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:45] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:45] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:45] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:45] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:45] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:12:45] [main_process:826] [INFO] index:130
+[2024-12-16 22:12:46] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:46] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:46] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:46] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:46] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:46] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:46] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:12:46] [main_process:826] [INFO] index:131
+[2024-12-16 22:12:47] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:47] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:47] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:47] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:47] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:47] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:47] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:12:47] [main_process:826] [INFO] index:132
+[2024-12-16 22:12:48] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:48] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:48] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:48] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:48] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:48] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:48] [clear_counts:780] [INFO] clear counts:24
+[2024-12-16 22:12:48] [main_process:826] [INFO] index:133
+[2024-12-16 22:12:49] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:49] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:49] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:49] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:49] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:49] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:49] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:12:49] [main_process:826] [INFO] index:134
+[2024-12-16 22:12:50] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:50] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:50] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:50] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:50] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:50] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:50] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:12:50] [main_process:826] [INFO] index:135
+[2024-12-16 22:12:51] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:51] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:51] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:51] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:51] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:51] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:51] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:12:51] [main_process:826] [INFO] index:136
+[2024-12-16 22:12:52] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:52] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:52] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:52] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:52] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:52] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:52] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:12:52] [main_process:826] [INFO] index:137
+[2024-12-16 22:12:53] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:53] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:53] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:53] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:53] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:53] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:53] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:12:53] [main_process:826] [INFO] index:138
+[2024-12-16 22:12:54] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:54] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:54] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:54] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:54] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:54] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:54] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:12:54] [main_process:826] [INFO] index:139
+[2024-12-16 22:12:55] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:55] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:55] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:55] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:55] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:55] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:55] [clear_counts:780] [INFO] clear counts:8
+[2024-12-16 22:12:55] [main_process:826] [INFO] index:140
+[2024-12-16 22:12:56] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:56] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:56] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:56] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:56] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:56] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:56] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:12:56] [main_process:826] [INFO] index:141
+[2024-12-16 22:12:57] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:57] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:57] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:57] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:57] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:57] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:57] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:12:57] [main_process:826] [INFO] index:142
+[2024-12-16 22:12:58] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:12:58] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:12:58] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:58] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:12:58] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:12:58] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:12:58] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:12:58] [main_process:826] [INFO] index:143
+[2024-12-16 22:12:59] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:12:59] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:12:59] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:12:59] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:12:59] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:12:59] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:12:59] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:12:59] [main_process:826] [INFO] index:144
+[2024-12-16 22:13:00] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:00] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:00] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:00] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:00] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:00] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:00] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:13:00] [main_process:826] [INFO] index:145
+[2024-12-16 22:13:01] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:01] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:01] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:01] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:01] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:01] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:01] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:13:01] [main_process:826] [INFO] index:146
+[2024-12-16 22:13:02] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:02] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:02] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:02] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:02] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:02] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:02] [clear_counts:780] [INFO] clear counts:20
+[2024-12-16 22:13:02] [main_process:826] [INFO] index:147
+[2024-12-16 22:13:03] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:03] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:03] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:03] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:03] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:03] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:03] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:13:03] [main_process:826] [INFO] index:148
+[2024-12-16 22:13:04] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:04] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:04] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:04] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:04] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:04] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:04] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:13:04] [main_process:826] [INFO] index:149
+[2024-12-16 22:13:05] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:05] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:05] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:05] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:05] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:05] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:05] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:13:05] [main_process:826] [INFO] index:150
+[2024-12-16 22:13:06] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:06] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:06] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:06] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:06] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:06] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:06] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:13:06] [main_process:826] [INFO] index:151
+[2024-12-16 22:13:07] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:07] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:07] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:07] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:07] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:07] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:07] [clear_counts:780] [INFO] clear counts:24
+[2024-12-16 22:13:07] [main_process:826] [INFO] index:152
+[2024-12-16 22:13:08] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:08] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:08] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:08] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:08] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:08] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:08] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:13:08] [main_process:826] [INFO] index:153
+[2024-12-16 22:13:09] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:09] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:09] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:09] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:09] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:09] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:09] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:13:09] [main_process:826] [INFO] index:154
+[2024-12-16 22:13:10] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:10] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:10] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:10] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:10] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:10] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:10] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:13:10] [main_process:826] [INFO] index:155
+[2024-12-16 22:13:11] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:11] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:11] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:11] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:11] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:11] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:11] [clear_counts:780] [INFO] clear counts:8
+[2024-12-16 22:13:11] [main_process:826] [INFO] index:156
+[2024-12-16 22:13:12] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:12] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:12] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:12] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:12] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:12] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:12] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:13:12] [main_process:826] [INFO] index:157
+[2024-12-16 22:13:13] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:13] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:13] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:13] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:13] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:13] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:13] [clear_counts:780] [INFO] clear counts:10
+[2024-12-16 22:13:13] [main_process:826] [INFO] index:158
+[2024-12-16 22:13:14] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:14] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:14] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:14] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:14] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:14] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:14] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:13:14] [main_process:826] [INFO] index:159
+[2024-12-16 22:13:15] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:15] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:15] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:15] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:15] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:15] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:15] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:13:15] [main_process:826] [INFO] index:160
+[2024-12-16 22:13:16] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:16] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:16] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:16] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:16] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:16] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:16] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:13:16] [main_process:826] [INFO] index:161
+[2024-12-16 22:13:17] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:17] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:17] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:17] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:17] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:17] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:17] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:13:17] [main_process:826] [INFO] index:162
+[2024-12-16 22:13:18] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:18] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:18] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:18] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:18] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:18] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:18] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:13:18] [main_process:826] [INFO] index:163
+[2024-12-16 22:13:19] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:19] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:19] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:19] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:19] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:19] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:19] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:13:19] [main_process:826] [INFO] index:164
+[2024-12-16 22:13:20] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:20] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:20] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:20] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:20] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:20] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:20] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:13:20] [main_process:826] [INFO] index:165
+[2024-12-16 22:13:21] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:21] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:21] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:21] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:21] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:21] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:21] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:13:21] [main_process:826] [INFO] index:166
+[2024-12-16 22:13:22] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:22] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:22] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:22] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:22] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:22] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:22] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:13:22] [main_process:826] [INFO] index:167
+[2024-12-16 22:13:23] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:23] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:23] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:23] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:23] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:23] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:23] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:13:23] [main_process:826] [INFO] index:168
+[2024-12-16 22:13:24] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:24] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:24] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:24] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:24] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:24] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:24] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:13:24] [main_process:826] [INFO] index:169
+[2024-12-16 22:13:25] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:25] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:25] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:25] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:25] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:25] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:25] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:13:25] [main_process:826] [INFO] index:170
+[2024-12-16 22:13:26] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:26] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:26] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:26] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:26] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:26] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:26] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:13:26] [main_process:826] [INFO] index:171
+[2024-12-16 22:13:27] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:27] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:27] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:27] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:27] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:27] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:27] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:13:27] [main_process:826] [INFO] index:172
+[2024-12-16 22:13:28] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:28] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:28] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:28] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:28] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:28] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:28] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:13:28] [main_process:826] [INFO] index:173
+[2024-12-16 22:13:29] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:29] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:29] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:29] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:29] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:29] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:29] [clear_counts:780] [INFO] clear counts:20
+[2024-12-16 22:13:29] [main_process:826] [INFO] index:174
+[2024-12-16 22:13:30] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:30] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:30] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:30] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:30] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:30] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:30] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:13:30] [main_process:826] [INFO] index:175
+[2024-12-16 22:13:31] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:31] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:31] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:31] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:31] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:31] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:31] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:13:31] [main_process:826] [INFO] index:176
+[2024-12-16 22:13:32] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:32] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:32] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:32] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:32] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:32] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:32] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:13:32] [main_process:826] [INFO] index:177
+[2024-12-16 22:13:33] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:33] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:33] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:33] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:33] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:33] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:33] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:13:33] [main_process:826] [INFO] index:178
+[2024-12-16 22:13:34] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:34] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:34] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:34] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:34] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:34] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:34] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:13:34] [main_process:826] [INFO] index:179
+[2024-12-16 22:13:35] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:35] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:35] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:35] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:35] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:35] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:35] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:13:35] [main_process:826] [INFO] index:180
+[2024-12-16 22:13:36] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:36] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:36] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:36] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:36] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:36] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:36] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:13:36] [main_process:826] [INFO] index:181
+[2024-12-16 22:13:37] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:37] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:37] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:37] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:37] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:37] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:37] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:13:37] [main_process:826] [INFO] index:182
+[2024-12-16 22:13:38] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:38] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:38] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:38] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:38] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:38] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:38] [clear_counts:780] [INFO] clear counts:10
+[2024-12-16 22:13:38] [main_process:826] [INFO] index:183
+[2024-12-16 22:13:39] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:39] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:39] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:39] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:39] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:39] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:39] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:13:39] [main_process:826] [INFO] index:184
+[2024-12-16 22:13:40] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:40] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:40] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:40] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:40] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:40] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:40] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:13:40] [main_process:826] [INFO] index:185
+[2024-12-16 22:13:41] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:41] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:41] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:41] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:41] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:41] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:41] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:13:41] [main_process:826] [INFO] index:186
+[2024-12-16 22:13:42] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:42] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:42] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:42] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:42] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:42] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:42] [clear_counts:780] [INFO] clear counts:10
+[2024-12-16 22:13:42] [main_process:826] [INFO] index:187
+[2024-12-16 22:13:43] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:43] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:43] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:43] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:43] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:43] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:43] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:13:43] [main_process:826] [INFO] index:188
+[2024-12-16 22:13:44] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:44] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:44] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:44] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:44] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:44] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:44] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:13:44] [main_process:826] [INFO] index:189
+[2024-12-16 22:13:45] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:45] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:45] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:45] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:45] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:45] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:45] [clear_counts:780] [INFO] clear counts:8
+[2024-12-16 22:13:45] [main_process:826] [INFO] index:190
+[2024-12-16 22:13:46] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:46] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:46] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:46] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:46] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:46] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:46] [clear_counts:780] [INFO] clear counts:10
+[2024-12-16 22:13:46] [main_process:826] [INFO] index:191
+[2024-12-16 22:13:47] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:47] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:47] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:47] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:47] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:47] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:47] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:13:47] [main_process:826] [INFO] index:192
+[2024-12-16 22:13:48] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:48] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:48] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:48] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:48] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:48] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:48] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:13:48] [main_process:826] [INFO] index:193
+[2024-12-16 22:13:49] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:49] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:49] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:49] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:49] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:49] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:49] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:13:49] [main_process:826] [INFO] index:194
+[2024-12-16 22:13:50] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:50] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:50] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:50] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:50] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:50] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:50] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:13:50] [main_process:826] [INFO] index:195
+[2024-12-16 22:13:51] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:51] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:51] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:51] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:51] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:51] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:51] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:13:51] [main_process:826] [INFO] index:196
+[2024-12-16 22:13:52] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:52] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:52] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:52] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:52] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:52] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:52] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:13:52] [main_process:826] [INFO] index:197
+[2024-12-16 22:13:53] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:53] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:53] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:53] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:53] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:53] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:53] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:13:53] [main_process:826] [INFO] index:198
+[2024-12-16 22:13:54] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:54] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:54] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:54] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:54] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:54] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:54] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:13:54] [main_process:826] [INFO] index:199
+[2024-12-16 22:13:55] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:55] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:55] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:55] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:55] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:55] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:55] [clear_counts:780] [INFO] clear counts:23
+[2024-12-16 22:13:55] [main_process:826] [INFO] index:200
+[2024-12-16 22:13:56] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:56] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:56] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:56] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:56] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:56] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:56] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:13:56] [main_process:826] [INFO] index:201
+[2024-12-16 22:13:57] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:57] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:57] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:57] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:57] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:57] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:57] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:13:57] [main_process:826] [INFO] index:202
+[2024-12-16 22:13:58] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:13:58] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:13:58] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:58] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:13:58] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:13:58] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:13:58] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:13:58] [main_process:826] [INFO] index:203
+[2024-12-16 22:13:59] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:13:59] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:13:59] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:13:59] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:13:59] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:13:59] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:13:59] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:13:59] [main_process:826] [INFO] index:204
+[2024-12-16 22:14:00] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:00] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:00] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:00] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:00] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:00] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:00] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:14:00] [main_process:826] [INFO] index:205
+[2024-12-16 22:14:01] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:01] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:01] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:01] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:01] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:01] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:01] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:14:01] [main_process:826] [INFO] index:206
+[2024-12-16 22:14:02] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:02] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:02] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:02] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:02] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:02] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:02] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:14:02] [main_process:826] [INFO] index:207
+[2024-12-16 22:14:03] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:03] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:03] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:03] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:03] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:03] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:03] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:14:03] [main_process:826] [INFO] index:208
+[2024-12-16 22:14:04] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:04] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:04] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:04] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:04] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:04] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:04] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:14:04] [main_process:826] [INFO] index:209
+[2024-12-16 22:14:05] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:05] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:05] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:05] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:05] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:05] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:05] [clear_counts:780] [INFO] clear counts:21
+[2024-12-16 22:14:05] [main_process:826] [INFO] index:210
+[2024-12-16 22:14:06] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:06] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:06] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:06] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:06] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:06] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:06] [clear_counts:780] [INFO] clear counts:20
+[2024-12-16 22:14:06] [main_process:826] [INFO] index:211
+[2024-12-16 22:14:07] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:07] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:07] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:07] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:07] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:07] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:07] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:14:07] [main_process:826] [INFO] index:212
+[2024-12-16 22:14:08] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:08] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:08] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:08] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:08] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:08] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:08] [clear_counts:780] [INFO] clear counts:18
+[2024-12-16 22:14:08] [main_process:826] [INFO] index:213
+[2024-12-16 22:14:09] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:09] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:09] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:09] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:09] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:09] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:09] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:14:09] [main_process:826] [INFO] index:214
+[2024-12-16 22:14:10] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:10] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:10] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:10] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:10] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:10] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:10] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:14:10] [main_process:826] [INFO] index:215
+[2024-12-16 22:14:11] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:11] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:11] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:11] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:11] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:11] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:11] [clear_counts:780] [INFO] clear counts:10
+[2024-12-16 22:14:11] [main_process:826] [INFO] index:216
+[2024-12-16 22:14:12] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:12] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:12] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:12] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:12] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:12] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:12] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:14:12] [main_process:826] [INFO] index:217
+[2024-12-16 22:14:13] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:13] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:13] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:13] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:13] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:13] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:13] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:14:13] [main_process:826] [INFO] index:218
+[2024-12-16 22:14:14] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:14] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:14] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:14] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:14] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:14] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:14] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:14:14] [main_process:826] [INFO] index:219
+[2024-12-16 22:14:15] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:15] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:15] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:15] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:15] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:15] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:15] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:14:15] [main_process:826] [INFO] index:220
+[2024-12-16 22:14:16] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:16] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:16] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:16] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:16] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:16] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:16] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:14:16] [main_process:826] [INFO] index:221
+[2024-12-16 22:14:17] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:17] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:17] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:17] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:17] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:17] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:17] [clear_counts:780] [INFO] clear counts:14
+[2024-12-16 22:14:17] [main_process:826] [INFO] index:222
+[2024-12-16 22:14:18] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:18] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:18] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:18] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:18] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:18] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:18] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:14:18] [main_process:826] [INFO] index:223
+[2024-12-16 22:14:19] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:19] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:19] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:19] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:19] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:19] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:19] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:14:19] [main_process:826] [INFO] index:224
+[2024-12-16 22:14:20] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:20] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:20] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:20] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:20] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:20] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:20] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:14:20] [main_process:826] [INFO] index:225
+[2024-12-16 22:14:21] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:21] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:21] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:21] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:21] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:21] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:21] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:14:21] [main_process:826] [INFO] index:226
+[2024-12-16 22:14:22] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:22] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:22] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:22] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:22] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:22] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:22] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:14:22] [main_process:826] [INFO] index:227
+[2024-12-16 22:14:23] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:23] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:23] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:23] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:23] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:23] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:23] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:14:23] [main_process:826] [INFO] index:228
+[2024-12-16 22:14:24] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:24] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:24] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:24] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:24] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:24] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:24] [clear_counts:780] [INFO] clear counts:8
+[2024-12-16 22:14:24] [main_process:826] [INFO] index:229
+[2024-12-16 22:14:25] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:25] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:25] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:25] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:25] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:25] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:25] [clear_counts:780] [INFO] clear counts:23
+[2024-12-16 22:14:25] [main_process:826] [INFO] index:230
+[2024-12-16 22:14:26] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:26] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:26] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:26] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:26] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:26] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:26] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:14:26] [main_process:826] [INFO] index:231
+[2024-12-16 22:14:27] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:27] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:27] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:27] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:27] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:27] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:27] [clear_counts:780] [INFO] clear counts:17
+[2024-12-16 22:14:27] [main_process:826] [INFO] index:232
+[2024-12-16 22:14:28] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:28] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:28] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:28] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:28] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:28] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:28] [clear_counts:780] [INFO] clear counts:13
+[2024-12-16 22:14:28] [main_process:826] [INFO] index:233
+[2024-12-16 22:14:29] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:29] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:29] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:29] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:29] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:29] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:29] [clear_counts:780] [INFO] clear counts:12
+[2024-12-16 22:14:29] [main_process:826] [INFO] index:234
+[2024-12-16 22:14:30] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:30] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:30] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:30] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:30] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:30] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:30] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:14:30] [main_process:826] [INFO] index:235
+[2024-12-16 22:14:31] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:31] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:31] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:31] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:31] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:31] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:31] [clear_counts:780] [INFO] clear counts:11
+[2024-12-16 22:14:31] [main_process:826] [INFO] index:236
+[2024-12-16 22:14:32] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:32] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:32] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:32] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:32] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:32] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:32] [clear_counts:780] [INFO] clear counts:16
+[2024-12-16 22:14:32] [main_process:826] [INFO] index:237
+[2024-12-16 22:14:33] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:33] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:33] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:33] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:33] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:33] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:33] [clear_counts:780] [INFO] clear counts:19
+[2024-12-16 22:14:33] [main_process:826] [INFO] index:238
+[2024-12-16 22:14:34] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:34] [time_process:699] [INFO] start to sleeping,cur_changes_v:0
+[2024-12-16 22:14:34] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:34] [main_process:862] [INFO] choose counts map
+[2024-12-16 22:14:34] [main_process:865] [INFO] counts map exits data
+[2024-12-16 22:14:34] [main_process:868] [INFO] clear_counts:p_st.counts_fd.
+[2024-12-16 22:14:34] [clear_counts:780] [INFO] clear counts:20
+[2024-12-16 22:14:34] [main_process:826] [INFO] index:239
+[2024-12-16 22:14:35] [time_process:712] [INFO] sleeping over, cur_changes_v:1
+[2024-12-16 22:14:35] [time_process:699] [INFO] start to sleeping,cur_changes_v:1
+[2024-12-16 22:14:35] [main_process:839] [WARNING] main thread wakeuped!!
+[2024-12-16 22:14:35] [main_process:877] [INFO] choose countsback map
+[2024-12-16 22:14:35] [main_process:880] [INFO] countsback map exits data
+[2024-12-16 22:14:35] [main_process:883] [INFO] clear_counts:p_st.countsback_fd.
+[2024-12-16 22:14:35] [clear_counts:780] [INFO] clear counts:15
+[2024-12-16 22:14:35] [main_process:826] [INFO] index:240
+[2024-12-16 22:14:36] [time_process:712] [INFO] sleeping over, cur_changes_v:0
+[2024-12-16 22:14:36] [time_process:718] [ERROR] received exit signal, send signals
+[2024-12-16 22:14:36] [time_process:722] [WARNING] time function will exit
+[2024-12-16 22:14:36] [main_process:940] [WARNING] main thread set p_st.exit_flag = true
+[2024-12-16 22:14:36] [main_process:941] [WARNING] main_function work over
+[2024-12-16 22:14:36] [destroy_resource:667] [INFO] thread mutex conditon resource recycle.

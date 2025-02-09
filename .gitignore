@@ -19,3 +19,6 @@ scripts/docker/output/
 
 # UAPI header generated for libbpf package-based builds
 src/cc/compat/linux/bpf.h
+# output
+bccprofile
+output_svg
