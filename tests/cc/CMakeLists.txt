@@ -46,6 +46,7 @@ set(TEST_LIBBCC_SOURCES
 	test_sock_table.cc
 	test_usdt_args.cc
 	test_usdt_probes.cc
+	test_perf_buffer_poll_full_ring_buf.cc
 	utils.cc
 	test_parse_tracepoint.cc
 	test_zip.cc)
@@ -100,7 +101,7 @@ if(NOT CMAKE_USE_LIBBPF_PACKAGE)
   add_executable(test_libbcc ${TEST_LIBBCC_SOURCES})
   add_dependencies(test_libbcc bcc-shared zip_archive ${DEBUGINFO_TARGETS})
 
-  target_link_libraries(test_libbcc ${PROJECT_BINARY_DIR}/src/cc/libbcc.so dl usdt_test_lib)
+  target_link_libraries(test_libbcc ${PROJECT_BINARY_DIR}/src/cc/libbcc.so dl usdt_test_lib pthread)
   set_target_properties(test_libbcc PROPERTIES INSTALL_RPATH ${PROJECT_BINARY_DIR}/src/cc)
   target_compile_definitions(test_libbcc PRIVATE -DLIBBCC_NAME=\"libbcc.so\")
 
@@ -111,7 +112,7 @@ if(LIBBPF_FOUND)
   add_executable(test_libbcc_no_libbpf ${TEST_LIBBCC_SOURCES})
   add_dependencies(test_libbcc_no_libbpf bcc-shared zip_archive ${DEBUGINFO_TARGETS})
 
-  target_link_libraries(test_libbcc_no_libbpf ${PROJECT_BINARY_DIR}/src/cc/libbcc.so dl usdt_test_lib ${LIBBPF_LIBRARIES})
+  target_link_libraries(test_libbcc_no_libbpf ${PROJECT_BINARY_DIR}/src/cc/libbcc.so dl usdt_test_lib ${LIBBPF_LIBRARIES} pthread)
   set_target_properties(test_libbcc_no_libbpf PROPERTIES INSTALL_RPATH ${PROJECT_BINARY_DIR}/src/cc)
   target_compile_definitions(test_libbcc_no_libbpf PRIVATE -DLIBBCC_NAME=\"libbcc.so\")
 

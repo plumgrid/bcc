@@ -172,8 +172,8 @@ void perf_reader_event_read(struct perf_reader *reader) {
   // Consume all the events on this ring, calling the cb function for each one.
   // The message may fall on the ring boundary, in which case copy the message
   // into a malloced buffer.
-  for (data_head = read_data_head(perf_header); perf_header->data_tail != data_head;
-      data_head = read_data_head(perf_header)) {
+  data_head = read_data_head(perf_header);
+  while (perf_header->data_tail != data_head) {
     uint64_t data_tail = perf_header->data_tail;
     uint8_t *ptr;
 
