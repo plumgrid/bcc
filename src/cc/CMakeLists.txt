@@ -18,12 +18,6 @@ endif (LIBDEBUGINFOD_FOUND AND ENABLE_LIBDEBUGINFOD)
 # todo: if check for kernel version
 if (CMAKE_USE_LIBBPF_PACKAGE AND LIBBPF_FOUND)
   include_directories(${LIBBPF_INCLUDE_DIRS})
-  # create up-to-date linux/bpf.h from virtual_bpf.h (remove string wrapper);
-  # when libbpf is built as a submodule we use its version of linux/bpf.h
-  # so this does similar for the libbpf package, removing reliance on the
-  # system uapi header which can be out of date.
-  execute_process(COMMAND sh -c "cd ${CMAKE_CURRENT_SOURCE_DIR}/compat/linux && grep -ve '\\*\\*\\*\\*' virtual_bpf.h > bpf.h")
-  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/compat)
 else()
   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libbpf/include)
   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libbpf/include/uapi)
