@@ -1,0 +1,218 @@
+Demonstrations of avxtime, the Linux eBPF/bcc version.
+
+The AVX-512 instruction set in x86 can accelerate FPU execution but also causes
+core turbo frequency drop that impacts sibling CPUs. This can affect performance
+of other workloads running on the sibling CPU. Detecting AVX-512 usage is thus
+critical in cloud environments for placement.
+
+This tool summarizes AVX-512 cputime as a histogram, showing the amount of CPU
+time consumed by AVX-512 per-task. Within the specified time period, it tracks
+the time spent from being scheduled on the CPU until the FPU registers are
+deactivated for each task that uses AVX-512.
+
+This provides valuable insights - it can identify processes and CPUs executing
+AVX-512 to avoid scheduling sensitive jobs together. The cputime distribution
+can also help debug AVX-512 performance issues.
+
+This program is based on this Linux kernel patch that tracks per-task AVX-512 usage:
+
+https://github.com/torvalds/linux/commit/2f7726f955572e587d5f50fbe9b2deed5334bd90
+
+It uses BPF to measure the time between a task's AVX-512 timestamps to calculate
+the CPU time in AVX-512 mode. The aggregated cputime distribution is printed for
+analysis.
+
+As an example, this is a system without AVX-512 instructions running:
+
+# ./avxtime.py
+Tracing AVX-512 cputime... Hit Ctrl-C to end.
+^C
+
+And now a heavily AVX-512 loaded system:
+
+# ./avxtime.py
+Tracing AVX-512 cputime... Hit Ctrl-C to end.
+^C
+     usecs               : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 0        |                                        |
+         8 -> 15         : 0        |                                        |
+        16 -> 31         : 0        |                                        |
+        32 -> 63         : 0        |                                        |
+        64 -> 127        : 0        |                                        |
+       128 -> 255        : 0        |                                        |
+       256 -> 511        : 0        |                                        |
+       512 -> 1023       : 0        |                                        |
+      1024 -> 2047       : 0        |                                        |
+      2048 -> 4095       : 0        |                                        |
+      4096 -> 8191       : 0        |                                        |
+      8192 -> 16383      : 1        |*****                                   |
+     16384 -> 32767      : 2        |**********                              |
+     32768 -> 65535      : 2        |**********                              |
+     65536 -> 131071     : 2        |**********                              |
+    131072 -> 262143     : 8        |****************************************|
+    262144 -> 524287     : 8        |****************************************|
+    524288 -> 1048575    : 3        |***************                         |
+
+You can also use the -C or -P parameters to display per-CPU or per-process histograms.
+
+# ./avxtime.py -C
+Tracing AVX-512 cputime... Hit Ctrl-C to end.
+^C
+
+cpu = 7
+     usecs               : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 0        |                                        |
+         8 -> 15         : 0        |                                        |
+        16 -> 31         : 0        |                                        |
+        32 -> 63         : 0        |                                        |
+        64 -> 127        : 0        |                                        |
+       128 -> 255        : 0        |                                        |
+       256 -> 511        : 0        |                                        |
+       512 -> 1023       : 0        |                                        |
+      1024 -> 2047       : 0        |                                        |
+      2048 -> 4095       : 0        |                                        |
+      4096 -> 8191       : 1        |*                                       |
+      8192 -> 16383      : 5        |*******                                 |
+     16384 -> 32767      : 2        |***                                     |
+     32768 -> 65535      : 14       |*********************                   |
+     65536 -> 131071     : 26       |****************************************|
+    131072 -> 262143     : 17       |**************************              |
+    262144 -> 524287     : 12       |******************                      |
+    524288 -> 1048575    : 6        |*********                               |
+
+# ./avxtime.py -P
+Tracing AVX-512 cputime... Hit Ctrl-C to end.
+^C
+
+pid = 2118389 stress_add_i_av
+
+     usecs               : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 0        |                                        |
+         8 -> 15         : 0        |                                        |
+        16 -> 31         : 0        |                                        |
+        32 -> 63         : 0        |                                        |
+        64 -> 127        : 0        |                                        |
+       128 -> 255        : 0        |                                        |
+       256 -> 511        : 0        |                                        |
+       512 -> 1023       : 1        |******                                  |
+      1024 -> 2047       : 0        |                                        |
+      2048 -> 4095       : 0        |                                        |
+      4096 -> 8191       : 2        |*************                           |
+      8192 -> 16383      : 4        |**************************              |
+     16384 -> 32767      : 0        |                                        |
+     32768 -> 65535      : 1        |******                                  |
+     65536 -> 131071     : 1        |******                                  |
+    131072 -> 262143     : 4        |**************************              |
+    262144 -> 524287     : 6        |****************************************|
+    524288 -> 1048575    : 2        |*************                           |
+   1048576 -> 2097151    : 1        |******                                  |
+
+pid = 2118382 stress_add_avx5
+
+     usecs               : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 0        |                                        |
+         8 -> 15         : 0        |                                        |
+        16 -> 31         : 0        |                                        |
+        32 -> 63         : 0        |                                        |
+        64 -> 127        : 0        |                                        |
+       128 -> 255        : 1        |*                                       |
+       256 -> 511        : 2        |**                                      |
+       512 -> 1023       : 2        |**                                      |
+      1024 -> 2047       : 6        |******                                  |
+      2048 -> 4095       : 5        |*****                                   |
+      4096 -> 8191       : 5        |*****                                   |
+      8192 -> 16383      : 20       |*********************                   |
+     16384 -> 32767      : 19       |********************                    |
+     32768 -> 65535      : 37       |****************************************|
+     65536 -> 131071     : 24       |*************************               |
+    131072 -> 262143     : 15       |****************                        |
+
+You can also use the -c or -p parameters to trace only the execution of AVX-512
+on a specific CPU or process.
+
+# ./avxtime.py -p $(pidof parprimes)
+Tracing AVX-512 cputime... Hit Ctrl-C to end.
+^C
+     usecs               : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 0        |                                        |
+         8 -> 15         : 0        |                                        |
+        16 -> 31         : 0        |                                        |
+        32 -> 63         : 0        |                                        |
+        64 -> 127        : 1        |                                        |
+       128 -> 255        : 1        |                                        |
+       256 -> 511        : 3        |*                                       |
+       512 -> 1023       : 13       |*******                                 |
+      1024 -> 2047       : 73       |****************************************|
+      2048 -> 4095       : 9        |****                                    |
+      4096 -> 8191       : 10       |*****                                   |
+      8192 -> 16383      : 15       |********                                |
+     16384 -> 32767      : 24       |*************                           |
+     32768 -> 65535      : 22       |************                            |
+     65536 -> 131071     : 29       |***************                         |
+    131072 -> 262143     : 27       |**************                          |
+    262144 -> 524287     : 7        |***                                     |
+
+# ./avxtime.py -c 2
+Tracing AVX-512 cputime... Hit Ctrl-C to end.
+^C
+     usecs               : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 0        |                                        |
+         8 -> 15         : 0        |                                        |
+        16 -> 31         : 1        |                                        |
+        32 -> 63         : 0        |                                        |
+        64 -> 127        : 0        |                                        |
+       128 -> 255        : 2        |*                                       |
+       256 -> 511        : 6        |****                                    |
+       512 -> 1023       : 11       |********                                |
+      1024 -> 2047       : 45       |**********************************      |
+      2048 -> 4095       : 21       |****************                        |
+      4096 -> 8191       : 31       |***********************                 |
+      8192 -> 16383      : 52       |****************************************|
+     16384 -> 32767      : 26       |********************                    |
+     32768 -> 65535      : 30       |***********************                 |
+     65536 -> 131071     : 16       |************                            |
+    131072 -> 262143     : 0        |                                        |
+    262144 -> 524287     : 1        |                                        |
+    524288 -> 1048575    : 1        |                                        |
+
+USAGE message:
+
+# ./avxtime.py -h
+usage: avxtime.py [-h] [-T] [-m] [-C] [-P] [-c CPU] [-p PID]
+                  [interval] [count]
+
+Summarize AVX-512 cputime per task as a histogram.
+
+positional arguments:
+  interval            output interval, in seconds
+  count               number of outputs
+
+optional arguments:
+  -h, --help          show this help message and exit
+  -T, --timestamp     include timestamp on output
+  -m, --milliseconds  millisecond histogram
+  -C, --cpus          show each CPU separately
+  -P, --pids          print a histogram per process ID
+  -c CPU, --cpu CPU   trace this CPU only
+  -p PID, --pid PID   trace this PID only
+
+examples:
+    avxtime              # summarize AVX-512 cputime as a histogram
+    avxtime 1 10         # print 1 second summaries, 10 times
+    avxtime -mT 1        # 1s summaries, milliseconds, and timestamps
+    avxtime -C           # show each CPU separately
+    avxtime -P           # show each PID separately
+    avxtime -c 1         # trace CPU 1 only
+    avxtime -p 185       # trace PID 185 only
