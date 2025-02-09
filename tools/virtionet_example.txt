@@ -1,0 +1,24 @@
+Demonstrations of virtionet.
+
+
+Display information about the data received from virtio_net driver.
+
+For example:
+
+# ./virtionet.py
+# TIME               CPU  PID    BUF_LEN
+# 255982.456288938   7    0      78
+# 255982.457095461   7    0      78
+# 255982.457242272   7    0      78
+# 255982.457377682   7    0      78
+# 255982.457510673   7    0      78
+# 255982.457627593   7    0      78
+
+@TIME: Timestamp for received pkt.
+@CPU: which cpu receive this pkt.
+@PID: The process being executed on the CPU.
+@BUF_LEN: Length of received pkt.
+
+
+examples:
+    ./virtionet.py                              # Display information about the data received from virtio_net driver until Ctrl-C
