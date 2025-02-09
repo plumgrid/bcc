@@ -1,0 +1,95 @@
+lokstat.py takes an output file from locktrace and produces a textual report.
+
+usage: lockstat.py [-h] [-p PID] [-e EVENT] [-s SORT_BY] [-g GROUP_BY]
+                   [-C COLUMNS] [-c] [-i INPUT_FILE] [-d] [--hist HIST]
+                   [--stack-storage-size STACK_STORAGE_SIZE]
+                   [duration]
+
+Display aggregate lock stats in a tabular format
+
+positional arguments:
+  duration              Duration of trace, in seconds. Ignored when -i is
+                        used.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -p PID, --pid PID     Show stats for this pid only
+  -e EVENT, --event EVENT
+                        Show locks (lock), conditional waits (cond) or both
+                        (all)
+  -s SORT_BY, --sort-by SORT_BY
+                        Sort by this column
+  -g GROUP_BY, --group-by GROUP_BY
+                        Group by lock, stack, comm or tid
+  -C COLUMNS, --columns COLUMNS
+                        Include these columns. See list of column names below.
+                        Default=blocked.count,blocked.sum,sys.sum,lock,lock.co
+                        unt,tid.count,stack.count
+  -c, --callstack       Display full callstacks
+  -i INPUT_FILE, --input-file INPUT_FILE
+                        Don't trace - read the specified trace file instead.
+  -d, --debug           Display extra stats used for sanity checking /
+                        debugging. Ignored when -i is used.
+  --hist HIST           Write per-lock histograms to the specified
+                        file.Ignored when -i is used
+  --stack-storage-size STACK_STORAGE_SIZE
+                        the number of unique stack traces that can be stored
+                        and displayed. Ignored when -i is used
+
+Available columns:
+blocked.(sum|count|max|avg) - Time / count blocked (sleeping) on a lock
+sys.(sum|count|max|avg) - Time / count executing in sys_futex
+lock(.count) - Top lock address / number of locks
+tid(.count) - Top tid / number of tids
+comm(.count) - Thread name
+
+EXAMPLES:
+lockstat.py
+        Profile all processes until ctrl-c and print reports of significant ones
+lockstat.py 10
+        Profile all processes for 10 seconds
+lockstat.py -p 12345
+        Profile only pid 12345 for 5 seconds
+lockstat.py -C blocked.sum,tid.count,lock -p 12345
+        Show these columns only.
+lockstat.py -g comm -s blocked.max -p 12345
+        Group by thread name and sort by max block time
+lockstat.py -g stack -c -p 12345
+        Group by callstack and show full stacks
+lockstat.py -i locks.txt
+        Instead of tracing, read a pre-generated trace file
+
+
+Here is an example output:
+
+$ lockstat.py -p 712036 5
+Pid 712036: (10603 records)
+
+  Summary for complex_server_process (712036):
+  ----------------------------------------
+
+  Observed threads:                  337
+  Observed locks:                    572
+  Observed comms:                    40
+  Sys_futex calls:                   735895 (460430/390925/275465 wait/blk/wake)
+  Sys_futex_calls (locks):           320735 (50452/22938/270283 wait/blk/wake)
+  Sys_futex_calls (other):           415160 (409978/367987/5182 wait/blk/wake)
+    (cond waits / semaphores / etc)
+  Runtime:                           92s (28s sys, 5s wall clock)
+  Blocked on locks:                  14s (14% of run+block)
+  Executing locks:                   5883ms (6% of run, 690ms usr, 5193ms sys)
+  Executing usr atomics:             0ms (0% of run)
+  Waiting on cond var:               344s (76% of run+block+wait)
+  Sampled vs. timestamps futex:      1280ms vs 1495ms and 2630 vs 3698ms lock/cond
+  Tracing overhead:                  820ms (1% of run)
+
+  Blocked This Cuml Blocked SysFutx TIDs Callers Lock Address       Caller
+   Sum ms    %    %       #  Sum ms    #       #
+  -----------------------------------------------------------------------------------------------------------
+     9595   66   66   22715    1387   72       5     0x7f4e1dbe3bd0 apache::thrift::concurrency::Mutex::lock() const <-- Worker::run()
+      942    7   73       1       0    2       2     0x7f4e0cc90ef0 folly::detail::SingleElementQueue<>::dequeueImpl() <-- scribe::ScribeClient::send()
+      662    5   78       1       0    2       2     0x7f4e0cc937e0 folly::detail::SingleElementQueue<>::dequeueImpl() <-- scribe::ScribeClient::send()
+      419    3   80       1       0    2       2     0x7f4e0cc92980 folly::detail::SingleElementQueue<>::dequeueImpl() <-- scribe::ScribeClient::send()
+      307    2   83       1       0    2       2     0x7f4e0cc93500 folly::detail::SingleElementQueue<>::dequeueImpl() <-- scribe::ScribeClient::send()
+...
+

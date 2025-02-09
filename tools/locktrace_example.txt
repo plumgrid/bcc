@@ -1,0 +1,71 @@
+Demonstrations of locktrace, Linux eBPF/bcc version.
+
+This program shows per-lock statistics and stack traces.
+It works by tracing the sys_futex system call and scheduler switches.
+
+The statistics collected include the following:
+* blocked_us: Time waiting on a lock (blocked in sys_futex) in microseconds
+* sys_us: Time spent executing in sys_futex (not blocked) in microseconds
+* max_blocked_us, max_sys_us: The worst cases of the above in microseconds
+* wait_count: Number of calls to sys_futex to wait on a lock
+* blocked_count: Number of times actually blocked on a lock
+* wake_count: Number of calls to sys_futex to wake a waiting thread up
+* errors: Number of times sys_futes returns an error code
+* The list of threads blocked on a particular lock
+* Unique stack traces for each sys_futex call per lock
+
+The output is in csv format and is meant for further processing and aggregation
+by other scripts.
+
+Example output from tracing a specific process for 3 seconds:
+# ./locktrace -p 2496274 3
+Tracing pid 2919271, Ctrl+C to quit.
+pid,tid,addr,blocked_us,sys_us,max_blocked_us,max_sys_us,wait_count,blocked_count,wake_count,errors,stack
+2919271,2919283,0x609388,4403,7185,134,67,17990,797,0,17191,mutex-test;[unknown];std::thread::_Impl<std::_Bind_simple<void (*(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*))(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*)> >::_M_run();std::_Bind_simple<void (*(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*))(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*)>::operator()();void std::_Bind_simple<void (*(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*))(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*)>::_M_invoke<0ul, 1ul>(std::_Index_tuple<0ul, 1ul>);runThread(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*);doWorkUnderLock(int);finish_work(int, int);finish_work2(int, int);std::lock_guard<std::mutex>::lock_guard(std::mutex&);std::mutex::lock();__lll_lock_wait
+2919271,2919279,0x609388,4199,7717,193,11,18263,852,0,17404,mutex-test;[unknown];std::thread::_Impl<std::_Bind_simple<void (*(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*))(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*)> >::_M_run();std::_Bind_simple<void (*(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*))(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*)>::operator()();void std::_Bind_simple<void (*(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*))(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*)>::_M_invoke<0ul, 1ul>(std::_Index_tuple<0ul, 1ul>);runThread(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*);doWorkUnderLock(int);finish_work(int, int);finish_work2(int, int);std::lock_guard<std::mutex>::lock_guard(std::mutex&);std::mutex::lock();__lll_lock_wait
+2919271,2919274,0x609388,4119,7432,141,10,18660,788,0,17869,mutex-test;[unknown];std::thread::_Impl<std::_Bind_simple<void (*(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*))(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*)> >::_M_run();std::_Bind_simple<void (*(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*))(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*)>::operator()();void std::_Bind_simple<void (*(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*))(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*)>::_M_invoke<0ul, 1ul>(std::_Index_tuple<0ul, 1ul>);runThread(int, std::vector<std::shared_ptr<Chair>, std::allocator<std::shared_ptr<Chair> > >*);doWorkUnderLock(int);finish_work(int, int);finish_work2(int, int);std::lock_guard<std::mutex>::lock_guard(std::mutex&);std::mutex::lock();__lll_lock_wait
+...
+
+The stack traces are shown as single lines, with functions separated by
+semicolons. The first entry is the task name.
+
+The intent is to allow collection of this data once and then postprocessed in a
+number of different ways depending on the use case, possibly on a different
+machine. For example, you could create flamegraphs focusing in on a particular
+metric such as blocked time, or use the lockstat script to summarize and drill
+down in various ways.
+
+
+USAGE message:
+
+# ./locktrace.py -h
+usage: locktrace.py [-h] [-p PID] [-d] [--hist HIST]
+                    [--stack-storage-size STACK_STORAGE_SIZE]
+                    [duration]
+
+Trace kernel futex events and collect per-lock stats.
+
+positional arguments:
+  duration              duration of trace, in seconds
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -p PID, --pid PID     the PID to trace; if not specified, trace all
+  -d, --debug           Display extra stats used for sanity checking /
+                        debugging
+  --hist HIST           Write per-lock histograms to the specified file
+  --stack-storage-size STACK_STORAGE_SIZE
+                        the number of unique stack traces that can be
+                        stored and displayed (default 1024)
+
+EXAMPLES:
+
+./locktrace
+        Trace calls to sys_futex until Ctrl-C
+./locktrace -p <pid>
+        Trace only for the specified pid until Ctrl-C
+./locktrace -p <pid> 10
+        Trace the specified pid for 10 seconds
+./locktrace -p <pid> --hist hists.txt
+        Trace the specified pid until Ctrl-C and write per-lock
+        histograms of blocked time distribution to hists.txt
