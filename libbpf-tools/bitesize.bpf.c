@@ -34,7 +34,7 @@ static __always_inline bool comm_allowed(const char *comm)
 	return true;
 }
 
-static int trace_rq_issue(struct request *rq)
+static __always_inline int trace_rq_issue(struct request *rq)
 {
 	struct hist_key hkey;
 	struct hist *histp;
