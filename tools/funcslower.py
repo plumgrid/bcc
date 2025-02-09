@@ -79,7 +79,6 @@ bpf_text = """
 #include <linux/sched.h>    // for TASK_COMM_LEN
 
 struct entry_t {
-    u64 id;
     u64 start_ns;
 #ifdef GRAB_ARGS
 #ifndef __s390x__
@@ -95,6 +94,11 @@ struct entry_t {
     int kernel_stack_id;
     u64 kernel_ip;
 #endif
+};
+
+struct key_t {
+    u64 tgid_pid;
+    u64 id;
 };
 
 struct data_t {
@@ -120,7 +124,7 @@ struct data_t {
 #endif
 };
 
-BPF_HASH(entryinfo, u64, struct entry_t);
+BPF_HASH(entryinfo, struct key_t, struct entry_t);
 BPF_PERF_OUTPUT(events);
 
 #if defined(USER_STACKS) || defined(KERNEL_STACKS)
@@ -136,9 +140,12 @@ static int trace_entry(struct pt_regs *ctx, int id)
 
     u32 pid = tgid_pid;
 
+    struct key_t key = {};
+    key.tgid_pid = tgid_pid;
+    key.id = id;
+
     struct entry_t entry = {};
     entry.start_ns = bpf_ktime_get_ns();
-    entry.id = id;
 #ifdef GRAB_ARGS
     entry.args[0] = PT_REGS_PARM1(ctx);
     entry.args[1] = PT_REGS_PARM2(ctx);
@@ -184,29 +191,32 @@ static int trace_entry(struct pt_regs *ctx, int id)
     }
 #endif
 
-    entryinfo.update(&tgid_pid, &entry);
+    entryinfo.update(&key, &entry);
 
     return 0;
 }
 
-int trace_return(struct pt_regs *ctx)
+static int trace_return(struct pt_regs *ctx, int id)
 {
     struct entry_t *entryp;
     u64 tgid_pid = bpf_get_current_pid_tgid();
+    struct key_t key = {};
+    key.tgid_pid = tgid_pid;
+    key.id = id;
 
-    entryp = entryinfo.lookup(&tgid_pid);
+    entryp = entryinfo.lookup(&key);
     if (entryp == 0) {
         return 0;
     }
 
     u64 delta_ns = bpf_ktime_get_ns() - entryp->start_ns;
-    entryinfo.delete(&tgid_pid);
+    entryinfo.delete(&key);
 
     if (delta_ns < DURATION_NS)
         return 0;
 
     struct data_t data = {};
-    data.id = entryp->id;
+    data.id = id;
     data.tgid_pid = tgid_pid;
     data.start_ns = entryp->start_ns;
     data.duration_ns = delta_ns;
@@ -248,7 +258,10 @@ for i in range(len(args.functions)):
 int trace_%d(struct pt_regs *ctx) {
     return trace_entry(ctx, %d);
 }
-""" % (i, i)
+int rtrace_%d(struct pt_regs *ctx) {
+    return trace_return(ctx, %d);
+}
+""" % (i, i, i, i)
 
 if args.verbose or args.ebpf:
     print(bpf_text)
@@ -261,10 +274,10 @@ for i, function in enumerate(args.functions):
     if ":" in function:
         library, func = function.split(":")
         b.attach_uprobe(name=library, sym=func, fn_name="trace_%d" % i)
-        b.attach_uretprobe(name=library, sym=func, fn_name="trace_return")
+        b.attach_uretprobe(name=library, sym=func, fn_name="rtrace_%d" % i)
     else:
         b.attach_kprobe(event=function, fn_name="trace_%d" % i)
-        b.attach_kretprobe(event=function, fn_name="trace_return")
+        b.attach_kretprobe(event=function, fn_name="rtrace_%d" % i)
 
 time_designator = "us" if args.min_us else "ms"
 time_value = args.min_us or args.min_ms or 1
