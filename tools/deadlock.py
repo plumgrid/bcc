@@ -57,6 +57,9 @@ import sys
 import time
 
 
+CWD = os.path.dirname(os.path.realpath(__file__))
+
+
 class DiGraph(object):
     '''
     Adapted from networkx: http://networkx.github.io/
@@ -482,7 +485,7 @@ def main():
             print('%s. Is the process (pid=%d) running?' % (str(e), args.pid))
             sys.exit(1)
 
-    with open('deadlock.c') as f:
+    with open(os.path.join(CWD, 'deadlock.c')) as f:
         text = f.read()
     text = text.replace('MAX_THREADS', str(args.threads));
     text = text.replace('MAX_EDGES', str(args.edges));
