@@ -140,6 +140,13 @@ struct data_t {
     int retval;
 };
 
+struct val_t {
+    const char *filename;
+    const char *const *argv;
+    const char *const *envp;
+};
+
+BPF_HASH(entryinfo, u64, struct val_t);
 BPF_PERF_OUTPUT(events);
 
 static int __submit_arg(struct pt_regs *ctx, void *ptr, struct data_t *data)
@@ -159,19 +166,20 @@ static int submit_arg(struct pt_regs *ctx, void *ptr, struct data_t *data)
     return 0;
 }
 
-int syscall__execve(struct pt_regs *ctx,
-    const char __user *filename,
-    const char __user *const __user *__argv,
-    const char __user *const __user *__envp)
+int parse_argv_envp(struct pt_regs *ctx)
 {
+    struct val_t *valp;
+    u64 id = bpf_get_current_pid_tgid();
 
-    u32 uid = bpf_get_current_uid_gid() & 0xffffffff;
-
-    UID_FILTER
-
-    if (container_should_be_filtered()) {
+    valp = entryinfo.lookup(&id);
+    if (valp == 0) {
+        // missed tracing issue or filtered
         return 0;
     }
+
+    const char *filename = valp->filename;
+    const char *const *__argv = valp->argv;
+    const char *const *__envp = valp->envp;
 
     // create data here and pass to submit_arg to save stack space (#555)
     struct data_t data = {};
@@ -204,6 +212,30 @@ int syscall__execve(struct pt_regs *ctx,
     char ellipsis[] = "...";
     __submit_arg(ctx, (void *)ellipsis, &data);
 out:
+    return 0;
+}
+
+int syscall__execve(struct pt_regs *ctx,
+    const char __user *filename,
+    const char __user *const __user *__argv,
+    const char __user *const __user *__envp)
+{
+    u32 uid = bpf_get_current_uid_gid() & 0xffffffff;
+
+    UID_FILTER
+
+    if (container_should_be_filtered()) {
+        return 0;
+    }
+
+    u64 id =  bpf_get_current_pid_tgid();
+    struct val_t val = {
+        .filename = filename,
+        .argv = __argv,
+        .envp = __envp,
+    };
+
+    entryinfo.update(&id, &val);
     return 0;
 }
 
@@ -272,6 +304,10 @@ if args.ebpf:
 b = BPF(text=bpf_text)
 execve_fnname = b.get_syscall_fnname("execve")
 b.attach_kprobe(event=execve_fnname, fn_name="syscall__execve")
+if BPF.get_kprobe_functions(b'prepare_binprm'):
+    b.attach_kprobe(event="prepare_binprm", fn_name="parse_argv_envp")
+else:
+    b.attach_kprobe(event="bprm_execve", fn_name="parse_argv_envp")
 b.attach_kretprobe(event=execve_fnname, fn_name="do_ret_sys_execve")
 
 # header
