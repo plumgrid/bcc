@@ -7,9 +7,11 @@
 
 from __future__ import print_function
 from bcc import BPF, USDT
-from unittest import main, TestCase
+from unittest import main, TestCase, skipUnless
+
 from subprocess import Popen, PIPE
 from tempfile import NamedTemporaryFile
+from utils import kernel_version_ge
 import ctypes as ct
 import inspect
 import os
@@ -25,6 +27,7 @@ class TestUDST(TestCase):
 #include <string.h>
 #include "folly/tracing/StaticTracepoint.h"
 
+FOLLY_SDT_DEFINE_SEMAPHORE(test, probe_point_1)
 int main() {
   char s[100];
   int i, a = 200, b = 40;
@@ -34,7 +37,7 @@ int main() {
   const char* str = "str";
   size_t len = strlen(str);
   while (1) {
-    FOLLY_SDT(test, probe_point_1, s[7], b);
+    FOLLY_SDT_WITH_SEMAPHORE(test, probe_point_1, s[7], b);
     FOLLY_SDT(test, probe_point_3, a, b);
     FOLLY_SDT(test, probe_point_1, s[4], a);
     FOLLY_SDT(test, probe_point_2, 5, s[10]);
@@ -138,6 +141,12 @@ int do_trace5(struct pt_regs *ctx) {
         comp.stdin.close()
         self.assertEqual(comp.wait(), 0)
         self.app = Popen([self.ftemp.name])
+
+    @skipUnless(kernel_version_ge(4,20), "requires kernel >= 4.20")
+    def test_attach_path(self):
+        u = USDT(path=self.ftemp.name)
+        # This will (should not) fail with bcc.usdt.USDTException: Failed to enable USDT probe, fix in the way
+        u.enable_probe(probe="probe_point_1", fn_name="do_trace1")
 
     def test_attach1(self):
         # enable USDT probe from given PID and verifier generated BPF programs
