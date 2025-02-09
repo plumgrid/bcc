@@ -7,6 +7,8 @@ if(DEFINED BCC_CUR_CPU_IDENTIFIER)
 endif()
 if(DEFINED BCC_BACKUP_COMPILE)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBCC_BACKUP_COMPILE='${BCC_BACKUP_COMPILE}'")
+else()
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBCC_BACKUP_COMPILE=0")
 endif()
 
 add_library(clang_frontend-objects OBJECT loader.cc b_frontend_action.cc tp_frontend_action.cc kbuild_helper.cc)

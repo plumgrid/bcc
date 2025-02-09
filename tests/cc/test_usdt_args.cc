@@ -59,15 +59,15 @@ static void verify_register(USDT::ArgumentParser &parser, int arg_size,
 
 TEST_CASE("test usdt argument parsing", "[usdt]") {
   SECTION("parse failure") {
-#ifdef __aarch64__
+#if defined(__aarch64__)
     USDT::ArgumentParser_aarch64 parser("4@[x32,200]");
-#elif __loongarch64
+#elif defined(__loongarch64)
     USDT::ArgumentParser_loongarch64 parser("4@[$r32,200]");
-#elif __powerpc64__
+#elif defined(__powerpc64__)
     USDT::ArgumentParser_powerpc64 parser("4@-12(42)");
-#elif __s390x__
+#elif defined(__s390x__)
     USDT::ArgumentParser_s390x parser("4@-12(%r42)");
-#elif __riscv
+#elif defined(__riscv)
     USDT::ArgumentParser_riscv64 parser("4@20(s35)");
 #elif defined(__x86_64__)
     USDT::ArgumentParser_x64 parser("4@i%ra+1r");
@@ -82,7 +82,7 @@ TEST_CASE("test usdt argument parsing", "[usdt]") {
     REQUIRE(i < 10);
   }
   SECTION("argument examples from the Python implementation") {
-#ifdef __aarch64__
+#if defined(__aarch64__)
     USDT::ArgumentParser_aarch64 parser(
         "-1@x0 4@5 8@[x12] -4@[x30,-40] -4@[x31,-40] 8@[sp, 120]");
     verify_register(parser, -1, "regs[0]");
@@ -91,7 +91,7 @@ TEST_CASE("test usdt argument parsing", "[usdt]") {
     verify_register(parser, -4, "regs[30]", -40);
     verify_register(parser, -4, "sp", -40);
     verify_register(parser, 8, "sp", 120);
-#elif __loongarch64
+#elif defined(__loongarch64)
     USDT::ArgumentParser_loongarch64 parser(
 	"-1@$r0 4@5 8@[$r12] -4@[$r30,-40] -4@[$r3,-40] 8@[sp, 120]");
     verify_register(parser, -1, "regs[0]");
@@ -100,7 +100,7 @@ TEST_CASE("test usdt argument parsing", "[usdt]") {
     verify_register(parser, -4, "regs[30]", -40);
     verify_register(parser, -4, "sp", -40);
     verify_register(parser, 8, "sp", 120);
-#elif __powerpc64__
+#elif defined(__powerpc64__)
     USDT::ArgumentParser_powerpc64 parser(
         "-4@0 8@%r0 8@i0 4@0(%r0) -2@0(0) "
         "1@0 -2@%r3 -8@i9 -1@0(%r4) -4@16(6) "
@@ -144,7 +144,7 @@ TEST_CASE("test usdt argument parsing", "[usdt]") {
     verify_register(parser, 2, 1097);
     verify_register(parser, 4, "gpr[30]", 108);
     verify_register(parser, -2, "gpr[31]", -4);
-#elif __s390x__
+#elif defined(__s390x__)
     USDT::ArgumentParser_s390x parser(
         "-4@%r0 8@%r0 8@0 4@0(%r0) -2@0(%r0) "
         "1@%r0 -2@%r3 -8@9 -1@0(%r4) -4@16(%r6) "
@@ -188,7 +188,7 @@ TEST_CASE("test usdt argument parsing", "[usdt]") {
     verify_register(parser, 2, 1097);
     verify_register(parser, 4, "gprs[7]", 108);
     verify_register(parser, -2, "gprs[6]", -4);
-#elif __riscv
+#elif defined(__riscv)
     USDT::ArgumentParser_riscv64 parser(
 	"-4@s5 -4@a0 4@20(s1) -4@-1 8@-72(s0) 8@0");
     verify_register(parser, -4, "s5");

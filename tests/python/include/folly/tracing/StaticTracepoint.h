@@ -17,7 +17,7 @@
 #pragma once
 
 #if defined(__ELF__) && (defined(__x86_64__) || defined(__i386__)) && \
-    !FOLLY_DISABLE_SDT
+    !(defined(FOLLY_DISABLE_SDT) && FOLLY_DISABLE_SDT)
 
 #include <folly/tracing/StaticTracepoint-ELFx86.h>
 

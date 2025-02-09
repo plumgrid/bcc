@@ -36,15 +36,15 @@ Location::Location(uint64_t addr, const std::string &bin_path, const char *arg_f
     : address_(addr),
       bin_path_(bin_path) {
 
-#ifdef __aarch64__
+#if defined(__aarch64__)
   ArgumentParser_aarch64 parser(arg_fmt);
-#elif __loongarch64
+#elif defined(__loongarch64)
   ArgumentParser_loongarch64 parser(arg_fmt);
-#elif __powerpc64__
+#elif defined(__powerpc64__)
   ArgumentParser_powerpc64 parser(arg_fmt);
-#elif __s390x__
+#elif defined(__s390x__)
   ArgumentParser_s390x parser(arg_fmt);
-#elif __riscv
+#elif defined(__riscv)
   ArgumentParser_riscv64 parser(arg_fmt);
 #else
   ArgumentParser_x64 parser(arg_fmt);
