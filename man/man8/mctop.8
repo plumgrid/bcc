@@ -1,0 +1,131 @@
+.TH mctop 8  "2019-11-22" "USER COMMANDS"
+.SH NAME
+mctop \- Summarize key access data for a memcached process. Top for memcached.
+Uses Linux BPF/bcc.
+.SH SYNOPSIS
+.B mctop [\-h] [\-p PID] [\-o OUTPUT] [\-C] [\-r MAXROWS] [interval] [count]
+.SH DESCRIPTION
+This tool uses USDT tracing, which must be built-in to the memcached binary.
+
+mctop provides realtime insights into memcached key access patterns, in a
+terminal-interactive interface. Data displayed with memcached can also be
+dumped to JSON for more in-depth analysis of the tracing session.
+
+mctop instruments every memcached command, causing an eBPF probe to be
+triggered to collect the key and event data whenever a command is issued. This
+data is sorted and displayed in a top-like interface.
+
+Since this uses BPF, only the root user can use this tool.
+.SH REQUIREMENTS
+CONFIG_BPF and bcc, USDT support built-in to memcached with --enable-dtrace
+.SH OPTIONS
+.TP
+\-C
+Don't clear the screen.
+.TP
+\-r MAXROWS
+Maximum number of rows to print. Default is 20.
+.TP
+interval
+Interval between updates, seconds.
+.TP
+count
+Number of interval summaries. // FIXME is this supported?
+.SH EXAMPLES
+.TP
+Attach to a memcached process with USDT support built-in:
+.B mctop -p MEMCACHED_PID
+.TP
+Save map data to a file when the DUMP command is issued:
+.B mctop -p MEMCACHED_PID -o FILENAME
+.SH COMMANDS
+.TP
+c/C
+Sort by count of calls to the key.
+.TP
+s/S
+Sort by last reported size of data associated with this key.
+.TP
+r/R
+Sort by realtime rate of calls to this key.
+.TP
+b/B
+Sort by realtime bandwidth computed for this key.
+.TP
+n/N
+Sort by most recently accessed key.
+.TP
+t/T
+Toggle between ascending and descending sort.
+.TP
+w/W
+Dump the map data to a file and clear all stored data.
+.TP
+q/Q
+Exit mctop tracing session and detach from memcached process.
+.SH NAVIGATION
+.TP
+g
+Move selected line to first line
+.TP
+G
+Move selected line to last line
+.TP
+j/J
+Move selected line downward
+.TP
+k/K
+Move selected line upward
+.TP
+d/D
+Move selected line one page down
+.TP
+u/U
+Move selected line one page up
+.SH FIELDS
+.TP
+MEMCACHED KEY
+The memcached key for which the probe was fired on.
+.TP
+CALLS
+The number of times the key was accessed by any command.
+.TP
+OBJSIZE
+The current size of the contents of the key (bytes).
+.TP
+REQ/S
+The realtime rate of hits to the key.
+.TP
+BW(kbps)
+The total amount of data transacted on the key, as a realtime rate, in kbps.
+.TP
+TOTAL
+The total amount of data transacted on the key. // FIXME Units?
+.SH OVERHEAD
+This tool utilizes existing support for USDT probes in memcached, and the
+overhead of this tool is highly dependant on the memcached usage pattern. This
+tool traces all memcached commands, so at high rates of requests the overhead
+may be measurable. Test at small scales before rolling out to production for
+performance differences during mctop sessions.
+
+The overhead also depends on if semaphores are enabled on the USDT probes. As
+some kernels disallow writes to /proc/self/mem for security reasons, kernels
+older than 4.20 with this protection enabled may need to run with semaphores
+disabled. This means that the sdt macros (calls to DRACE_PROBE) will be called
+unconditionally, but do nothing. With semaphores enabled on the sdt probes,
+this execution may be avoided.
+.SH SOURCE
+This is from bcc.
+.IP
+https://github.com/iovisor/bcc
+.PP
+Also look in the bcc distribution for a companion _examples.txt file containing
+example usage, output, and commentary for this tool.
+.SH OS
+Linux
+.SH STABILITY
+Unstable - in development.
+.SH AUTHOR
+Dale Hamel
+.SH INSPIRATION
+mctop ruby with libpcap by Marcus Barczak

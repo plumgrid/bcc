@@ -1,0 +1,18 @@
+Demonstrations of mctop, the Linux eBPF/bcc version.
+
+
+mctop summarizes and collects hotkeys insights from  memcached. Eg:
+
+
+// FIXME
+
+
+To try out mctop, a sample memcached instance with dtrace probes enabled
+without semaphore support is available for testing via docker:
+
+
+docker run --name memcached-dtrace -p 11211:11211/tcp quay.io/dalehamel/memcached-dtrace:latest
+
+
+Alternatively, building memcached with --dtrace-enabled should allow for using
+this feature in production.
