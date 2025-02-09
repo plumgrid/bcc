@@ -1,0 +1,99 @@
+.TH madvsnoop 8  "2022-12-05" "USER COMMANDS"
+.SH NAME
+madvsnoop \- Trace application memory advise issued by the madvise() syscall to the kernel. Uses Linux eBPF/bcc.
+.SH SYNOPSIS
+.B madvsnoop [\-h] [\-x] [-p PID] [-T PID]
+.SH DESCRIPTION
+madvsnoop traces the madvise() syscall, to show signals sent via this method. This
+may be useful when trying to improve applications/system performance.
+
+This works by tracing the kernel sys_madvise() function using trace point, and
+will need updating to match any changes to this function.
+
+This makes use of Linux 4.7+ (BPF_PROG_TYPE_TRACEPOINT support).
+
+and will not work for kernels older than 4.7, mechanisms to make it work for older kernel are however in active development.
+
+Since this uses BPF, only the root user can use this tool.
+.SH REQUIREMENTS
+CONFIG_BPF and bcc.
+.SH OPTIONS
+.TP
+\-h
+Print usage message.
+.TP
+\-x
+Only print failed madvise() syscalls.
+.TP
+\-p PID
+Trace this process ID only which is the sender of signal (filtered in-kernel).
+.TP
+\-T PID
+Trace this target process ID only which is the receiver of signal (filtered in-kernel).
+.TP
+\-s SIGNAL
+Trace this signal only (filtered in-kernel).
+.SH EXAMPLES
+.TP
+Trace all madise() syscalls:
+#
+.B madvsnoop
+.TP
+Trace only madvise() syscalls that failed:
+#
+.B madvsnoop \-x
+.TP
+Trace PID 181 only:
+#
+.B madvsnoop \-p 181
+.TP
+Trace target PID 189 only:
+#
+.B madvsnoop \-T 189
+.TP
+Trace signal 9 only:
+#
+.B madvsnoop \-s 9
+.SH FIELDS
+.TP
+TIME
+Time of the madvise() call.
+.TP
+PID
+Source process ID
+.TP
+COMM
+Source process name
+.TP
+START
+Where the memory start.
+.TP
+LENGTH
+Memory size
+.TP 
+BEHAVIOUR
+The type of advise
+.TP
+RES
+Result. 0 == success, a negative value (of the error code) for failure.
+.SH OVERHEAD
+This traces the kernel madvise function and prints output for each event. As the
+rate of this is generally expected to be low (< 100/s), the overhead is also
+expected to be negligible. If you have an application that is calling a very
+high rate of madvise()s for some reason, then test and understand overhead before
+use.
+.SH SOURCE
+This is from bcc.
+.IP
+https://github.com/iovisor/bcc
+.PP
+Also look in the bcc distribution for a companion _examples.txt file containing
+example usage, output, and commentary for this tool.
+.SH OS
+Linux
+.SH STABILITY
+Unstable - in development.
+.SH AUTHOR
+Jules Irenge
+.SH SEE ALSO
+shmsnoop(8), memleak(8)

@@ -1,0 +1,32 @@
+Demonstrations of madvsnoop, the Linux eBPF/bcc version.
+
+This traces memory usage via the madvise () syscall. For example:
+
+# sudo python madvsnoop.py 
+
+TIME      PID    COMM             START            LENGTH    BEHAVIOUR RESULT
+10:29:33  4151   pool-/usr/libex  914345984        8368128   4           0
+10:29:34  1      systemd          -1068445696      8368128   4           0
+10:29:36  3577   JS Helper        213123072        786432    4           0
+10:29:36  3577   gnome-shell      2005704704       4096      4           0           
+10:29:38  5978   pool-tracker-mi  956276736        8368128   4           0
+
+The first line showed a memory usage of 8368128 by PID 4152. The result, 0, means success.
+
+USAGE message:
+
+# python madvsnoop.py -h
+usage: madvsnoop [-h] [-x] [-p PID]
+
+Trace signals issued by the kill() syscall
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -x, --failed          only show failed kill syscalls
+  -p PID, --pid PID     trace this PID only which is the sender of signal
+    
+examples:
+    ./madvsnoop           # trace all kill() signals
+    ./madvsnoop -x        # only show failed kills
+    ./madvsnoop -p 181    # only trace PID 181
+                                                     
