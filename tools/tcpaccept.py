@@ -22,7 +22,7 @@ from socket import inet_ntop, AF_INET, AF_INET6
 from struct import pack
 import argparse
 from bcc.utils import printb
-from time import strftime
+from time import sleep, strftime
 
 # arguments
 examples = """examples:
@@ -34,6 +34,7 @@ examples = """examples:
     ./tcpaccept --mntnsmap mappath   # only trace mount namespaces in the map
     ./tcpaccept -4        # trace IPv4 family
     ./tcpaccept -6        # trace IPv6 family
+    ./tcpaccept -c -i 2   # count tcp accept number by PID every 2s interval
 """
 parser = argparse.ArgumentParser(
     description="Trace TCP accepts",
@@ -47,6 +48,10 @@ parser.add_argument("-p", "--pid",
     help="trace this PID only")
 parser.add_argument("-P", "--port",
     help="comma-separated list of local ports to trace")
+parser.add_argument("-c", "--count", action="store_true",
+    help="count the accept numbers by PID")
+parser.add_argument("-i", "--interval", nargs=1, default=[5],
+    help="Output the accept numbers by PID with interval, in seconds")
 group = parser.add_mutually_exclusive_group()
 group.add_argument("-4", "--ipv4", action="store_true",
     help="trace IPv4 family only")
@@ -91,6 +96,18 @@ struct ipv6_data_t {
     char task[TASK_COMM_LEN];
 };
 BPF_PERF_OUTPUT(ipv6_events);
+
+struct pid_key {
+    u32 pid;
+};
+
+struct val_t {
+    u64 count;
+    char name[TASK_COMM_LEN];
+};
+
+BPF_HASH(pid_accept_cnt, struct pid_key, struct val_t);
+
 """
 
 #
@@ -168,6 +185,15 @@ int kretprobe__inet_csk_accept(struct pt_regs *ctx)
 
     ##FILTER_PORT##
 
+    // count the accept number by PID
+    struct pid_key key = {};
+    struct val_t val = {};
+    struct val_t *valp;
+    key.pid = pid;
+    val.count = 0;
+
+    valp = pid_accept_cnt.lookup_or_init(&key, &val);
+
     if (family == AF_INET) {
         struct ipv4_data_t data4 = {.pid = pid, .ip = 4};
         data4.ts_us = bpf_ktime_get_ns() / 1000;
@@ -178,6 +204,11 @@ int kretprobe__inet_csk_accept(struct pt_regs *ctx)
         bpf_get_current_comm(&data4.task, sizeof(data4.task));
         ipv4_events.perf_submit(ctx, &data4, sizeof(data4));
 
+        if (valp) {
+            (valp->count)++;
+            bpf_probe_read_kernel(valp->name, sizeof(valp->name),
+                       &data4.task);
+        }
     } else if (family == AF_INET6) {
         struct ipv6_data_t data6 = {.pid = pid, .ip = 6};
         data6.ts_us = bpf_ktime_get_ns() / 1000;
@@ -189,6 +220,12 @@ int kretprobe__inet_csk_accept(struct pt_regs *ctx)
         data6.dport = dport;
         bpf_get_current_comm(&data6.task, sizeof(data6.task));
         ipv6_events.perf_submit(ctx, &data6, sizeof(data6));
+
+        if (valp) {
+            (valp->count)++;
+            bpf_probe_read_kernel(valp->name, sizeof(valp->name),
+                       &data6.task);
+        }
     }
     // else drop
 
@@ -258,24 +295,50 @@ def print_ipv6_event(cpu, data, size):
         inet_ntop(AF_INET6, event.saddr).encode(),
         event.lport))
 
+def depict_cnt(counts_tab):
+    for k, v in sorted(
+        counts_tab.items(), key=lambda counts: counts[1].count, reverse=True
+    ):
+        printb(b"%-7d %-12.12s  %-10d" % (k.pid,v.name, v.count))
+    if counts_tab.items():
+        print("\n")
+
 # initialize BPF
 b = BPF(text=bpf_text)
 
 # header
-if args.time:
-    print("%-9s" % ("TIME"), end="")
-if args.timestamp:
-    print("%-9s" % ("TIME(s)"), end="")
-print("%-7s %-12s %-2s %-16s %-5s %-16s %-5s" % ("PID", "COMM", "IP", "RADDR",
-    "RPORT", "LADDR", "LPORT"))
+if args.count:
+    print("Tracing accept count... Hit Ctrl-C to end")
+    print("%-7s %-12s %-10s" % (
+        "PID","COMM","Counts"))
+    depict_cnt(b["pid_accept_cnt"])
+else:
+    if args.time:
+        print("%-9s" % ("TIME"), end="")
+    if args.timestamp:
+        print("%-9s" % ("TIME(s)"), end="")
+    print("%-7s %-12s %-2s %-16s %-5s %-16s %-5s" % ("PID", "COMM", "IP", "RADDR",
+        "RPORT", "LADDR", "LPORT"))
 
 start_ts = 0
 
 # read events
-b["ipv4_events"].open_perf_buffer(print_ipv4_event)
-b["ipv6_events"].open_perf_buffer(print_ipv6_event)
-while 1:
-    try:
-        b.perf_buffer_poll()
-    except KeyboardInterrupt:
-        exit()
+if args.count:
+    while (1):
+        pid_accept_cnt = b.get_table("pid_accept_cnt")
+        try:
+            sleep(int(args.interval[0]))
+        except KeyboardInterrupt:
+            depict_cnt(b["pid_accept_cnt"])
+            exit()
+
+        depict_cnt(b["pid_accept_cnt"])
+        pid_accept_cnt.clear()
+else:
+    b["ipv4_events"].open_perf_buffer(print_ipv4_event)
+    b["ipv6_events"].open_perf_buffer(print_ipv6_event)
+    while 1:
+        try:
+            b.perf_buffer_poll()
+        except KeyboardInterrupt:
+            exit()

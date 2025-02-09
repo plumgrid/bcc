@@ -32,6 +32,22 @@ TIME(s)  PID    COMM         IP RADDR            RPORT LADDR            LPORT
 0.992    907    sshd         4  127.0.0.1        32548 127.0.0.1        22
 1.984    907    sshd         4  127.0.0.1        51250 127.0.0.1        22
 
+The -c option trace the tcp accept number of each PID
+The -i option specify the count interval in seconds(default 5s)
+
+# ./tcpaccept -c -i 2
+Tracing accept count... Hit Ctrl-C to end
+PID     COMM         Counts
+1331419 nginx         26
+1331411 nginx         24
+1331401 nginx         24
+1331477 nginx         22
+1331516 nginx         16
+1331478 nginx         12
+1331415 nginx         8
+1331427 nginx         4
+1331481 nginx         2
+
 
 The --cgroupmap option filters based on a cgroup set. It is meant to be used
 with an externally created map.
@@ -56,6 +72,8 @@ optional arguments:
   -P PORT, --port PORT  comma-separated list of local ports to trace
   -4, --ipv4            trace IPv4 family only
   -6, --ipv6            trace IPv6 family only
+  -c, --count           trace tcp accept number by PID every 5s interval by default
+  -i, --interval        trace tcp accept number by PID with specified interval
   --cgroupmap CGROUPMAP
                         trace cgroups in this BPF map only
 
@@ -68,3 +86,4 @@ examples:
     ./tcpaccept --mntnsmap mappath   # only trace mount namespaces in the map
     ./tcpaccept -4        # trace IPv4 family only
     ./tcpaccept -6        # trace IPv6 family only
+    ./tcpaccept -c -i 2   # count tcp accept number by PID every 2s interval

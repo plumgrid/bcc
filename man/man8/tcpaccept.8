@@ -2,7 +2,7 @@
 .SH NAME
 tcpaccept \- Trace TCP passive connections (accept()). Uses Linux eBPF/bcc.
 .SH SYNOPSIS
-.B tcpaccept [\-h] [\-T] [\-t] [\-p PID] [\-P PORTS] [\-4 | \-6] [\-\-cgroupmap MAPPATH] [\-\-mntnsmap MAPPATH]
+.B tcpaccept [\-h] [\-T] [\-t] [\-p PID] [\-P PORTS] [\-c] [\-i intervals] [\-4 | \-6] [\-\-cgroupmap MAPPATH] [\-\-mntnsmap MAPPATH]
 .SH DESCRIPTION
 This tool traces passive TCP connections (eg, via an accept() syscall;
 connect() are active connections). This can be useful for general
@@ -45,6 +45,12 @@ Trace cgroups in this BPF map only (filtered in-kernel).
 .TP
 \-\-mntnsmap  MAPPATH
 Trace mount namespaces in this BPF map only (filtered in-kernel).
+.TP
+\-c
+Trace tcp accept number of each PID
+.TP
+\-i interval
+Interval between updates, seconds(default 5)
 .SH EXAMPLES
 .TP
 Trace all passive TCP connections (accept()s):
@@ -74,6 +80,10 @@ Trace IPv6 family only:
 Trace a set of cgroups only (see special_filtering.md from bcc sources for more details):
 #
 .B tcpaccept \-\-cgroupmap /sys/fs/bpf/test01
+.TP
+Count tcp accept number by PID every 2s interval:
+#
+.B tcpaccept -c -i 2
 .SH FIELDS
 .TP
 TIME
@@ -102,6 +112,9 @@ Local IP address.
 .TP
 LPORT
 Local port
+.TP
+Counts
+Tcp accept number
 .SH OVERHEAD
 This traces the kernel inet_csk_accept function and prints output for each event.
 The rate of this depends on your server application. If it is a web or proxy server
