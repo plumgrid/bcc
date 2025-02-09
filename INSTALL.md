@@ -345,11 +345,12 @@ deb-src http://deb.debian.org/debian sid main contrib non-free
 apt-get update
 # According to https://packages.debian.org/source/sid/bpfcc,
 # BCC build dependencies:
-sudo apt-get install arping bison clang-format cmake dh-python \
-  dpkg-dev pkg-kde-tools ethtool flex inetutils-ping iperf \
-  libbpf-dev libclang-dev libclang-cpp-dev libedit-dev libelf-dev \
-  libfl-dev libzip-dev linux-libc-dev llvm-dev libluajit-5.1-dev \
-  luajit python3-netaddr python3-pyroute2 python3-setuptools python3
+sudo apt-get install arping bison clang-format-13 cmake dh-python \ 
+  dpkg-dev pkg-kde-tools ethtool flex inetutils-ping iperf \ 
+  libbpf-dev libclang-dev libclang-cpp13-dev libedit-dev libelf-dev \ 
+  libfl-dev libzip-dev linux-libc-dev llvm-13 libluajit-5.1-dev \ 
+  luajit python3-netaddr python3-pyroute2 python3-setuptools python3 zip
+# Must ensure using clang version 13
 ```
 
 #### Install and compile BCC
