@@ -1,0 +1,59 @@
+Demonstrations of udpsend, the Linux eBPF/bcc version.
+
+
+This tool traces UDP sendmsg() calls, showing the process name, PID, IP Version, source and destination IP addresses and ports.:
+
+# ./udpsend.py
+Tracing UDP sendmsg ... Hit Ctrl-C to end
+PID     COMM         IP SADDR            SPORT DADDR            DPORT
+83694   isc-net-0000 4  192.168.170.129  36350 192.168.170.2    53
+83696   ping         4  192.168.170.129  39403 192.168.170.2    53
+83696   ping         4  192.168.170.129  39403 192.168.170.2    53
+83696   ping         4  192.168.170.129  33407 192.168.170.2    53
+83700   curl         4  192.168.170.129  48348 192.168.170.2    53
+83700   curl         4  192.168.170.129  48348 192.168.170.2    53
+
+
+
+The -t option prints a timestamp column:
+
+# ./udpsend.py -t
+Tracing UDP sendmsg ... Hit Ctrl-C to end
+TIME(s)  PID     COMM         IP SADDR            SPORT DADDR            DPORT
+0.000    83703   curl         4  192.168.170.129  42868 192.168.170.2    53
+0.000    83703   curl         4  192.168.170.129  42868 192.168.170.2    53
+3.381    83705   ping         4  192.168.170.129  40991 192.168.170.2    53
+3.381    83705   ping         4  192.168.170.129  40991 192.168.170.2    53
+3.730    83705   ping         4  192.168.170.129  35797 192.168.170.2    53
+6.688    83706   isc-net-0000 4  192.168.170.129  42545 192.168.170.2    53
+
+
+The -T option prints a time(HH:MM:SS) column:
+
+# ./udpsend.py -T
+Tracing UDP sendmsg ... Hit Ctrl-C to end
+TIME     PID     COMM         IP SADDR            SPORT DADDR            DPORT
+13:20:40 83711   isc-net-0000 4  192.168.170.129  46813 192.168.170.2    53
+13:20:40 81670   dhclient     4  0.0.0.0          68    0.0.0.0          0
+13:20:42 83727   ping         4  192.168.170.129  56633 192.168.170.2    53
+13:20:42 83727   ping         4  192.168.170.129  56633 192.168.170.2    53
+13:20:42 83727   ping         4  192.168.170.129  47121 192.168.170.2    53
+13:20:45 83728   curl         4  192.168.170.129  53204 192.168.170.2    53
+13:20:45 83728   curl         4  192.168.170.129  53204 192.168.170.2    53
+
+
+USAGE message:
+
+# ./udpsend.py -h
+usage: udpsend.py [-h] [-T] [-t]
+
+Trace UDP sends
+
+options:
+  -h, --help       show this help message and exit
+  -T, --time       include time column on output (HH:MM:SS)
+  -t, --timestamp  include timestamp on output
+
+examples:
+    ./udpsend           # trace all UDP sendmsg()s
+    ./udpsend -t        # include timestamps
