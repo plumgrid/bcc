@@ -12,9 +12,12 @@
 #define AF_INET		2	/* Internet IP Protocol 	*/
 #define AF_INET6	10	/* IP version 6			*/
 
-const volatile bool filter_cg = false;
-const volatile pid_t target_pid = -1;
-const volatile int target_family = -1;
+struct {
+	__uint(type, BPF_MAP_TYPE_ARRAY);
+	__uint(max_entries, 1);
+	__type(key, u32);
+	__type(value, struct filter_cfg_t);
+} filter_cfg_map SEC(".maps");
 
 struct {
 	__uint(type, BPF_MAP_TYPE_CGROUP_ARRAY);
@@ -32,20 +35,25 @@ struct {
 
 static int probe_ip(bool receiving, struct sock *sk, size_t size)
 {
+	int zero = 0;
+	struct filter_cfg_t *args = bpf_map_lookup_elem(&filter_cfg_map, &zero);
+	if (!args)
+		return 0;
+
 	struct ip_key_t ip_key = {};
 	struct traffic_t *trafficp;
 	u16 family;
 	u32 pid;
 
-	if (filter_cg && !bpf_current_task_under_cgroup(&cgroup_map, 0))
+	if (args->filter_cg && !bpf_current_task_under_cgroup(&cgroup_map, 0))
 		return 0;
 
 	pid = bpf_get_current_pid_tgid() >> 32;
-	if (target_pid != -1 && target_pid != pid)
+	if (args->target_pid != -1 && args->target_pid != pid)
 		return 0;
 
 	family = BPF_CORE_READ(sk, __sk_common.skc_family);
-	if (target_family != -1 && target_family != family)
+	if (args->target_family != -1 && args->target_family != family)
 		return 0;
 
 	/* drop */

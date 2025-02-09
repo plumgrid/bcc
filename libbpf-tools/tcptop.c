@@ -347,6 +347,7 @@ int main(int argc, char **argv)
 	struct tcptop_bpf *obj;
 	int family;
 	int cgfd = -1;
+	int zero = 0;
 	int err;
 
 	err = argp_parse(&argp, argc, argv, 0, NULL, NULL);
@@ -367,9 +368,11 @@ int main(int argc, char **argv)
 		return 1;
 	}
 
-	obj->rodata->target_pid = target_pid;
-	obj->rodata->target_family = family;
-	obj->rodata->filter_cg = cgroup_filtering;
+	struct filter_cfg_t filter_cfg = {
+		.filter_cg = cgroup_filtering,
+		.target_pid = target_pid,
+		.target_family = family,
+	};
 
 	err = tcptop_bpf__load(obj);
 	if (err) {
@@ -377,8 +380,13 @@ int main(int argc, char **argv)
 		goto cleanup;
 	}
 
+	int filter_cfg_fd = bpf_map__fd(obj->maps.filter_cfg_map);
+	if (bpf_map_update_elem(filter_cfg_fd, &zero, &filter_cfg, BPF_ANY)) {
+		warn("Failed to update filter config map\n");
+		goto cleanup;
+	}
+
 	if (cgroup_filtering) {
-		int zero = 0;
 		int cg_map_fd = bpf_map__fd(obj->maps.cgroup_map);
 
 		cgfd = open(cgroup_path, O_RDONLY);
