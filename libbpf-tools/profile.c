@@ -21,6 +21,7 @@
 #include "profile.h"
 #include "profile.skel.h"
 #include "trace_helpers.h"
+#include "map_helpers.h"
 
 #define OPT_PERF_MAX_STACK_DEPTH	1 /* --perf-max-stack-depth */
 #define OPT_STACK_STORAGE_SIZE		2 /* --stack-storage-size */
@@ -301,26 +302,29 @@ static int cmp_counts(const void *a, const void *b)
 
 static int read_counts_map(int fd, struct key_ext_t *items, __u32 *count)
 {
+	struct key_t keys[*count];
+	__u64 vals[*count];
+	__u32 key_size = sizeof(keys[0]);
+	__u32 value_size = sizeof(__u64);
 	struct key_t empty = {};
-	struct key_t *lookup_key = &empty;
 	int i = 0;
 	int err;
+	__u32 n = *count;
 
-	while (bpf_map_get_next_key(fd, lookup_key, &items[i].k) == 0) {
-		err = bpf_map_lookup_elem(fd, &items[i].k, &items[i].v);
-		if (err < 0) {
-			fprintf(stderr, "failed to lookup counts: %d\n", err);
-			return -err;
-		}
+	err = dump_hash(fd, keys, key_size, vals, value_size, &n, &empty);
+	if (err)
+		return err;
 
-		if (items[i].v == 0)
-			continue;
-
-		lookup_key = &items[i].k;
-		i++;
+	for (i = 0; i < n; i++) {
+		items[i].k.pid = keys[i].pid;
+		items[i].k.user_stack_id = keys[i].user_stack_id;
+		items[i].k.kern_stack_id = keys[i].kern_stack_id;
+		strncpy(items[i].k.name, keys[i].name, TASK_COMM_LEN);
+		items[i].v = vals[i];
 	}
 
-	*count = i;
+	*count = n;
+
 	return 0;
 }
 
