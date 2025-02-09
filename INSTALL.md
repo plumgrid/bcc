@@ -199,12 +199,17 @@ CONFIG_NET_CLS_BPF=m
 CONFIG_NET_ACT_BPF=m
 CONFIG_BPF_JIT=y
 CONFIG_BPF_EVENTS=y
+CONFIG_FUNCTION_TRACER=y
+CONFIG_DEBUG_INFO=y
+CONFIG_KALLSYMS_ALL=y
 ```
 Finally, you can install bcc with:
 ```
 emerge dev-util/bcc
 ```
 The appropriate dependencies (e.g., ```clang```, ```llvm``` with BPF backend) will be pulled automatically.
+
+If you use ZFS and want to use zfsdist, recompile sys-kernel/spl and sys-fs/zfs-kmod with USE=debug so that emerge does not strip the modules.
 
 ## openSUSE - Binary
 
