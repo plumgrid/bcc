@@ -65,7 +65,7 @@ int get_pid_lib_path(pid_t pid, const char *lib, char *path, size_t path_sz)
 	}
 	maps = fopen(proc_pid_maps, "r");
 	if (!maps) {
-		warn("No such pid %d\n", pid);
+		warn("Failed to open %s\n", proc_pid_maps);
 		return -1;
 	}
 	while (fgets(line_buf, sizeof(line_buf), maps)) {
