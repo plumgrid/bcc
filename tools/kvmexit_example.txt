@@ -6,6 +6,9 @@ this tool aims to locate the frequent exited reasons and then find solutions
 to reduce or even avoid the exit, by displaying the detail exit reasons and
 the counts of each vm exit for all vms running on one physical machine.
 
+Add new item @EXIT_TIME_AVG for Outputing, its mean the average of all interval
+from kvm_exit to the next kvm_entry. unit:ns
+
 
 Features of this tool
 =====================
@@ -37,130 +40,79 @@ Example output:
 
 # ./kvmexit.py
 Display kvm exit reasons and statistics for all threads... Hit Ctrl-C to end.
-PID      TID      KVM_EXIT_REASON                     COUNT
-^C1273551  1273568  EXIT_REASON_HLT                     12
-1273551  1273568  EXIT_REASON_MSR_WRITE               6
-1274253  1274261  EXIT_REASON_EXTERNAL_INTERRUPT      1
-1274253  1274261  EXIT_REASON_HLT                     12
-1274253  1274261  EXIT_REASON_MSR_WRITE               4
+^C
+PID      TID      KVM_EXIT_REASON                     COUNT EXIT_TIME_AVG
+9352     9385     EXTERNAL_INTERRUPT                  4        6600
+9352     9385     HLT                                 697      67104726
+9352     9385     MSR_READ                            47       1519
+9352     9385     MSR_WRITE                           2295     1616
+9352     9385     EPT_VIOLATION                       1        30603
+9352     9385     EPT_MISCONFIG                       1        72435
+9352     9385     PREEMPTION_TIMER                    7        2382
 
-# ./kvmexit.py 6
-Display kvm exit reasons and statistics for all threads after sleeping 6 secs.
-PID      TID      KVM_EXIT_REASON                     COUNT
-1273903  1273922  EXIT_REASON_EXTERNAL_INTERRUPT      175
-1273903  1273922  EXIT_REASON_CPUID                   10
-1273903  1273922  EXIT_REASON_HLT                     6043
-1273903  1273922  EXIT_REASON_IO_INSTRUCTION          24
-1273903  1273922  EXIT_REASON_MSR_WRITE               15025
-1273903  1273922  EXIT_REASON_PAUSE_INSTRUCTION       11
-1273903  1273922  EXIT_REASON_EOI_INDUCED             12
-1273903  1273922  EXIT_REASON_EPT_VIOLATION           6
-1273903  1273922  EXIT_REASON_EPT_MISCONFIG           380
-1273903  1273922  EXIT_REASON_PREEMPTION_TIMER        194
-1273551  1273568  EXIT_REASON_EXTERNAL_INTERRUPT      18
-1273551  1273568  EXIT_REASON_HLT                     989
-1273551  1273568  EXIT_REASON_IO_INSTRUCTION          10
-1273551  1273568  EXIT_REASON_MSR_WRITE               2205
-1273551  1273568  EXIT_REASON_PAUSE_INSTRUCTION       1
-1273551  1273568  EXIT_REASON_EOI_INDUCED             5
-1273551  1273568  EXIT_REASON_EPT_MISCONFIG           61
-1273551  1273568  EXIT_REASON_PREEMPTION_TIMER        14
+# ./kvmexit.py 5
+Display kvm exit reasons and statistics for all threads after sleeping 5 secs.
+PID      TID      KVM_EXIT_REASON                     COUNT EXIT_TIME_AVG
+9352     9386     HLT                                 22       218686732
+9352     9386     MSR_READ                            2        1645
+9352     9386     MSR_WRITE                           47       2100
+9352     9384     HLT                                 20       209676451
+9352     9384     MSR_READ                            3        1458
 
-# ./kvmexit.py -p 1273795 5
-Display kvm exit reasons and statistics for PID 1273795 after sleeping 5 secs.
-KVM_EXIT_REASON                     COUNT
-MSR_WRITE                           13467
-HLT                                 5060
-PREEMPTION_TIMER                    345
-EPT_MISCONFIG                       264
-EXTERNAL_INTERRUPT                  169
-EPT_VIOLATION                       18
-PAUSE_INSTRUCTION                   6
-IO_INSTRUCTION                      4
-EOI_INDUCED                         2
+# ./kvmexit.py -p 9352
+Display kvm exit reasons and statistics for PID 9352... Hit Ctrl-C to end.
+^C
+KVM_EXIT_REASON                     COUNT EXIT_TIME_AVG
+MSR_WRITE                           1964
+HLT                                 922
+EPT_VIOLATION                       177
+CPUID                               159
+EXTERNAL_INTERRUPT                  61
+PREEMPTION_TIMER                    57
+MSR_READ                            34
+EPT_MISCONFIG                       33
+PAUSE_INSTRUCTION                   1
+EXCEPTION_NMI                       1
 
-# ./kvmexit.py -p 1273795 5 -a
-Display kvm exit reasons and statistics for PID 1273795 and its all threads after sleeping 5 secs.
-TID      KVM_EXIT_REASON                     COUNT
-1273819  EXTERNAL_INTERRUPT                  64
-1273819  HLT                                 2802
-1273819  IO_INSTRUCTION                      4
-1273819  MSR_WRITE                           7196
-1273819  PAUSE_INSTRUCTION                   2
-1273819  EOI_INDUCED                         2
-1273819  EPT_VIOLATION                       6
-1273819  EPT_MISCONFIG                       162
-1273819  PREEMPTION_TIMER                    194
-1273820  EXTERNAL_INTERRUPT                  78
-1273820  HLT                                 2054
-1273820  MSR_WRITE                           5199
-1273820  EPT_VIOLATION                       2
-1273820  EPT_MISCONFIG                       77
-1273820  PREEMPTION_TIMER                    102
+# ./kvmexit.py -p 9352 -a
+Display kvm exit reasons and statistics for PID 9352 and its all threads... Hit Ctrl-C to end.
+^C
+TID      KVM_EXIT_REASON                     COUNT EXIT_TIME_AVG
+9383     EXTERNAL_INTERRUPT                  2        987
+9383     HLT                                 48       187967635
+9383     MSR_READ                            8        1431
+9383     MSR_WRITE                           119      1941
+9382     EXTERNAL_INTERRUPT                  1        2218
+9382     HLT                                 13       718107462
+9382     MSR_READ                            7        1332
+9382     MSR_WRITE                           42       1588
+9386     EXTERNAL_INTERRUPT                  1        1131
+9386     HLT                                 24       377772380
+9386     MSR_READ                            8        1372
 
-# ./kvmexit.py -p 1273795 -v 0
-Display kvm exit reasons and statistics for PID 1273795 VCPU 0... Hit Ctrl-C to end.
-KVM_EXIT_REASON                     COUNT
-^CMSR_WRITE                           2076
-HLT                                 795
-PREEMPTION_TIMER                    86
-EXTERNAL_INTERRUPT                  20
-EPT_MISCONFIG                       10
-PAUSE_INSTRUCTION                   2
-IO_INSTRUCTION                      2
-EPT_VIOLATION                       1
+# ./kvmexit.py -p 9352 -v 0
+Display kvm exit reasons and statistics for PID 9352 VCPU 0... Hit Ctrl-C to end.
+^C
+KVM_EXIT_REASON                     COUNT EXIT_TIME_AVG
+MSR_WRITE                           197
+IO_INSTRUCTION                      160
+HLT                                 79
+MSR_READ                            7
+EPT_MISCONFIG                       4
+PREEMPTION_TIMER                    2
 EOI_INDUCED                         1
+PAUSE_INSTRUCTION                   1
 
-# ./kvmexit.py -p 1273795 -v 0 4
-Display kvm exit reasons and statistics for PID 1273795 VCPU 0 after sleeping 4 secs.
-KVM_EXIT_REASON                     COUNT
-MSR_WRITE                           4726
-HLT                                 1827
-PREEMPTION_TIMER                    78
-EPT_MISCONFIG                       67
-EXTERNAL_INTERRUPT                  28
-IO_INSTRUCTION                      4
-EOI_INDUCED                         2
-PAUSE_INSTRUCTION                   2
-
-# ./kvmexit.py -p 1273795 -v 4 4
-Traceback (most recent call last):
-  File "tools/kvmexit.py", line 306, in <module>
-      raise Exception("There's no v%s for PID %d." % (tgt_vcpu, args.pid))
-      Exception: There's no vCPU 4 for PID 1273795.
-
-# ./kvmexit.py -t 1273819 10
-Display kvm exit reasons and statistics for TID 1273819 after sleeping 10 secs.
-KVM_EXIT_REASON                     COUNT
-MSR_WRITE                           13318
-HLT                                 5274
-EPT_MISCONFIG                       263
-PREEMPTION_TIMER                    171
-EXTERNAL_INTERRUPT                  109
-IO_INSTRUCTION                      8
-PAUSE_INSTRUCTION                   5
-EOI_INDUCED                         4
-EPT_VIOLATION                       2
-
-# ./kvmexit.py -T '1273820,1273819'
-Display kvm exit reasons and statistics for TIDS ['1273820', '1273819']... Hit Ctrl-C to end.
-TIDS     KVM_EXIT_REASON                     COUNT
-^C1273819  EXTERNAL_INTERRUPT                  300
-1273819  HLT                                 13718
-1273819  IO_INSTRUCTION                      26
-1273819  MSR_WRITE                           37457
-1273819  PAUSE_INSTRUCTION                   13
-1273819  EOI_INDUCED                         13
-1273819  EPT_VIOLATION                       53
-1273819  EPT_MISCONFIG                       654
-1273819  PREEMPTION_TIMER                    958
-1273820  EXTERNAL_INTERRUPT                  212
-1273820  HLT                                 9002
-1273820  MSR_WRITE                           25495
-1273820  PAUSE_INSTRUCTION                   2
-1273820  EPT_VIOLATION                       64
-1273820  EPT_MISCONFIG                       396
-1273820  PREEMPTION_TIMER                    268
+# ./kvmexit.py -T '9387,9381'
+Display kvm exit reasons and statistics for TIDS ['9387', '9381']... Hit Ctrl-C to end.
+^C
+TIDS     KVM_EXIT_REASON                     COUNT EXIT_TIME_AVG
+9387     HLT                                 108      61142617
+9387     MSR_READ                            7        1408
+9387     MSR_WRITE                           175      2383
+9381     HLT                                 23       267240960
+9381     MSR_READ                            5        1363
+9381     MSR_WRITE                           76       1801
 
 
 Help to understand
