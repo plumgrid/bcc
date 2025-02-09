@@ -1,10 +1,14 @@
 set(EXAMPLE_PROGRAMS hello_world.py)
 install(PROGRAMS ${EXAMPLE_PROGRAMS} DESTINATION share/bcc/examples)
 
+option(BUILD_CPP_EXAMPLES "Build C++ examples. The binaries are statically linked and can take resources" OFF)
+
 if(ENABLE_CLANG_JIT)
+if(BUILD_CPP_EXAMPLES)
 if(ENABLE_USDT)
 add_subdirectory(cpp)
 endif(ENABLE_USDT)
+endif(BUILD_CPP_EXAMPLES)
 add_subdirectory(lua)
 add_subdirectory(networking)
 add_subdirectory(tracing)

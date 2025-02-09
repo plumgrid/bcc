@@ -13,6 +13,6 @@ else()
   target_link_libraries(PyPerf bcc-shared)
 endif()
 
-if(INSTALL_CPP_EXAMPLES)
+if(BUILD_CPP_EXAMPLES)
   install (TARGETS PyPerf DESTINATION share/bcc/examples/cpp)
-endif(INSTALL_CPP_EXAMPLES)
+endif(BUILD_CPP_EXAMPLES)
