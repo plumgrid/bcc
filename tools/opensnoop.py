@@ -104,6 +104,7 @@ bpf_text = """
 #ifdef FULLPATH
 #include <linux/fs_struct.h>
 #include <linux/dcache.h>
+#include <linux/mount.h>
 
 #define MAX_ENTRIES 32
 
@@ -111,6 +112,20 @@ enum event_type {
     EVENT_ENTRY,
     EVENT_END,
 };
+
+struct mount {
+    struct hlist_node mnt_hash;
+    struct mount *mnt_parent;
+    struct dentry *mnt_mountpoint;
+    struct vfsmount mnt;
+    // ...
+};
+
+static inline struct mount *real_mount(struct vfsmount *mnt)
+{
+    void *__mptr = (void *)(mnt);
+    return (struct mount *)(__mptr - ((unsigned long)&((struct mount *)0)->mnt));
+}
 #endif
 
 struct val_t {
@@ -390,19 +405,36 @@ if args.full_path:
     if (data.name[0] != '/') { // relative path
         struct task_struct *task;
         struct dentry *dentry;
+        struct vfsmount *vfsmnt;
+        struct mount *mnt, *mnt_parent;
         int i;
 
-        task = (struct task_struct *)bpf_get_current_task_btf();
+        task = (struct task_struct *)bpf_get_current_task();
         dentry = task->fs->pwd.dentry;
+        vfsmnt = task->fs->pwd.mnt;
+        mnt = real_mount(vfsmnt);
+        mnt_parent = mnt->mnt_parent;
 
         for (i = 1; i < MAX_ENTRIES; i++) {
+            if (dentry == dentry->d_parent) {
+                if (mnt != mnt_parent) {
+                    // We reached root, but not global root - continue with mount point path
+                    dentry = mnt->mnt_mountpoint;
+                    mnt = mnt_parent;
+                    mnt_parent = mnt->mnt_parent;
+                    continue;
+                } else {
+                    // Global root - path fully parsed
+                    bpf_probe_read_kernel(&data.name, sizeof(data.name), (void *)dentry->d_name.name);
+                    data.type = EVENT_ENTRY;
+                    events.perf_submit(ctx, &data, sizeof(data));
+                    break;
+                }
+            }
+
             bpf_probe_read_kernel(&data.name, sizeof(data.name), (void *)dentry->d_name.name);
             data.type = EVENT_ENTRY;
             events.perf_submit(ctx, &data, sizeof(data));
-
-            if (dentry == dentry->d_parent) { // root directory
-                break;
-            }
 
             dentry = dentry->d_parent;
         }
