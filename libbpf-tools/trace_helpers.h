@@ -19,7 +19,9 @@ const struct ksym *ksyms__map_addr(const struct ksyms *ksyms,
 				   unsigned long addr);
 const struct ksym *ksyms__get_symbol(const struct ksyms *ksyms,
 				     const char *name);
-
+/* return the 1st match */
+const struct ksym *ksyms_get_symbol_match(struct ksyms *ksyms,
+                                          const char *pattern);
 struct sym {
 	const char *name;
 	unsigned long start;

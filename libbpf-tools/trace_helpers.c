@@ -181,6 +181,42 @@ const struct ksym *ksyms__get_symbol(const struct ksyms *ksyms,
 
 	return NULL;
 }
+/* Adapted from perf/util/string.c */
+static bool glob_match(const char *str, const char *pat) {
+        while (*str && *pat && *pat != '*') {
+                if (*pat == '?') { /* Matches any single character */
+                        str++;
+                        pat++;
+                        continue;
+                }
+                if (*str != *pat)
+                        return false;
+                str++;
+                pat++;
+        }
+        /* Check wild card */
+        if (*pat == '*') {
+                while (*pat == '*')
+                        pat++;
+                if (!*pat) /* Tail wild card matches all */
+                        return true;
+                while (*str)
+                        if (glob_match(str++, pat))
+                                return true;
+        }
+        return !*str && !*pat;
+}
+
+/* return the 1st match */
+const struct ksym *ksyms_get_symbol_match(struct ksyms *ksyms,
+                                          const char *pattern) {
+        for (int i = 0; i < ksyms->syms_sz; i++) {
+                if (glob_match(ksyms->syms[i].name, pattern)) {
+                        return &ksyms->syms[i];
+                }
+        }
+        return NULL;
+}
 
 struct load_range {
 	uint64_t start;

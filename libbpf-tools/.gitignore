@@ -43,6 +43,7 @@
 /nfsslower
 /numamove
 /offcputime
+/offwaketime
 /oomkill
 /opensnoop
 /profile

@@ -70,6 +70,7 @@ APPS = \
 	mountsnoop \
 	numamove \
 	offcputime \
+	offwaketime \
 	oomkill \
 	profile \
 	readahead \
