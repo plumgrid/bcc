@@ -2,6 +2,7 @@
 #include <vmlinux.h>
 #include <bpf/bpf_helpers.h>
 #include <bpf/bpf_core_read.h>
+#include "compat.bpf.h"
 #include "execsnoop.h"
 
 const volatile bool filter_cg = false;
@@ -24,12 +25,6 @@ struct {
 	__type(key, pid_t);
 	__type(value, struct event);
 } execs SEC(".maps");
-
-struct {
-	__uint(type, BPF_MAP_TYPE_PERF_EVENT_ARRAY);
-	__uint(key_size, sizeof(u32));
-	__uint(value_size, sizeof(u32));
-} events SEC(".maps");
 
 static __always_inline bool valid_uid(uid_t uid) {
 	return uid != INVALID_UID;
@@ -61,7 +56,7 @@ int tracepoint__syscalls__sys_enter_execve(struct syscall_trace_enter* ctx)
 	if (bpf_map_update_elem(&execs, &pid, &empty_event, BPF_NOEXIST))
 		return 0;
 
-	event = bpf_map_lookup_elem(&execs, &pid);
+	event = reserve_buf(sizeof(*event));
 	if (!event)
 		return 0;
 
@@ -139,7 +134,7 @@ int tracepoint__syscalls__sys_exit_execve(struct syscall_trace_exit* ctx)
 	bpf_get_current_comm(&event->comm, sizeof(event->comm));
 	size_t len = EVENT_SIZE(event);
 	if (len <= sizeof(*event))
-		bpf_perf_event_output(ctx, &events, BPF_F_CURRENT_CPU, event, len);
+		submit_buf(ctx, event, sizeof(*event));
 cleanup:
 	bpf_map_delete_elem(&execs, &pid);
 	return 0;
