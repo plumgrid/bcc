@@ -72,20 +72,17 @@ bpf_text = """
 #include <linux/nsproxy.h>
 #include <linux/pid_namespace.h>
 #include <linux/init_task.h>
-
 typedef struct pid_key {
     u32 id;
     u64 slot;
 } pid_key_t;
-
 typedef struct pidns_key {
     u32 id;
     u64 slot;
 } pidns_key_t;
-
 BPF_HASH(start, u32);
+BPF_ARRAY(avg, u64, 2);
 STORAGE
-
 // record enqueue timestamp
 static int trace_enqueue(u32 tgid, u32 pid)
 {
@@ -95,10 +92,8 @@ static int trace_enqueue(u32 tgid, u32 pid)
     start.update(&pid, &ts);
     return 0;
 }
-
 static __always_inline unsigned int pid_namespace(struct task_struct *task)
 {
-
 /* pids[] was removed from task_struct since commit 2c4704756cab7cfa031ada4dab361562f0e357c0
  * Using the macro INIT_PID_LINK as a conditional judgment.
  */
@@ -107,7 +102,6 @@ static __always_inline unsigned int pid_namespace(struct task_struct *task)
     unsigned int level;
     struct upid upid;
     struct ns_common ns;
-
     /*  get the pid namespace by following task_active_pid_ns(),
      *  pid->numbers[pid->level].ns
      */
@@ -115,14 +109,12 @@ static __always_inline unsigned int pid_namespace(struct task_struct *task)
     bpf_probe_read_kernel(&level, sizeof(level), &pids.pid->level);
     bpf_probe_read_kernel(&upid, sizeof(upid), &pids.pid->numbers[level]);
     bpf_probe_read_kernel(&ns, sizeof(ns), &upid.ns->ns);
-
     return ns.inum;
 #else
     struct pid *pid;
     unsigned int level;
     struct upid upid;
     struct ns_common ns;
-
     /*  get the pid namespace by following task_active_pid_ns(),
      *  pid->numbers[pid->level].ns
      */
@@ -130,7 +122,6 @@ static __always_inline unsigned int pid_namespace(struct task_struct *task)
     bpf_probe_read_kernel(&level, sizeof(level), &pid->level);
     bpf_probe_read_kernel(&upid, sizeof(upid), &pid->numbers[level]);
     bpf_probe_read_kernel(&ns, sizeof(ns), &upid.ns->ns);
-
     return ns.inum;
 #endif
 }
@@ -141,18 +132,15 @@ int trace_wake_up_new_task(struct pt_regs *ctx, struct task_struct *p)
 {
     return trace_enqueue(p->tgid, p->pid);
 }
-
 int trace_ttwu_do_wakeup(struct pt_regs *ctx, struct rq *rq, struct task_struct *p,
     int wake_flags)
 {
     return trace_enqueue(p->tgid, p->pid);
 }
-
 // calculate latency
 int trace_run(struct pt_regs *ctx, struct task_struct *prev)
 {
     u32 pid, tgid;
-
     // ivcsw: treat like an enqueue event and store timestamp
     if (prev->STATE_FIELD == TASK_RUNNING) {
         tgid = prev->tgid;
@@ -162,13 +150,11 @@ int trace_run(struct pt_regs *ctx, struct task_struct *prev)
             start.update(&pid, &ts);
         }
     }
-
     tgid = bpf_get_current_pid_tgid() >> 32;
     pid = bpf_get_current_pid_tgid();
     if (FILTER || pid == 0)
         return 0;
     u64 *tsp, delta;
-
     // fetch timestamp and calculate delta
     tsp = start.lookup(&pid);
     if (tsp == 0) {
@@ -176,10 +162,8 @@ int trace_run(struct pt_regs *ctx, struct task_struct *prev)
     }
     delta = bpf_ktime_get_ns() - *tsp;
     FACTOR
-
     // store as histogram
     STORE
-
     start.delete(&pid);
     return 0;
 }
@@ -192,21 +176,18 @@ RAW_TRACEPOINT_PROBE(sched_wakeup)
     struct task_struct *p = (struct task_struct *)ctx->args[0];
     return trace_enqueue(p->tgid, p->pid);
 }
-
 RAW_TRACEPOINT_PROBE(sched_wakeup_new)
 {
     // TP_PROTO(struct task_struct *p)
     struct task_struct *p = (struct task_struct *)ctx->args[0];
     return trace_enqueue(p->tgid, p->pid);
 }
-
 RAW_TRACEPOINT_PROBE(sched_switch)
 {
     // TP_PROTO(bool preempt, struct task_struct *prev, struct task_struct *next)
     struct task_struct *prev = (struct task_struct *)ctx->args[1];
     struct task_struct *next = (struct task_struct *)ctx->args[2];
     u32 pid, tgid;
-
     // ivcsw: treat like an enqueue event and store timestamp
     if (prev->STATE_FIELD == TASK_RUNNING) {
         tgid = prev->tgid;
@@ -216,24 +197,27 @@ RAW_TRACEPOINT_PROBE(sched_switch)
             start.update(&pid, &ts);
         }
     }
-
     tgid = next->tgid;
     pid = next->pid;
     if (FILTER || pid == 0)
         return 0;
     u64 *tsp, delta;
-
     // fetch timestamp and calculate delta
     tsp = start.lookup(&pid);
     if (tsp == 0) {
         return 0;   // missed enqueue
     }
     delta = bpf_ktime_get_ns() - *tsp;
-    FACTOR
+    
+    // avg time and total calls 
+    u32 lat = 0;
+    u32 cnt = 1;
+    avg.atomic_increment(lat, delta);
+    avg.atomic_increment(cnt);
 
+    FACTOR
     // store as histogram
     STORE
-
     start.delete(&pid);
     return 0;
 }
@@ -314,6 +298,19 @@ while (1):
 
     dist.print_log2_hist(label, section, section_print_fn=int)
     dist.clear()
+
+    # print avg time and total calls 
+    total  = b['avg'][0].value
+    counts = b['avg'][1].value
+    if counts > 0:
+        if label == 'msecs':
+            total /= 1000000
+        elif label == 'usecs':
+            total /= 1000
+        print("\navg = %f %s, total: %ld %s, count: %ld\n" %(total/counts, label, total, label, counts))
+
+    dist.clear()
+    b['avg'].clear()
 
     countdown -= 1
     if exiting or countdown == 0:
