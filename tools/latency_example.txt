@@ -1,0 +1,154 @@
+Demonstrations of latency.
+
+
+latency probe code block specify and collects latency values into a
+histogram or a frequency count. 
+
+For example, suppose you want to find what allocation sizes are common in
+your application:
+
++--------------------test code-------------------------+
+|  #include <unistd.h>   | 000000000000064a <main>:    |
+|  int main() {          |    64e:   sub    $0x10,%rsp | 
+|      int n = 1;        |    652:   movl   $0x1,-0x4  | 
+|      while(1) {        |    659:   addl   $0x1,-0x4  | 
+|  	n++;             |    65d:   mov    -0x4(%rbp) |
+|  	usleep(n);       |    660:   mov    %eax,%edi  |
+|     }                  |    662:   callq  520 <uslee | 
+|  }                     |    667:   jmp    659 <main  | 
+|------------------------------------------------------| 
+
+
+# python latency.py -H "/home/vagrant/a.out:660-667" -i 10 -c
+[12:44:30]
+     run latency (ms)    : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 1374     |****************************************|
+         4 -> 7          : 1182     |**********************************      |
+         8 -> 15         : 1        |                                        |
+[12:44:40]
+     run latency (ms)    : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 1636     |****************************************|
+         8 -> 15         : 5        |                                        |
+[12:44:50]
+     run latency (ms)    : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 31       |*****                                   |
+         8 -> 15         : 224      |****************************************|
+        16 -> 31         : 15       |**                                      |
+        32 -> 63         : 16       |**                                      |
+        64 -> 127        : 17       |***                                     |
+       128 -> 255        : 8        |*                                       |
+       256 -> 511        : 10       |*                                       |
+^C
+
+# python latency.py -C "/home/vagrant/a.out:660-667" -i 10 -u ms
+[12:59:56]
+run latency (ms)
+	COUNT      LATENCY
+	1          7
+	1          10
+	1          9
+	1          11
+	3          6
+	6          5
+	375        4
+	720        0
+	883        2
+	998        3
+	1010       1
+^C
+
+# python latency.py -H "/home/vagrant/a.out:660-667:latency>101000000" -i 10 -u ns
+[13:02:26]
+     run latency (ns)    : count     distribution
+     ...
+     32768 -> 65535      : 0        |                                        |
+     65536 -> 131071     : 0        |                                        |
+    131072 -> 262143     : 0        |                                        |
+    262144 -> 524287     : 0        |                                        |
+    524288 -> 1048575    : 0        |                                        |
+   1048576 -> 2097151    : 0        |                                        |
+   2097152 -> 4194303    : 0        |                                        |
+   4194304 -> 8388607    : 0        |                                        |
+   8388608 -> 16777215   : 55       |*******                                 |
+  16777216 -> 33554431   : 306      |****************************************|
+  33554432 -> 67108863   : 10       |*                                       |
+  67108864 -> 134217727  : 1        |                                        |
+^C
+
+# python latency.py -H "/home/vagrant/a.out:660-667" -i 10 -n 2 -u ms
+[13:03:40]
+     run latency (ms)    : count     distribution
+         0 -> 1          : 1312     |***************************             |
+         2 -> 3          : 1929     |****************************************|
+         4 -> 7          : 476      |*********                               |
+         8 -> 15         : 6        |                                        |
+        16 -> 31         : 1        |                                        |
+        32 -> 63         : 0        |                                        |
+        64 -> 127        : 1        |                                        |
+       128 -> 255        : 2        |                                        |
+[13:03:50]
+     run latency (ms)    : count     distribution
+         0 -> 1          : 1312     |***************************             |
+         2 -> 3          : 1929     |****************************************|
+         4 -> 7          : 1665     |**********************************      |
+         8 -> 15         : 106      |**                                      |
+        16 -> 31         : 9        |                                        |
+        32 -> 63         : 14       |                                        |
+        64 -> 127        : 8        |                                        |
+       128 -> 255        : 7        |                                        |
+       256 -> 511        : 1        |                                        |
+
+
+USAGE message:
+
+# python latency.py -h
+usage: latency.py [-h] [-p PID] [-H HISTOGRAM] [-T TOP] [-C COUNT] [-c]
+                  [-i INTERVAL] [-d DURATION] [-n NUMBER] [-u {s,ms,us,ns}]
+                  [-v]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -p PID, --pid PID     id of the process to trace (optional)
+  -H HISTOGRAM, --histogram HISTOGRAM
+                        probe specifier to capture histogram of (see examples
+                        below)
+  -T TOP, --top TOP     number of top results to show (not applicable to
+                        histograms)
+  -C COUNT, --count COUNT
+                        probe specifier to capture count of (see examples
+                        below)
+  -c, --cumulative      do not clear histograms and freq counts at each
+                        interval
+  -i INTERVAL, --interval INTERVAL
+                        output interval, in seconds (default 1 second)
+  -d DURATION, --duration DURATION
+                        total duration of trace, in seconds
+  -n NUMBER, --number NUMBER
+                        number of outputs
+  -u {s,ms,us,ns}, --unit {s,ms,us,ns}
+                        the unit of latency: s/ms/us/ns
+  -v, --verbose         print resulting BPF program code before executing
+
+Probe specifier syntax:
+        library:start_addr-end_addr[:filter]
+Where:
+        library    -- the library that contains the function
+                      (leave empty for kernel functions)
+        start_addr -- the start of address to collect
+                      (get addr by object/gdb ...)
+        end_addr   -- the end of address to collect
+        filter     -- expr such as (latency>100  latench<1000)
+
+EXAMPLES:
+
+./latency.py -H "/home/vagrant/a.out:660-667" -i 10 -p 1005
+        Print a histogram of latency between 660-667 of a.out's assembly codes in process 1005
+./latency.py -C "/home/vagrant/a.out:660-667" -i 10 -u ms
+        Print frequency of latency(ms) between 660-667 of a.out's assembly codes
+./latency.py -H "/home/vagrant/a.out:660-667:latency>101000000" -i 10 -u ns
+        Print a histogram of latency(ns) between 660-667 of a.out's assembly codes
