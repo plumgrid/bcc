@@ -754,7 +754,17 @@ static int _find_sym(const char *symname, uint64_t addr, uint64_t,
                      void *payload) {
   struct bcc_symbol *sym = (struct bcc_symbol *)payload;
   if (!strcmp(sym->name, symname)) {
-    sym->offset = addr;
+    sym->offset = addr - sym->base_address;
+    return -1;
+  }
+  return 0;
+}
+
+static int _get_base_address(uint64_t v_addr, uint64_t mem_sz, uint64_t file_offset,
+                       void *payload) {
+  struct bcc_symbol *sym = (struct bcc_symbol *)payload;
+  if ( v_addr >= file_offset) {
+    sym->base_address = v_addr - file_offset;
     return -1;
   }
   return 0;
@@ -789,6 +799,7 @@ int bcc_resolve_symname(const char *module, const char *symname,
     .use_symbol_type = BCC_SYM_ALL_TYPES,
 #endif
   };
+  int update_flag = 0;
 
   if (module == NULL)
     return -1;
@@ -810,12 +821,16 @@ int bcc_resolve_symname(const char *module, const char *symname,
 
   sym->name = symname;
   sym->offset = addr;
+  if (bcc_elf_foreach_load_section(sym->module, _get_base_address, sym) < 0)
+      goto invalid_module;
   if (option == NULL)
     option = &default_option;
 
-  if (sym->name && sym->offset == 0x0)
+  if (sym->name && sym->offset == 0x0){
     if (bcc_elf_foreach_sym(sym->module, _find_sym, option, sym) < 0)
       goto invalid_module;
+    update_flag = 1;
+  }
   if (sym->offset == 0x0)
     goto invalid_module;
 
@@ -827,6 +842,8 @@ int bcc_resolve_symname(const char *module, const char *symname,
       .target_addr = sym->offset,
       .binary_addr = 0x0,
     };
+    if(update_flag)
+      addr.target_addr += sym->base_address;
     if (bcc_elf_foreach_load_section(sym->module, &_find_load, &addr) < 0)
       goto invalid_module;
     if (!addr.binary_addr)

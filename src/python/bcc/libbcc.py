@@ -208,6 +208,7 @@ class bcc_symbol(ct.Structure):
             ('demangle_name', ct.c_char_p),
             ('module', ct.POINTER(ct.c_char)),
             ('offset', ct.c_ulonglong),
+            ('base_address', ct.c_ulonglong),
         ]
 
 class bcc_ip_offset_union(ct.Union):
