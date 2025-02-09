@@ -173,7 +173,7 @@ int waker(struct pt_regs *ctx, struct task_struct *p) {
     u32 pid = p->pid;
     u32 tgid = p->tgid;
 
-    if (!((THREAD_FILTER) && (STATE_FILTER))) {
+    if (pid == 0 || !((THREAD_FILTER) && (STATE_FILTER))) {
         return 0;
     }
 
@@ -197,7 +197,7 @@ int oncpu(struct pt_regs *ctx, struct task_struct *p) {
     u64 ts = bpf_ktime_get_ns();
 
     // Record timestamp for the previous Process (Process going into waiting)
-    if ((THREAD_FILTER) && (STATE_FILTER)) {
+    if (pid != 0 && (THREAD_FILTER) && (STATE_FILTER)) {
         start.update(&pid, &ts);
     }
 
@@ -205,6 +205,9 @@ int oncpu(struct pt_regs *ctx, struct task_struct *p) {
     // it went into waiting.
     // pid and tgid are now the PID and TGID of the current (waking) Process.
     pid = bpf_get_current_pid_tgid();
+    if (pid == 0) {
+        return 0;
+    }
     tgid = bpf_get_current_pid_tgid() >> 32;
     tsp = start.lookup(&pid);
     if (tsp == 0) {
