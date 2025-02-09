@@ -14,12 +14,14 @@
 #include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <regex.h>
 #include <sys/resource.h>
 #include <time.h>
 #include <bpf/bpf.h>
 #include <bpf/btf.h>
 #include <bpf/libbpf.h>
 #include <limits.h>
+#include "string_helpers.h"
 #include "trace_helpers.h"
 #include "uprobe_helpers.h"
 
@@ -179,6 +181,42 @@ const struct ksym *ksyms__get_symbol(const struct ksyms *ksyms,
 			return &ksyms->syms[i];
 	}
 
+	return NULL;
+}
+
+struct string_array *ksyms__get_symbols_re(const struct ksyms *ksyms, const char *pattern)
+{
+	struct string_array *matches = NULL;
+	regex_t regex;
+	int err;
+
+	err = regcomp(&regex, pattern, REG_EXTENDED);
+	if (err) {
+		fprintf(stderr, "failed to compile regex\n");
+		goto err_out;
+	}
+
+	matches = string_array__init();
+	if (matches == NULL) {
+		goto err_out;
+	}
+
+	for (int i = 0; i < ksyms->syms_sz; i++) {
+		err = regexec(&regex, ksyms->syms[i].name, 0, NULL, 0);
+		if (!err) {
+			err = string_array__push(matches, ksyms->syms[i].name);
+			if (err) {
+				goto err_out;
+			}
+		}
+	}
+
+	regfree(&regex);
+	return matches;
+
+err_out:
+	regfree(&regex);
+	string_array__free(matches);
 	return NULL;
 }
 
