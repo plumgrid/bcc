@@ -1,0 +1,84 @@
+.TH slabgrowth 8  "2021-11-19" "USER COMMANDS"
+.SH NAME
+slabgrowth \- Kernel SLAB/SLUB memory cache allocation/deallocation difference.
+Uses Linux BPF/bcc.
+.SH SYNOPSIS
+.B slabgrowth [\-h] [\-C] [\-r MAXROWS] [interval] [count]
+.SH DESCRIPTION
+Counts the difference between allocation and deallocation of SLAB/SLUB memory caches.
+It works by tracing kmem_cache_alloc() and kmem_cache_free() calls, a commonly used interface for
+kernel memory allocation (SLAB or SLUB). It then calculates the difference between allocations and
+deallocations, displaying the SLABs with the largest growth since starting.
+Compare this to slabtop(1) and slabratetop(8).
+
+This tool uses kernel dynamic tracing of the kmem_cache_alloc()/kmem_cache_free() function.
+
+Since this uses BPF, only the root user can use this tool.
+.SH REQUIREMENTS
+CONFIG_BPF and bcc.
+.SH OPTIONS
+.TP
+\-C
+Don't clear the screen.
+.TP
+\-r MAXROWS
+Maximum number of rows to print. Default is 20.
+.TP
+interval
+Interval between updates, seconds.
+.TP
+count
+Number of interval summaries.
+.SH EXAMPLES
+.TP
+Summarize active kernel SLAB/SLUB calls (kmem_cache_alloc()), showing the top 20 caches every second:
+#
+.B slabgrowth
+.TP
+Don't clear the screen, and top 8 rows only:
+#
+.B slabgrowth -Cr 8
+.TP
+5 second summaries, 10 times only:
+#
+.B slabgrowth 5 10
+.SH FIELDS
+.TP
+loadavg:
+The contents of /proc/loadavg
+.TP
+CACHE
+Kernel cache name.
+.TP
+DIFF BYTES
+Total bytes allocated minus total bytes deallocated (growth in bytes).
+.TP
+DIFF ALLOCS
+Allocations minus deallocations since start (outstanding free calls).
+.TP
+ALLOCS
+Total allocations since start (number of calls).
+.TP
+BYTES
+Total bytes allocated.
+.SH OVERHEAD
+If kmem_cache_alloc() is called at a high rate (eg, >100k/second) the overhead
+of this tool might begin to be measurable. The rate can be seen in the ALLOCS
+column of the output.
+.SH OVERHEAD
+
+.SH SOURCE
+This is from bcc.
+.IP
+https://github.com/iovisor/bcc
+.PP
+Also look in the bcc distribution for a companion _examples.txt file containing
+example usage, output, and commentary for this tool.
+.SH OS
+Linux
+.SH STABILITY
+Unstable - in development.
+.SH AUTHOR
+Daniel Poelzleithner
+.SH SEE ALSO
+slabgrowth(1)
