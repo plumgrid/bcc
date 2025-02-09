@@ -36,6 +36,8 @@
 
 namespace ebpf {
 
+constexpr static size_t MAX_BATCH_SIZE = 128;
+
 template<class ValueType>
 class BPFQueueStackTableBase {
  public:
@@ -56,7 +58,7 @@ class BPFQueueStackTableBase {
   int get_fd() { return desc.fd; }
 
  protected:
-  explicit BPFQueueStackTableBase(const TableDesc& desc) : desc(desc) {}
+  explicit BPFQueueStackTableBase(const TableDesc& desc);
 
   bool pop(void *value) {
     return bpf_lookup_and_delete(desc.fd, nullptr, value) >= 0;
@@ -73,6 +75,19 @@ class BPFQueueStackTableBase {
 
   const TableDesc& desc;
 };
+
+template <>
+inline BPFQueueStackTableBase<void>::BPFQueueStackTableBase(
+    const TableDesc& desc) : desc(desc) {}
+
+template <class ValueType>
+inline BPFQueueStackTableBase<ValueType>::BPFQueueStackTableBase(
+    const TableDesc& desc) : desc(desc) {
+  if (desc.leaf_size != sizeof(ValueType)) {
+    throw std::invalid_argument("Table '" + desc.name +
+                                "' is ValueType is illegal");
+  }
+}
 
 template <class KeyType, class ValueType>
 class BPFTableBase {
@@ -108,10 +123,47 @@ class BPFTableBase {
   }
 
  protected:
-  explicit BPFTableBase(const TableDesc& desc) : desc(desc) {}
+  template <class T>
+  struct is_vector {
+    static constexpr bool value = false;
+  };
+
+  template <class T>
+  struct is_vector<std::vector<T>> {
+    static constexpr bool value = true;
+  };
+
+  template <typename T = ValueType>
+  explicit BPFTableBase(const typename std::enable_if<is_vector<T>::value, TableDesc>::type& desc);
+
+  template <typename T = ValueType>
+  explicit BPFTableBase(const typename std::enable_if<!is_vector<T>::value, TableDesc>::type& desc);
 
   bool lookup(void* key, void* value) {
     return bpf_lookup_elem(desc.fd, key, value) >= 0;
+  }
+
+  int64_t lookup_batch(void* keys, void* values, void** cursor, const size_t count) {
+    __u32 out;
+    __u32 n, n_read = 0;
+    int err = 0;
+
+    while (n_read < count && !err) {
+      n = count - n_read;
+      auto* in = static_cast<__u32*>(*cursor);
+      err = bpf_lookup_batch(desc.fd, in, &out,
+                             static_cast<char*>(keys) + n_read * desc.key_size,
+                             static_cast<char*>(values) + n_read * desc.leaf_size,
+                             &n);
+      if (err && errno != ENOENT) {
+        return -1;
+      }
+      n_read += n;
+      if (in != nullptr)
+        *in = out;
+    }
+
+    return n_read;
   }
 
   bool first(void* key) {
@@ -130,6 +182,56 @@ class BPFTableBase {
 
   const TableDesc& desc;
 };
+template <>
+template <typename T>
+BPFTableBase<void, void>::BPFTableBase(const typename std::enable_if<is_vector<T>::value, TableDesc>::type& desc) {}
+
+template <>
+template <typename T>
+inline BPFTableBase<void, void>::BPFTableBase(const typename std::enable_if<!is_vector<T>::value, TableDesc>::type& desc) : desc(desc) {}
+
+template <class KeyType, class ValueType>
+template <typename T>
+inline BPFTableBase<KeyType, ValueType>::BPFTableBase(const typename std::enable_if<is_vector<T>::value, TableDesc>::type& desc) : desc(desc) {
+  if (desc.type == BPF_MAP_TYPE_PERCPU_ARRAY || desc.type == BPF_MAP_TYPE_PERCPU_CGROUP_STORAGE
+      || desc.type == BPF_MAP_TYPE_LRU_PERCPU_HASH || desc.type == BPF_MAP_TYPE_PERCPU_HASH) {
+    if (desc.leaf_size != sizeof(typename ValueType::value_type)) {
+      throw std::invalid_argument(
+          "Table '" + desc.name +
+          "' is ValueType is illegal: desc.leaf_size: " +
+          std::to_string(desc.leaf_size) +
+          " != sizeof(typename ValueType::value_type): " +
+          std::to_string(sizeof(typename ValueType::value_type)));
+    }
+  } else {
+    if (desc.leaf_size != sizeof(ValueType)) {
+      throw std::invalid_argument("Table '" + desc.name +
+                                  "' is ValueType is illegal: desc.leaf_size: "
+                                  + std::to_string(desc.leaf_size) + " != sizeof(ValueType): "
+                                  + std::to_string(sizeof(ValueType)));
+    }
+  }
+
+  if (desc.key_size != sizeof(KeyType)) {
+    throw std::invalid_argument("Table '" + desc.name +
+                                "' is KeyType is illegal");
+  }
+}
+
+template <class KeyType, class ValueType>
+template <typename T>
+inline BPFTableBase<KeyType, ValueType>::BPFTableBase(const typename std::enable_if<!is_vector<T>::value, TableDesc>::type& desc) : desc(desc) {
+  if (desc.leaf_size != sizeof(ValueType)) {
+    throw std::invalid_argument("Table '" + desc.name +
+                                "' is ValueType is illegal: desc.leaf_size: "
+                                + std::to_string(desc.leaf_size) + " != sizeof(ValueType): "
+                                + std::to_string(sizeof(ValueType)));
+  }
+  if (desc.key_size != sizeof(KeyType)) {
+    throw std::invalid_argument("Table '" + desc.name +
+                                "' is KeyType is illegal");
+  }
+}
 
 class BPFTable : public BPFTableBase<void, void> {
  public:
@@ -302,20 +404,23 @@ class BPFHashTable : public BPFTableBase<KeyType, ValueType> {
 
   std::vector<std::pair<KeyType, ValueType>> get_table_offline() {
     std::vector<std::pair<KeyType, ValueType>> res;
-    KeyType cur;
-    ValueType value;
+    size_t batch_size = std::min(MAX_BATCH_SIZE, this->capacity());
+    std::unique_ptr<KeyType[]> keys = std::make_unique<KeyType[]>(batch_size);
+    std::unique_ptr<ValueType[]> values = std::make_unique<ValueType[]>(batch_size);
 
-    StatusTuple r(0);
-
-    if (!this->first(&cur))
-      return res;
+    void* cursor = nullptr;
 
     while (true) {
-      r = get_value(cur, value);
-      if (!r.ok())
-        break;
-      res.emplace_back(cur, value);
-      if (!this->next(&cur, &cur))
+      int64_t r = this->lookup_batch(keys.get(), values.get(), &cursor, batch_size);
+      if (r < 0) {
+        throw std::system_error(errno, std::generic_category(), "lookup_batch");
+      }
+
+      for (size_t i = 0; i < r; ++i) {
+        res.emplace_back(keys[i], values[i]);
+      }
+
+      if (r < batch_size)
         break;
     }
 

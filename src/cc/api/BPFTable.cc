@@ -183,15 +183,16 @@ StatusTuple BPFTable::clear_table_non_atomic() {
 StatusTuple BPFTable::get_table_offline(
   std::vector<std::pair<std::string, std::string>> &res) {
   StatusTuple r(0);
-  int err;
 
-  auto key = std::unique_ptr<void, decltype(::free)*>(::malloc(desc.key_size),
-                                                      ::free);
-  auto value = std::unique_ptr<void, decltype(::free)*>(::malloc(desc.leaf_size),
-                                                      ::free);
+  res.clear();
+
+  void* cursor = nullptr;
+
   std::string key_str;
   std::string value_str;
 
+  bool multi_batch;
+  size_t count;
   if (desc.type == BPF_MAP_TYPE_ARRAY ||
       desc.type == BPF_MAP_TYPE_PROG_ARRAY ||
       desc.type == BPF_MAP_TYPE_PERF_EVENT_ARRAY ||
@@ -202,46 +203,38 @@ StatusTuple BPFTable::get_table_offline(
       desc.type == BPF_MAP_TYPE_CPUMAP ||
       desc.type == BPF_MAP_TYPE_REUSEPORT_SOCKARRAY) {
     // For arrays, just iterate over all indices
-    for (size_t i = 0; i < desc.max_entries; i++) {
-      err = bpf_lookup_elem(desc.fd, &i, value.get());
-      if (err < 0 && errno == ENOENT) {
-        // Element is not present, skip it
-        continue;
-      } else if (err < 0) {
-        // Other error, abort
-        return StatusTuple(-1, "Error looking up value: %s", std::strerror(errno));
-      }
-
-      r = key_to_string(&i, key_str);
-      if (!r.ok())
-        return r;
-
-      r = leaf_to_string(value.get(), value_str);
-      if (!r.ok())
-        return r;
-      res.emplace_back(key_str, value_str);
-    }
+    count = desc.max_entries;
+    multi_batch = false;
   } else {
-    res.clear();
-    // For other maps, try to use the first() and next() interfaces
-    if (!this->first(key.get()))
-      return StatusTuple::OK();
+    count = std::min(desc.max_entries, MAX_BATCH_SIZE);
+    multi_batch = true;
+  }
+  std::unique_ptr<char[]> keys = std::make_unique<char[]>(count * desc.key_size);
+  std::unique_ptr<char[]> values = std::make_unique<char[]>(count * desc.leaf_size);
+  do {
+    int64_t n_read = this->lookup_batch(keys.get(), values.get(), &cursor, count);
+    if (n_read < 0) {
+      r = StatusTuple(-1, "lookup_batch return error: %s", std::strerror(errno));
+      return r;
+    }
 
-    while (true) {
-      if (!this->lookup(key.get(), value.get()))
-        break;
-      r = key_to_string(key.get(), key_str);
+    char* key = keys.get(), * value = values.get();
+    for (size_t i = 0; i < n_read; i++) {
+      r = key_to_string(key, key_str);
       if (!r.ok())
         return r;
 
-      r = leaf_to_string(value.get(), value_str);
+      r = leaf_to_string(value, value_str);
       if (!r.ok())
         return r;
       res.emplace_back(key_str, value_str);
-      if (!this->next(key.get(), key.get()))
-        break;
+      key += desc.key_size;
+      value += desc.leaf_size;
     }
-  }
+
+    if (n_read < count)
+      break;
+  } while (multi_batch);
 
   return StatusTuple::OK();
 }
