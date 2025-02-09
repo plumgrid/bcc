@@ -1,0 +1,146 @@
+Demonstrations of lustredist, the Linux eBPF/bcc version.
+
+
+lustredist traces lustre reads, writes, opens, fsyncs and getattr, and summarizes their
+latency as a power-of-2 histogram. For example:
+
+# lustredist
+Tracing lustre operation latency... Hit Ctrl-C to end.
+^C
+
+operation = read
+     usecs               : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 0        |                                        |
+         8 -> 15         : 96       |****************************************|
+        16 -> 31         : 3        |*                                       |
+        32 -> 63         : 1        |                                        |
+        64 -> 127        : 0        |                                        |
+       128 -> 255        : 0        |                                        |
+       256 -> 511        : 0        |                                        |
+       512 -> 1023       : 59       |************************                |
+      1024 -> 2047       : 41       |*****************                       |
+
+operation = write
+     usecs               : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 0        |                                        |
+         8 -> 15         : 0        |                                        |
+        16 -> 31         : 0        |                                        |
+        32 -> 63         : 0        |                                        |
+        64 -> 127        : 0        |                                        |
+       128 -> 255        : 0        |                                        |
+       256 -> 511        : 0        |                                        |
+       512 -> 1023       : 94       |****************************************|
+      1024 -> 2047       : 4        |*                                       |
+      2048 -> 4095       : 1        |                                        |
+      4096 -> 8191       : 1        |                                        |
+
+operation = open
+     usecs               : count     distribution
+         0 -> 1          : 0        |                                        |
+         2 -> 3          : 0        |                                        |
+         4 -> 7          : 0        |                                        |
+         8 -> 15         : 0        |                                        |
+        16 -> 31         : 186      |****************************************|
+        32 -> 63         : 11       |**                                      |
+        64 -> 127        : 3        |                                        |
+       128 -> 255        : 0        |                                        |
+       256 -> 511        : 0        |                                        |
+       512 -> 1023       : 14       |***                                     |
+      1024 -> 2047       : 86       |******************                      |
+
+In this example you can see that the read traffic is rather bi-modal, with about
+100 reads falling within 8 - 30 usecs and about 100 reads spread between 512 -
+2047 usecs. Write traffic is largely clustered in the 512 - 1023 usecs bracket.
+The faster read traffic is probably coming from a filesystem cache and the slower
+traffic from disk.
+
+This "latency" is measured from when the operation was issued from the VFS
+interface to the file system, to when it completed. This spans everything:
+RPC latency, network latency, file system CPU cycles, file system locks, run
+queue latency, etc. This is a better measure of the latency suffered by
+applications reading from a lustre and can better expose problems experienced
+by lustre clients.
+
+Note that this only traces the common lustre operations (read, write and open).
+
+An optional interval and a count can be provided, as well as -m to show the
+distributions in milliseconds. For example:
+# lustredist -m 1 10
+Tracing lustre operation latency... Hit Ctrl-C to end.
+
+04:23:40:
+
+operation = read
+     msecs               : count     distribution
+         0 -> 1          : 50       |****************************************|
+
+operation = open
+     msecs               : count     distribution
+         0 -> 1          : 50       |****************************************|
+
+04:23:41:
+
+operation = read
+     msecs               : count     distribution
+         0 -> 1          : 50       |****************************************|
+
+operation = open
+     msecs               : count     distribution
+         0 -> 1          : 50       |****************************************|
+
+04:23:42:
+
+operation = read
+     msecs               : count     distribution
+         0 -> 1          : 100      |****************************************|
+
+operation = open
+     msecs               : count     distribution
+         0 -> 1          : 100      |****************************************|
+
+04:23:43:
+
+operation = write
+     msecs               : count     distribution
+         0 -> 1          : 25       |****************************************|
+
+operation = open
+     msecs               : count     distribution
+         0 -> 1          : 25       |****************************************|
+
+04:23:44:
+
+operation = write
+     msecs               : count     distribution
+         0 -> 1          : 75       |****************************************|
+
+operation = open
+     msecs               : count     distribution
+         0 -> 1          : 75       |****************************************|
+
+This shows a read/write workload, with reads/writes hovering primarily in less than 1ms range.
+
+# lustredist --help
+usage: lustredist [-h] [-T] [-m] [-p PID] [interval] [count]
+
+Summarize lustre operation latency
+
+positional arguments:
+  interval            output interval, in seconds
+  count               number of outputs
+
+optional arguments:
+  -h, --help          show this help message and exit
+  -T, --notimestamp   don't include timestamp on interval output
+  -m, --milliseconds  output in milliseconds
+  -p PID, --pid PID   trace this PID only
+
+examples:
+    ./lustredist            # show operation latency as a histogram
+    ./lustredist -p 181     # trace PID 181 only
+    ./lustredist 1 10       # print 1 second summaries, 10 times
+    ./lustredist -m 5       # 5s summaries, milliseconds

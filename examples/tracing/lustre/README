@@ -1,0 +1,3 @@
+As lustre file system is still out-of-tree, so put lustre related tools at
+this directory temporarily, and will move them to tools directory once lustre
+is landed to upstream.

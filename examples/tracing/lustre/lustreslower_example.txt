@@ -1,0 +1,151 @@
+Demonstrations of lustreslower, the Linux eBPF/bcc version.
+
+lustreslower show lustre reads, writes, opens and getattrs, slower than a
+threshold. For example:
+
+./lustreslower.py
+Tracing lustre operations slower than 10 ms
+TIME     COMM           PID    T BYTES   OFF_KB   LAT(ms) FILENAME
+22:03:20 dd             121622 W 1048576 0          12.13 file_1_100
+
+This shows lustre writes from dd each 1MB in size to 100 different files.
+Only one write had latency higher than 10ms.
+
+This "latency" is measured from when the operation was issued from the VFS
+interface to the file system, to when it completed. This spans everything:
+RPC latency, network latency, file system CPU cycles, file system locks, run
+queue latency, etc. This is a better measure of the latency suffered by
+applications reading from a lustre and can better expose problems experienced
+by lustre clients.
+
+Note that this only traces the common lustre operations (read,write,open and
+getattr).
+
+The threshold can be provided as an argument. E.g. I/O slower than 1 ms:
+
+./lustreslower.py 1
+Tracing lustre operations slower than 1 ms
+TIME     COMM           PID    T BYTES   OFF_KB   LAT(ms) FILENAME
+22:08:36 dd             121700 W 1048576 0           6.86 file_1_100
+22:08:36 dd             121701 W 1048576 0           8.03 file_1_101
+22:08:36 dd             121702 W 1048576 0           6.84 file_1_102
+22:08:36 dd             121703 W 1048576 0           7.41 file_1_103
+22:08:36 dd             121704 W 1048576 0           7.23 file_1_104
+22:08:36 dd             121705 W 1048576 0           6.79 file_1_105
+22:08:36 dd             121706 W 1048576 0           5.92 file_1_106
+22:08:36 dd             121707 W 1048576 0           7.24 file_1_107
+22:08:36 dd             121708 W 1048576 0           7.12 file_1_108
+22:08:36 dd             121709 W 1048576 0           6.52 file_1_109
+22:08:36 dd             121710 W 1048576 0           6.70 file_1_110
+22:08:40 dd             121712 W 1048576 0           6.41 file_1_100
+22:08:41 dd             121713 W 1048576 0           5.75 file_1_101
+22:08:41 dd             121714 W 1048576 0           4.64 file_1_102
+22:08:41 dd             121715 W 1048576 0           4.19 file_1_103
+22:08:41 dd             121716 W 1048576 0           4.01 file_1_104
+22:08:41 dd             121717 W 1048576 0           4.23 file_1_105
+22:08:41 dd             121718 W 1048576 0           3.87 file_1_106
+22:08:41 dd             121719 W 1048576 0           6.27 file_1_107
+22:08:41 dd             121720 W 1048576 0           4.63 file_1_108
+22:08:41 dd             121721 W 1048576 0           4.27 file_1_109
+[...]
+
+This shows all lustre WRITEs that were more than 1ms. Depending on your
+latency to your fileserver, you might need to tweak this value to remove.
+
+A threshold of 0 will trace all operations. Warning: the output will be
+verbose, as it will include all file system cache hits.
+
+./lustreslower.py 0
+Tracing lustre operations
+TIME     COMM           PID    T BYTES   OFF_KB   LAT(ms) FILENAME
+03:37:41 stat           131621 G 0       0           0.84 file_1_110
+03:37:41 stat           131622 G 0       0           0.65 file_1_111
+03:37:41 stat           131623 G 0       0           0.70 file_1_112
+03:37:41 stat           131624 G 0       0           0.64 file_1_113
+03:37:41 stat           131625 G 0       0           0.73 file_1_114
+03:37:41 stat           131626 G 0       0           0.75 file_1_115
+03:37:41 stat           131627 G 0       0           0.72 file_1_116
+03:37:41 stat           131628 G 0       0           0.79 file_1_117
+03:37:41 stat           131629 G 0       0           0.62 file_1_118
+03:37:41 stat           131630 G 0       0           0.62 file_1_119
+03:37:41 stat           131631 G 0       0           0.70 file_1_120
+03:37:50 dd             131642 O 0       0           0.02 file_1_110
+03:37:50 dd             131642 W 1048576 0           7.60 file_1_110
+03:37:50 dd             131643 O 0       0           0.01 file_1_111
+03:37:50 dd             131643 W 1048576 0           9.74 file_1_111
+03:37:50 dd             131644 O 0       0           0.02 file_1_112
+03:37:50 dd             131644 W 1048576 0           8.11 file_1_112
+03:37:50 dd             131645 O 0       0           0.02 file_1_113
+03:37:50 dd             131645 W 1048576 0           6.75 file_1_113
+03:37:50 dd             131646 O 0       0           0.03 file_1_114
+03:37:50 dd             131646 W 1048576 0           6.82 file_1_114
+03:37:50 dd             131647 O 0       0           0.01 file_1_115
+03:37:50 dd             131647 W 1048576 0           6.64 file_1_115
+03:37:50 dd             131648 O 0       0           0.03 file_1_116
+03:37:50 dd             131648 W 1048576 0           4.74 file_1_116
+03:37:50 dd             131649 O 0       0           0.01 file_1_117
+03:37:50 dd             131649 W 1048576 0           5.36 file_1_117
+03:37:50 dd             131650 O 0       0           0.01 file_1_118
+03:37:50 dd             131650 W 1048576 0           4.95 file_1_118
+03:37:50 dd             131651 O 0       0           0.01 file_1_119
+03:37:50 dd             131651 W 1048576 0           4.95 file_1_119
+03:37:50 dd             131652 O 0       0           0.01 file_1_120
+03:37:50 dd             131652 W 1048576 0           6.74 file_1_120
+The output now includes open operations ("O"), and reads ("R") wand getattrs ("G").
+
+A -j option will print just the fields (parsable output, csv):
+
+./lustreslower.py -j 0
+ENDTIME_us,TASK,PID,TYPE,BYTES,OFFSET_b,LATENCY_us,FILE
+517665203422,dd,131803,O,0,0,24,file_1_110
+517665223307,dd,131803,W,1048576,0,8415,file_1_110
+517665229331,dd,131804,O,0,0,18,file_1_111
+517665248135,dd,131804,W,1048576,0,7942,file_1_111
+517665257274,dd,131805,O,0,0,19,file_1_112
+517665280726,dd,131805,W,1048576,0,8066,file_1_112
+517665291987,dd,131806,O,0,0,22,file_1_113
+517665316409,dd,131806,W,1048576,0,8499,file_1_113
+517665325403,dd,131807,O,0,0,18,file_1_114
+517665350777,dd,131807,W,1048576,0,7229,file_1_114
+517665359147,dd,131808,O,0,0,23,file_1_115
+517665384395,dd,131808,W,1048576,0,8089,file_1_115
+517665394621,dd,131809,O,0,0,18,file_1_116
+517665416160,dd,131809,W,1048576,0,7909,file_1_116
+517665423699,dd,131810,O,0,0,20,file_1_117
+517665447642,dd,131810,W,1048576,0,8383,file_1_117
+517665457274,dd,131811,O,0,0,22,file_1_118
+517665482254,dd,131811,W,1048576,0,7766,file_1_118
+517665490051,dd,131812,O,0,0,18,file_1_119
+517665510861,dd,131812,W,1048576,0,6371,file_1_119
+517665518105,dd,131813,O,0,0,14,file_1_120
+517665535518,dd,131813,W,1048576,0,6317,file_1_120
+517668258252,stat,131816,G,0,0,897,file_1_110
+517668269877,stat,131817,G,0,0,922,file_1_111
+517668276221,stat,131818,G,0,0,890,file_1_112
+517668283049,stat,131819,G,0,0,988,file_1_113
+517668289001,stat,131820,G,0,0,696,file_1_114
+
+This may be useful for visualizing with another tool, for example, for
+producing a scatter plot of ENDTIME vs LATENCY, to look for time-based
+patterns.
+
+USAGE message:
+# lustreslower --help
+usage: lustreslower [-h] [-j] [-p PID] [min_ms]
+
+Trace common lustre file operations slower than a threshold
+
+positional arguments:
+  min_ms             minimum I/O duration to trace, in ms (default 10)
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -j, --csv          just print fields: comma-separated values
+  -p PID, --pid PID  trace this PID only
+
+examples:
+    ./lustreslower             # trace operations slower than 10 ms (default)
+    ./lustreslower 1           # trace operations slower than 1 ms
+    ./lustreslower -j 1        # ... 1 ms, parsable output (csv)
+    ./lustreslower 0           # trace all operations (warning: verbose)
+    ./lustreslower -p 185      # trace PID 185 only
