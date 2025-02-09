@@ -4,7 +4,7 @@
 # tcptop    Summarize TCP send/recv throughput by host.
 #           For Linux, uses BCC, eBPF. Embedded C.
 #
-# USAGE: tcptop [-h] [-C] [-S] [-p PID] [interval [count]] [-4 | -6]
+# USAGE: tcptop [-h] [-C] [-S] [-p PID [PID ...]] [interval [count]] [-4 | -6]
 #
 # This uses dynamic tracing of kernel functions, and will need to be updated
 # to match kernel changes.
@@ -23,6 +23,7 @@
 # Licensed under the Apache License, Version 2.0 (the "License")
 #
 # 02-Sep-2016   Brendan Gregg   Created this.
+# 27-Aug-2023   Wu Zhengyang    Trace for PID list.
 
 from __future__ import print_function
 from bcc import BPF
@@ -43,13 +44,14 @@ def range_check(string):
     return value
 
 examples = """examples:
-    ./tcptop           # trace TCP send/recv by host
-    ./tcptop -C        # don't clear the screen
-    ./tcptop -p 181    # only trace PID 181
+    ./tcptop             # trace TCP send/recv by host
+    ./tcptop -C          # don't clear the screen
+    ./tcptop -p 181      # only trace PID 181
+    ./tcptop -p 181,182  # only trace PID 181 and 182
     ./tcptop --cgroupmap mappath  # only trace cgroups in this BPF map
     ./tcptop --mntnsmap mappath   # only trace mount namespaces in the map
-    ./tcptop -4        # trace IPv4 family only
-    ./tcptop -6        # trace IPv6 family only
+    ./tcptop -4          # trace IPv4 family only
+    ./tcptop -6          # trace IPv6 family only
 """
 parser = argparse.ArgumentParser(
     description="Summarize TCP send/recv throughput by host",
@@ -60,7 +62,7 @@ parser.add_argument("-C", "--noclear", action="store_true",
 parser.add_argument("-S", "--nosummary", action="store_true",
     help="skip system summary line")
 parser.add_argument("-p", "--pid",
-    help="trace this PID only")
+    help="comma-separated list of PIDs to trace")
 parser.add_argument("interval", nargs="?", default=1, type=range_check,
     help="output interval, in seconds (default 1)")
 parser.add_argument("count", nargs="?", default=-1, type=range_check,
@@ -242,8 +244,10 @@ int kprobe__tcp_cleanup_rbuf(struct pt_regs *ctx, struct sock *sk, int copied)
 
 # code substitutions
 if args.pid:
+    pids = [int(pid) for pid in args.pid.split(',')]
+    pids_if = ' && '.join(['pid != %d' % pid for pid in pids])
     bpf_text = bpf_text.replace('FILTER_PID',
-        'if (pid != %s) { return 0; }' % args.pid)
+        'if (%s) { return 0; }' % pids_if)
 else:
     bpf_text = bpf_text.replace('FILTER_PID', '')
 if args.ipv4:
@@ -372,8 +376,8 @@ while i != args.count and not exiting:
                                               reverse=True):
         print("%-7d %-12.12s %-32s %-32s %6d %6d" % (k.pid,
             k.name,
-            k.laddr + ":" + str(k.lport),
-            k.daddr + ":" + str(k.dport),
+            k.laddr.lstrip("::ffff:") + ":" + str(k.lport),
+            k.daddr.lstrip("::ffff:") + ":" + str(k.dport),
             int(recv_bytes / 1024), int(send_bytes / 1024)))
 
     i += 1

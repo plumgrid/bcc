@@ -48,23 +48,26 @@ usage: tcpaccept.py [-h] [-T] [-t] [-p PID] [-P PORT] [-4 | -6] [--cgroupmap CGR
 
 Trace TCP accepts
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   -T, --time            include time column on output (HH:MM:SS)
   -t, --timestamp       include timestamp on output
-  -p PID, --pid PID     trace this PID only
+  -p PID, --pid PID     comma-separated list of PIDs to trace
   -P PORT, --port PORT  comma-separated list of local ports to trace
   -4, --ipv4            trace IPv4 family only
   -6, --ipv6            trace IPv6 family only
   --cgroupmap CGROUPMAP
                         trace cgroups in this BPF map only
+  --mntnsmap MNTNSMAP   trace mount namespaces in this BPF map only
 
 examples:
-    ./tcpaccept           # trace all TCP accept()s
-    ./tcpaccept -t        # include timestamps
-    ./tcpaccept -P 80,81  # only trace port 80 and 81
-    ./tcpaccept -p 181    # only trace PID 181
+    ./tcpaccept             # trace all TCP accept()s
+    ./tcpaccept -t          # include timestamps
+    ./tcpaccept -p 181      # only trace PID 181
+    ./tcpaccept -p 181,182  # only trace PID 181 and 182
+    ./tcpaccept -P 80       # only trace port 80
+    ./tcpaccept -P 80,81    # only trace port 80 and 81
     ./tcpaccept --cgroupmap mappath  # only trace cgroups in this BPF map
     ./tcpaccept --mntnsmap mappath   # only trace mount namespaces in the map
-    ./tcpaccept -4        # trace IPv4 family only
-    ./tcpaccept -6        # trace IPv6 family only
+    ./tcpaccept -4          # trace IPv4 family only
+    ./tcpaccept -6          # trace IPv6 family only

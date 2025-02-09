@@ -4,7 +4,7 @@
 # tcpconnect    Trace TCP connect()s.
 #               For Linux, uses BCC, eBPF. Embedded C.
 #
-# USAGE: tcpconnect [-h] [-c] [-t] [-p PID] [-P PORT [PORT ...]] [-4 | -6]
+# USAGE: tcpconnect [-h] [-c] [-t] [-p PID [PID ...]] [-P PORT [PORT ...]] [-4 | -6]
 #
 # All connection attempts are traced, even if they ultimately fail.
 #
@@ -20,6 +20,7 @@
 # 30-Jul-2019   Xiaozhou Liu    Count connects.
 # 07-Oct-2020   Nabil Schear    Correlate connects with DNS responses
 # 08-Mar-2021   Suresh Kumar    Added LPORT option
+# 27-Aug-2023   Wu Zhengyang    Trace for PID list.
 
 from __future__ import print_function
 from bcc import BPF
@@ -33,18 +34,19 @@ from datetime import datetime
 
 # arguments
 examples = """examples:
-    ./tcpconnect           # trace all TCP connect()s
-    ./tcpconnect -t        # include timestamps
-    ./tcpconnect -d        # include DNS queries associated with connects
-    ./tcpconnect -p 181    # only trace PID 181
-    ./tcpconnect -P 80     # only trace port 80
-    ./tcpconnect -P 80,81  # only trace port 80 and 81
-    ./tcpconnect -4        # only trace IPv4 family
-    ./tcpconnect -6        # only trace IPv6 family
-    ./tcpconnect -U        # include UID
-    ./tcpconnect -u 1000   # only trace UID 1000
-    ./tcpconnect -c        # count connects per src ip and dest ip/port
-    ./tcpconnect -L        # include LPORT while printing outputs
+    ./tcpconnect             # trace all TCP connect()s
+    ./tcpconnect -t          # include timestamps
+    ./tcpconnect -d          # include DNS queries associated with connects
+    ./tcpconnect -p 181      # only trace PID 180
+    ./tcpconnect -p 181,182  # only trace PID 181 and 182
+    ./tcpconnect -P 80       # only trace port 80
+    ./tcpconnect -P 80,81    # only trace port 80 and 81
+    ./tcpconnect -4          # only trace IPv4 family
+    ./tcpconnect -6          # only trace IPv6 family
+    ./tcpconnect -U          # include UID
+    ./tcpconnect -u 1000     # only trace UID 1000
+    ./tcpconnect -c          # count connects per src ip and dest ip/port
+    ./tcpconnect -L          # include LPORT while printing outputs
     ./tcpconnect --cgroupmap mappath  # only trace cgroups in this BPF map
     ./tcpconnect --mntnsmap mappath   # only trace mount namespaces in the map
 """
@@ -55,7 +57,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument("-t", "--timestamp", action="store_true",
     help="include timestamp on output")
 parser.add_argument("-p", "--pid",
-    help="trace this PID only")
+    help="comma-separated list of PIDs to trace")
 parser.add_argument("-P", "--port",
     help="comma-separated list of destination ports to trace.")
 group = parser.add_mutually_exclusive_group()
@@ -362,8 +364,10 @@ else:
     bpf_text = bpf_text.replace("IPV6_CODE", struct_init['ipv6']['trace'])
 
 if args.pid:
+    pids = [int(pid) for pid in args.pid.split(',')]
+    pids_if = ' && '.join(['pid != %d' % pid for pid in pids])
     bpf_text = bpf_text.replace('FILTER_PID',
-        'if (pid != %s) { return 0; }' % args.pid)
+        'if (%s) { return 0; }' % pids_if)
 if args.port:
     dports = [int(dport) for dport in args.port.split(',')]
     dports_if = ' && '.join(['dport != %d' % ntohs(dport) for dport in dports])
@@ -428,17 +432,17 @@ def print_ipv6_event(cpu, data, size):
         printb(b"%-9.3f" % ((float(event.ts_us) - start_ts) / 1000000), nl="")
     if args.print_uid:
         printb(b"%-6d" % event.uid, nl="")
-    dest_ip = inet_ntop(AF_INET6, event.daddr).encode()
+    dest_ip = inet_ntop(AF_INET6, event.daddr)
     if args.lport:
         printb(b"%-7d %-12.12s %-2d %-16s %-6d %-16s %-6d %s" % (event.pid,
             event.task, event.ip,
-            inet_ntop(AF_INET6, event.saddr).encode(), event.lport,
-            dest_ip, event.dport, print_dns(dest_ip)))
+            inet_ntop(AF_INET6, event.saddr).lstrip("::ffff:").encode(), event.lport,
+            dest_ip.lstrip("::ffff:").encode(), event.dport, print_dns(dest_ip.encode())))
     else:
         printb(b"%-7d %-12.12s %-2d %-16s %-16s %-6d %s" % (event.pid,
             event.task, event.ip,
-            inet_ntop(AF_INET6, event.saddr).encode(),
-            dest_ip, event.dport, print_dns(dest_ip)))
+            inet_ntop(AF_INET6, event.saddr).lstrip("::ffff:").encode(),
+            dest_ip.lstrip("::ffff:").encode(), event.dport, print_dns(dest_ip.encode())))
 
 def depict_cnt(counts_tab, l3prot='ipv4'):
     for k, v in sorted(counts_tab.items(),

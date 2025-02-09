@@ -4,7 +4,7 @@
 # tcpconnlat    Trace TCP active connection latency (connect).
 #               For Linux, uses BCC, eBPF. Embedded C.
 #
-# USAGE: tcpconnlat [-h] [-t] [-p PID] [-4 | -6]
+# USAGE: tcpconnlat [-h] [-t] [-p PID [PID ...]] [-4 | -6]
 #
 # This uses dynamic tracing of kernel functions, and will need to be updated
 # to match kernel changes.
@@ -14,6 +14,7 @@
 #
 # 19-Feb-2016   Brendan Gregg   Created this.
 # 15-Mar-2021   Suresh Kumar    Added LPORT option
+# 27-Aug-2023   Wu Zhengyang    Trace for PID list.
 
 from __future__ import print_function
 from bcc import BPF
@@ -34,14 +35,15 @@ def positive_float(val):
 
 # arguments
 examples = """examples:
-    ./tcpconnlat           # trace all TCP connect()s
-    ./tcpconnlat 1         # trace connection latency slower than 1 ms
-    ./tcpconnlat 0.1       # trace connection latency slower than 100 us
-    ./tcpconnlat -t        # include timestamps
-    ./tcpconnlat -p 181    # only trace PID 181
-    ./tcpconnlat -L        # include LPORT while printing outputs
-    ./tcpconnlat -4        # trace IPv4 family only
-    ./tcpconnlat -6        # trace IPv6 family only
+    ./tcpconnlat             # trace all TCP connect()s
+    ./tcpconnlat 1           # trace connection latency slower than 1 ms
+    ./tcpconnlat 0.1         # trace connection latency slower than 100 us
+    ./tcpconnlat -t          # include timestamps
+    ./tcpconnlat -p 181      # only trace PID 181
+    ./tcpconnlat -p 181,182  # only trace PID 181 and 182
+    ./tcpconnlat -L          # include LPORT while printing outputs
+    ./tcpconnlat -4          # trace IPv4 family only
+    ./tcpconnlat -6          # trace IPv6 family only
 """
 parser = argparse.ArgumentParser(
     description="Trace TCP connects and show connection latency",
@@ -50,7 +52,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument("-t", "--timestamp", action="store_true",
     help="include timestamp on output")
 parser.add_argument("-p", "--pid",
-    help="trace this PID only")
+    help="comma-separated list of PIDs to trace")
 parser.add_argument("-L", "--lport", action="store_true",
     help="include LPORT on output")
 group = parser.add_mutually_exclusive_group()
@@ -119,7 +121,7 @@ BPF_PERF_OUTPUT(ipv6_events);
 int trace_connect(struct pt_regs *ctx, struct sock *sk)
 {
     u32 pid = bpf_get_current_pid_tgid() >> 32;
-    FILTER
+    ##FILTER_PID##
     struct info_t info = {.pid = pid};
     info.ts = bpf_ktime_get_ns();
     bpf_get_current_comm(&info.task, sizeof(info.task));
@@ -198,10 +200,12 @@ if duration_us > 0:
 
 # code substitutions
 if args.pid:
-    bpf_text = bpf_text.replace('FILTER',
-        'if (pid != %s) { return 0; }' % args.pid)
+    pids = [int(pid) for pid in args.pid.split(',')]
+    pids_if = ' && '.join(['pid != %d' % pid for pid in pids])
+    bpf_text = bpf_text.replace('##FILTER_PID##',
+        'if (%s) { return 0; }' % pids_if)
 else:
-    bpf_text = bpf_text.replace('FILTER', '')
+    bpf_text = bpf_text.replace('##FILTER_PID##', '')
 if debug or args.verbose or args.ebpf:
     print(bpf_text)
     if args.ebpf:
@@ -253,13 +257,14 @@ def print_ipv6_event(cpu, data, size):
     if args.lport:
         print("%-7d %-12.12s %-2d %-16s %-6d %-16s %-5d %.2f" % (event.pid,
             event.task.decode('utf-8', 'replace'), event.ip,
-            inet_ntop(AF_INET6, event.saddr), event.lport,
-            inet_ntop(AF_INET6, event.daddr),
-            event.dport, float(event.delta_us) / 1000))
+            inet_ntop(AF_INET6, event.saddr).lstrip("::ffff:"), event.lport,
+            inet_ntop(AF_INET6, event.daddr).lstrip("::ffff:"), event.dport, 
+            float(event.delta_us) / 1000))
     else:
         print("%-7d %-12.12s %-2d %-16s %-16s %-5d %.2f" % (event.pid,
             event.task.decode('utf-8', 'replace'), event.ip,
-            inet_ntop(AF_INET6, event.saddr), inet_ntop(AF_INET6, event.daddr),
+            inet_ntop(AF_INET6, event.saddr).lstrip("::ffff:"),
+            inet_ntop(AF_INET6, event.daddr).lstrip("::ffff:"),
             event.dport, float(event.delta_us) / 1000))
 
 # header

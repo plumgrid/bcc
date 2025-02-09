@@ -65,10 +65,10 @@ usage: tcpdrop.py [-4 | -6] [-h]
 
 Trace TCP drops by the kernel
 
-optional arguments:
+options:
+  -h, --help  show this help message and exit
   -4, --ipv4  trace IPv4 family only
   -6, --ipv6  trace IPv6 family only
-  -h, --help  show this help message and exit
 
 examples:
     ./tcpdrop           # trace kernel TCP drops

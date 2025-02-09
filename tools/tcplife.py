@@ -4,7 +4,7 @@
 # tcplife   Trace the lifespan of TCP sessions and summarize.
 #           For Linux, uses BCC, BPF. Embedded C.
 #
-# USAGE: tcplife [-h] [-C] [-S] [-p PID] [-4 | -6] [interval [count]]
+# USAGE: tcplife [-h] [-C] [-S] [-p PID [PID ...]] [-4 | -6] [interval [count]]
 #
 # This uses the sock:inet_sock_set_state tracepoint if it exists (added to
 # Linux 4.16, and replacing the earlier tcp:tcp_set_state), else it uses
@@ -21,6 +21,7 @@
 #
 # 18-Oct-2016   Brendan Gregg   Created this.
 # 29-Dec-2017      "      "     Added tracepoint support.
+# 27-Aug-2023   Wu Zhengyang    Trace for PID list.
 
 from __future__ import print_function
 from bcc import BPF
@@ -31,16 +32,18 @@ from time import strftime
 
 # arguments
 examples = """examples:
-    ./tcplife           # trace all TCP connect()s
-    ./tcplife -T        # include time column (HH:MM:SS)
-    ./tcplife -w        # wider columns (fit IPv6)
-    ./tcplife -stT      # csv output, with times & timestamps
-    ./tcplife -p 181    # only trace PID 181
-    ./tcplife -L 80     # only trace local port 80
-    ./tcplife -L 80,81  # only trace local ports 80 and 81
-    ./tcplife -D 80     # only trace remote port 80
-    ./tcplife -4        # only trace IPv4 family
-    ./tcplife -6        # only trace IPv6 family
+    ./tcplife             # trace all TCP connect()s
+    ./tcplife -T          # include time column (HH:MM:SS)
+    ./tcplife -t          # include timestamp column (seconds)
+    ./tcplife -w          # wider columns (fit IPv6)
+    ./tcplife -stT        # csv output, with times & timestamps
+    ./tcplife -p 181      # only trace PID 181
+    ./tcplife -p 181,182  # only trace PID 181 and 182
+    ./tcplife -L 80       # only trace local port 80
+    ./tcplife -L 80,81    # only trace local ports 80 and 81
+    ./tcplife -D 80       # only trace remote port 80
+    ./tcplife -4          # only trace IPv4 family
+    ./tcplife -6          # only trace IPv6 family
 """
 parser = argparse.ArgumentParser(
     description="Trace the lifespan of TCP sessions and summarize",
@@ -55,7 +58,7 @@ parser.add_argument("-w", "--wide", action="store_true",
 parser.add_argument("-s", "--csv", action="store_true",
     help="comma separated values output")
 parser.add_argument("-p", "--pid",
-    help="trace this PID only")
+    help="comma-separated list of PIDs to trace")
 parser.add_argument("-L", "--localport",
     help="comma-separated list of local ports to trace.")
 parser.add_argument("-D", "--remoteport",
@@ -380,8 +383,10 @@ else:
 
 # code substitutions
 if args.pid:
+    pids = [int(pid) for pid in args.pid.split(',')]
+    pids_if = ' && '.join(['pid != %d' % pid for pid in pids])
     bpf_text = bpf_text.replace('FILTER_PID',
-        'if (pid != %s) { return 0; }' % args.pid)
+        'if (%s) { return 0; }' % pids_if)
 if args.remoteport:
     dports = [int(dport) for dport in args.remoteport.split(',')]
     dports_if = ' && '.join(['dport != %d' % dport for dport in dports])

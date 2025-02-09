@@ -112,13 +112,13 @@ usage: tcplife.py [-h] [-T] [-t] [-w] [-s] [-p PID] [-L LOCALPORT]
 
 Trace the lifespan of TCP sessions and summarize
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   -T, --time            include time column on output (HH:MM:SS)
   -t, --timestamp       include timestamp on output (seconds)
   -w, --wide            wide column output (fits IPv6 addresses)
   -s, --csv             comma separated values output
-  -p PID, --pid PID     trace this PID only
+  -p PID, --pid PID     comma-separated list of PIDs to trace
   -L LOCALPORT, --localport LOCALPORT
                         comma-separated list of local ports to trace.
   -D REMOTEPORT, --remoteport REMOTEPORT
@@ -127,13 +127,15 @@ optional arguments:
   -6, --ipv6            trace IPv6 family only
 
 examples:
-    ./tcplife           # trace all TCP connect()s
-    ./tcplife -t        # include time column (HH:MM:SS)
-    ./tcplife -w        # wider columns (fit IPv6)
-    ./tcplife -stT      # csv output, with times & timestamps
-    ./tcplife -p 181    # only trace PID 181
-    ./tcplife -L 80     # only trace local port 80
-    ./tcplife -L 80,81  # only trace local ports 80 and 81
-    ./tcplife -D 80     # only trace remote port 80
-    ./tcplife -4        # only trace IPv4 family
-    ./tcplife -6        # only trace IPv6 family
+    ./tcplife             # trace all TCP connect()s
+    ./tcplife -T          # include time column (HH:MM:SS)
+    ./tcplife -t          # include timestamp column (seconds)
+    ./tcplife -w          # wider columns (fit IPv6)
+    ./tcplife -stT        # csv output, with times & timestamps
+    ./tcplife -p 181      # only trace PID 181
+    ./tcplife -p 181,182  # only trace PID 181 and 182
+    ./tcplife -L 80       # only trace local port 80
+    ./tcplife -L 80,81    # only trace local ports 80 and 81
+    ./tcplife -D 80       # only trace remote port 80
+    ./tcplife -4          # only trace IPv4 family
+    ./tcplife -6          # only trace IPv6 family

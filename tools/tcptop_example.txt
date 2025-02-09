@@ -113,21 +113,23 @@ positional arguments:
   interval              output interval, in seconds (default 1)
   count                 number of outputs
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   -C, --noclear         don't clear the screen
   -S, --nosummary       skip system summary line
-  -p PID, --pid PID     trace this PID only
+  -p PID, --pid PID     comma-separated list of PIDs to trace
   --cgroupmap CGROUPMAP
                         trace cgroups in this BPF map only
+  --mntnsmap MNTNSMAP   trace mount namespaces in this BPF map only
   -4, --ipv4            trace IPv4 family only
   -6, --ipv6            trace IPv6 family only
 
 examples:
-    ./tcptop           # trace TCP send/recv by host
-    ./tcptop -C        # don't clear the screen
-    ./tcptop -p 181    # only trace PID 181
-    ./tcptop --cgroupmap ./mappath  # only trace cgroups in this BPF map
+    ./tcptop             # trace TCP send/recv by host
+    ./tcptop -C          # don't clear the screen
+    ./tcptop -p 181      # only trace PID 181
+    ./tcptop -p 181,182  # only trace PID 181 and 182
+    ./tcptop --cgroupmap mappath  # only trace cgroups in this BPF map
     ./tcptop --mntnsmap mappath   # only trace mount namespaces in the map
-    ./tcptop -4        # trace IPv4 family only
-    ./tcptop -6        # trace IPv6 family only
+    ./tcptop -4          # trace IPv4 family only
+    ./tcptop -6          # trace IPv6 family only

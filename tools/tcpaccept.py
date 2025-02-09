@@ -4,7 +4,7 @@
 # tcpaccept Trace TCP accept()s.
 #           For Linux, uses BCC, eBPF. Embedded C.
 #
-# USAGE: tcpaccept [-h] [-T] [-t] [-p PID] [-P PORTS] [-4 | -6]
+# USAGE: tcpaccept [-h] [-T] [-t] [-p PID [PID ...]] [-P PORT [PORT ...]] [-4 | -6]
 #
 # This uses dynamic tracing of the kernel inet_csk_accept() socket function
 # (from tcp_prot.accept), and will need to be modified to match kernel changes.
@@ -14,6 +14,7 @@
 #
 # 13-Oct-2015   Brendan Gregg   Created this.
 # 14-Feb-2016      "      "     Switch to bpf_perf_output.
+# 27-Aug-2023   Wu Zhengyang    Trace for PID list.
 
 from __future__ import print_function
 from bcc.containers import filter_by_containers
@@ -26,14 +27,16 @@ from time import strftime
 
 # arguments
 examples = """examples:
-    ./tcpaccept           # trace all TCP accept()s
-    ./tcpaccept -t        # include timestamps
-    ./tcpaccept -P 80,81  # only trace port 80 and 81
-    ./tcpaccept -p 181    # only trace PID 181
+    ./tcpaccept             # trace all TCP accept()s
+    ./tcpaccept -t          # include timestamps
+    ./tcpaccept -p 181      # only trace PID 181
+    ./tcpaccept -p 181,182  # only trace PID 181 and 182
+    ./tcpaccept -P 80       # only trace port 80
+    ./tcpaccept -P 80,81    # only trace port 80 and 81
     ./tcpaccept --cgroupmap mappath  # only trace cgroups in this BPF map
     ./tcpaccept --mntnsmap mappath   # only trace mount namespaces in the map
-    ./tcpaccept -4        # trace IPv4 family
-    ./tcpaccept -6        # trace IPv6 family
+    ./tcpaccept -4          # trace IPv4 family only
+    ./tcpaccept -6          # trace IPv6 family only
 """
 parser = argparse.ArgumentParser(
     description="Trace TCP accepts",
@@ -44,7 +47,7 @@ parser.add_argument("-T", "--time", action="store_true",
 parser.add_argument("-t", "--timestamp", action="store_true",
     help="include timestamp on output")
 parser.add_argument("-p", "--pid",
-    help="trace this PID only")
+    help="comma-separated list of PIDs to trace")
 parser.add_argument("-P", "--port",
     help="comma-separated list of local ports to trace")
 group = parser.add_mutually_exclusive_group()
@@ -200,8 +203,10 @@ bpf_text += bpf_text_kprobe
 
 # code substitutions
 if args.pid:
+    pids = [int(pid) for pid in args.pid.split(',')]
+    pids_if = ' && '.join(['pid != %d' % pid for pid in pids])
     bpf_text = bpf_text.replace('##FILTER_PID##',
-        'if (pid != %s) { return 0; }' % args.pid)
+        'if (%s) { return 0; }' % pids_if)
 else:
     bpf_text = bpf_text.replace('##FILTER_PID##', '')
 if args.port:
@@ -253,9 +258,9 @@ def print_ipv6_event(cpu, data, size):
         printb(b"%-9.3f" % ((float(event.ts_us) - start_ts) / 1000000), nl="")
     printb(b"%-7d %-12.12s %-2d %-16s %-5d %-16s %-5d" % (event.pid,
         event.task, event.ip,
-        inet_ntop(AF_INET6, event.daddr).encode(),
+        inet_ntop(AF_INET6, event.daddr).lstrip("::ffff:").encode(),
         event.dport,
-        inet_ntop(AF_INET6, event.saddr).encode(),
+        inet_ntop(AF_INET6, event.saddr).lstrip("::ffff:").encode(),
         event.lport))
 
 # initialize BPF
