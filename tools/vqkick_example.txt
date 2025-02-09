@@ -1,0 +1,22 @@
+Demonstrations of vqkick.py.
+
+
+Trace virtqueue kick event for virtio driver.
+
+For example:
+
+# $./vqkick.py
+# TIME               CPU  VQ_NAME
+# 327344.930087496   5    b'output.0'
+# 327344.930896929   5    b'output.0'
+# 327344.930993290   5    b'output.0'
+# 327344.931079160   5    b'output.0'
+# 327344.931161010   5    b'output.0'
+# 327344.931231561   5    b'output.0'
+
+@TIME: Timestamp for virtqueue kick event.
+@CPU: Which cpu occur virtqueue kick event.
+@VQ_NAME: Name of virtqueue.
+
+examples:
+    ./vqkick.py                              # Trace virtqueue kick event for virtio driver until Ctrl-C
