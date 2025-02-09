@@ -61,6 +61,8 @@ parser.add_argument("-S", "--nosummary", action="store_true",
     help="skip system summary line")
 parser.add_argument("-p", "--pid",
     help="trace this PID only")
+parser.add_argument("-o", "--outputlines", default=-1, type=range_check,
+    help="Number of lines to output per interval")
 parser.add_argument("interval", nargs="?", default=1, type=range_check,
     help="output interval, in seconds (default 1)")
 parser.add_argument("count", nargs="?", default=-1, type=range_check,
@@ -367,9 +369,10 @@ while i != args.count and not exiting:
             "LADDR6", "RADDR6", "RX_KB", "TX_KB"))
 
     # output
-    for k, (send_bytes, recv_bytes) in sorted(ipv6_throughput.items(),
-                                              key=lambda kv: sum(kv[1]),
-                                              reverse=True):
+    outputElements = sorted(ipv6_throughput.items(),key=lambda kv: sum(kv[1]),reverse=True)
+    if args.outputlines > 0:
+        del outputElements[args.outputlines:]
+    for k, (send_bytes, recv_bytes) in outputElements:
         print("%-7d %-12.12s %-32s %-32s %6d %6d" % (k.pid,
             k.name,
             k.laddr + ":" + str(k.lport),
