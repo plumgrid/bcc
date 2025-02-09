@@ -164,6 +164,10 @@ def print_event(cpu, data, size):
 
     if (args.failed and (event.ret >= 0)):
         return
+    
+    tpid = event.tpid
+    if (tpid & (1 << (64 - 1 ))) != 0:
+        tpid = tpid - (1<<64)
 
     printb(b"%-9s %-*d %-16s %-4d %-*d %d" % (strftime("%H:%M:%S").encode('ascii'),
         pid_bytes, event.pid, event.comm, event.sig, pid_bytes, event.tpid, event.ret))
