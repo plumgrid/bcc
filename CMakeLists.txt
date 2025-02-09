@@ -114,6 +114,7 @@ option(ENABLE_EXAMPLES "Build examples" ON)
 option(ENABLE_MAN "Build man pages" ON)
 option(ENABLE_TESTS "Build tests" ON)
 option(RUN_LUA_TESTS "Run lua tests" ON)
+option(RUN_GOLANG_TESTS "Run golang tests" ON)
 option(ENABLE_LIBDEBUGINFOD "Use libdebuginfod as a source of debug symbols" ON)
 CMAKE_DEPENDENT_OPTION(ENABLE_CPP_API "Enable C++ API" ON "ENABLE_USDT" OFF)
 
