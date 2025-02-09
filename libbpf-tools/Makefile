@@ -92,6 +92,7 @@ APPS = \
 	tcpstates \
 	tcpsynbl \
 	tcptop \
+	vfscount \
 	vfsstat \
 	wakeuptime \
 	$(BZ_APPS) \
@@ -106,6 +107,7 @@ SIGSNOOP_ALIAS = killsnoop
 APP_ALIASES = $(FSDIST_ALIASES) $(FSSLOWER_ALIASES) ${SIGSNOOP_ALIAS}
 
 COMMON_OBJ = \
+	$(OUTPUT)/string_helpers.o \
 	$(OUTPUT)/trace_helpers.o \
 	$(OUTPUT)/syscall_helpers.o \
 	$(OUTPUT)/errno_helpers.o \

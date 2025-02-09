@@ -3,6 +3,7 @@
 #define __TRACE_HELPERS_H
 
 #include <stdbool.h>
+#include "string_helpers.h"
 
 #define NSEC_PER_SEC		1000000000ULL
 
@@ -19,6 +20,7 @@ const struct ksym *ksyms__map_addr(const struct ksyms *ksyms,
 				   unsigned long addr);
 const struct ksym *ksyms__get_symbol(const struct ksyms *ksyms,
 				     const char *name);
+struct string_array *ksyms__get_symbols_re(const struct ksyms *ksyms, const char *pattern);
 
 struct sym {
 	const char *name;
