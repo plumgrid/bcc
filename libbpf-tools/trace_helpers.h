@@ -37,7 +37,7 @@ struct sym_info {
 struct syms;
 
 struct syms *syms__load_pid(int tgid);
-struct syms *syms__load_file(const char *fname);
+struct syms *syms__load_file(const char *fname, pid_t tgid);
 void syms__free(struct syms *syms);
 const struct sym *syms__map_addr(const struct syms *syms, unsigned long addr);
 int syms__map_addr_dso(const struct syms *syms, unsigned long addr,
@@ -63,6 +63,7 @@ partitions__get_by_dev(const struct partitions *partitions, unsigned int dev);
 const struct partition *
 partitions__get_by_name(const struct partitions *partitions, const char *name);
 
+void print_dsos_info(int fd, struct syms_cache *syms_cache);
 void print_log2_hist(unsigned int *vals, int vals_size, const char *val_type);
 void print_linear_hist(unsigned int *vals, int vals_size, unsigned int base,
 		unsigned int step, const char *val_type);

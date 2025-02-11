@@ -198,6 +198,7 @@ enum elf_type {
 
 struct dso {
 	char *name;
+	pid_t tgid;
 	struct load_range *ranges;
 	int range_sz;
 	/* Dyn's first text section virtual addr at execution */
@@ -231,6 +232,23 @@ struct syms {
 	struct dso *dsos;
 	int dso_sz;
 };
+
+const char* elf_type_to_string(enum elf_type type) {
+    switch (type) {
+        case EXEC:
+            return "EXEC";
+        case DYN:
+            return "DYN";
+        case PERF_MAP:
+            return "PERF_MAP";
+        case VDSO:
+            return "VDSO";
+        case UNKNOWN:
+            return "UNKNOWN";
+        default:
+            return "INVALID";
+    }
+}
 
 static bool is_file_backed(const char *mapname)
 {
@@ -320,7 +338,7 @@ err_out:
 	return err;
 }
 
-static int syms__add_dso(struct syms *syms, struct map *map, const char *name)
+static int syms__add_dso(struct syms *syms, struct map *map, const char *name, pid_t tgid)
 {
 	struct dso *dso = NULL;
 	int i, type;
@@ -348,6 +366,7 @@ static int syms__add_dso(struct syms *syms, struct map *map, const char *name)
 	tmp = realloc(dso->ranges, (dso->range_sz + 1) * sizeof(*dso->ranges));
 	if (!tmp)
 		return -1;
+	dso->tgid = tgid;
 	dso->ranges = tmp;
 	dso->ranges[dso->range_sz].start = map->start_addr;
 	dso->ranges[dso->range_sz].end = map->end_addr;
@@ -654,7 +673,7 @@ static struct sym *dso__find_sym(struct dso *dso, uint64_t offset)
 	return NULL;
 }
 
-struct syms *syms__load_file(const char *fname)
+struct syms *syms__load_file(const char *fname, pid_t tgid)
 {
 	char buf[PATH_MAX], perm[5];
 	struct syms *syms;
@@ -693,7 +712,7 @@ struct syms *syms__load_file(const char *fname)
 		if (!is_file_backed(name))
 			continue;
 
-		if (syms__add_dso(syms, &map, name))
+		if (syms__add_dso(syms, &map, name, tgid))
 			goto err_out;
 	}
 
@@ -711,7 +730,7 @@ struct syms *syms__load_pid(pid_t tgid)
 	char fname[128];
 
 	snprintf(fname, sizeof(fname), "/proc/%ld/maps", (long)tgid);
-	return syms__load_file(fname);
+	return syms__load_file(fname, tgid);
 }
 
 void syms__free(struct syms *syms)
@@ -932,6 +951,32 @@ static void print_stars(unsigned int val, unsigned int val_max, int width)
 		printf(" ");
 	if (need_plus)
 		printf("+");
+}
+
+static void print_dso_info(int fd, struct dso *dso) {
+	dprintf(fd, "path = \"%s\", pid = %ld, ranges = [", dso->name, (long)dso->tgid);
+
+	for (int i = 0; i < dso->range_sz; i++) {
+		struct load_range *range = &dso->ranges[i];
+		dprintf(fd, "{start = 0x%lx, end = 0x%lx, file_off = 0x%lx}",
+				range->start, range->end, range->file_off);
+		if (i < dso->range_sz - 1) {
+			dprintf(fd, ", ");
+		}
+	}
+	dprintf(fd, "], range_sz = %d, sh_addr = 0x%lx, sh_offset = 0x%lx, type = %s\n",
+			dso->range_sz, dso->sh_addr, dso->sh_offset, elf_type_to_string(dso->type));
+}
+
+void print_dsos_info(int fd, struct syms_cache *syms_cache) {
+	for (int i = 0; i < syms_cache->nr; i++) {
+		struct syms *syms = syms_cache->data[i].syms;
+		if (!syms)
+			continue;
+		for (int j = 0; j < syms->dso_sz; j++) {
+			print_dso_info(fd, &syms->dsos[j]);
+		}
+	}
 }
 
 void print_log2_hist(unsigned int *vals, int vals_size, const char *val_type)
