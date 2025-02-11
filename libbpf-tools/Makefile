@@ -80,6 +80,7 @@ APPS = \
 	slabratetop \
 	softirqs \
 	solisten \
+	sslsniff \
 	statsnoop \
 	syncsnoop \
 	syscount \
