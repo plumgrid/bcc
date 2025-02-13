@@ -15,7 +15,7 @@ if (LUAJIT_LIBRARIES AND LUAJIT)
 
 	ADD_CUSTOM_COMMAND(
 		OUTPUT bcc.o
-		COMMAND ${LUAJIT} -bg bcc.lua bcc.o
+		COMMAND ${LUAJIT} -bgd bcc.lua bcc.o
 		DEPENDS bcc.lua
 	)
 
